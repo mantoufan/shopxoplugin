@@ -1,0 +1,9 @@
+{{include file="public/header" /}}
+{{include file="public/header_top_nav" /}}
+{{include file="public/nav_search" /}}
+{{include file="public/header_nav" /}}
+<div class="am-g am-container plugins_thirdpartylogin_bts">
+    <a class="am-btn-primary btn am-fl" href="{{:MyUrl('index/user/logininfo')}}#plugin_thirdpartylogin_b={{$plugin_thirdpartylogin_b}}">绑定已有帐号</a>
+    <a class="am-btn-primary btn am-fr" href="{{:MyUrl('index/user/regInfo')}}#plugin_thirdpartylogin_b={{$plugin_thirdpartylogin_b}}">注册新帐号</a>
+</div>
+{{include file="public/footer" /}}

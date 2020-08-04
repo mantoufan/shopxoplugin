@@ -1,0 +1,5 @@
+{
+    "require": {
+        "anerg2046/sns_auth": "^2.0"
+    }
+}

@@ -1,0 +1,27 @@
+.plugins_thirdpartylogin_icons {
+    display: flex;
+    float: right;
+}
+.plugins_thirdpartylogin_icons a {
+    width: 20px;
+    margin-right: 4px;
+}
+.plugins_thirdpartylogin_icons a img {
+    width: 100%;
+}
+.plugins_thirdpartylogin_icons a:hover {
+    opacity: .7;
+}
+.plugins_thirdpartylogin_bts {
+    display: flex;
+    flex-direction: column;
+}
+.plugins_thirdpartylogin_bts a {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    line-height: 3;
+}
+.plugins_thirdpartylogin_bts a:hover {
+    text-decoration: none;
+}

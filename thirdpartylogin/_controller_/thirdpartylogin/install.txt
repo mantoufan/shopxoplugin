@@ -1,0 +1,5 @@
+ALTER TABLE `{PREFIX}user`
+ ADD `plugin_thirdpartylogin_weibo_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '微博openid' AFTER `qq_unionid` ,
+ ADD `plugin_thirdpartylogin_line_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'Line openid' AFTER `plugin_thirdpartylogin_weibo_openid` ,
+ ADD `plugin_thirdpartylogin_google_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'Google openid' AFTER `plugin_thirdpartylogin_line_openid` ,
+ ADD INDEX ( `plugin_thirdpartylogin_weibo_openid` , `plugin_thirdpartylogin_line_openid` , `plugin_thirdpartylogin_google_openid` ) ;
