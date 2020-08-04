@@ -1,0 +1,31 @@
+/**
+ * 首页
+ */
+.expressinwebfree-content .items {
+    margin: 10px 0 20px 0;
+    border-bottom: 1px dashed #f1f1f1;
+    padding-bottom: 20px;
+}
+.expressinwebfree-content .express-items {
+    overflow: hidden;
+}
+.expressinwebfree-content .express-items p {
+    border: 1px dashed #ccc;
+    padding: 6px;
+    float: left;
+    margin: 0;
+}
+.expressinwebfree-content .express-items p input {
+    display: -webkit-inline-box;
+    width: 80px;
+    font-size: 12px !important;
+}
+.expressinwebfree-content .express-items p:not(:last-child) {
+    margin: 0 20px 10px 0;
+}
+.expressinwebfree-content .edit-submit {
+    margin-bottom: 20px;
+}
+/**
+ * 编辑页面
+ */

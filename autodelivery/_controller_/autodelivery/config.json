@@ -1,0 +1,31 @@
+{
+    "base":{
+        "plugins":"autodelivery",
+        "name":"自动发货",
+        "logo":"\/static\/upload\/images\/plugins_autodelivery\/2020\/05\/27\/1590564344483284.png",
+        "author":"小宇",
+        "author_url":"https:\/\/www.madfan.cn",
+        "version":"1.0.0",
+        "desc":"下单时，填写手机号或邮箱，系统将记忆并自动将虚拟商品发到手机和邮箱，下次用户无需填写。用户可修改手机号或邮箱或申请补发。",
+        "apply_terminal":[
+            "pc",
+            "h5",
+            "alipay",
+            "weixin",
+            "baidu",
+            "toutiao",
+            "qq"
+        ],
+        "apply_version":[
+            "1.5.0",
+            "1.6.0",
+            "1.7.0",
+            "1.8.0",
+            "1.8.1"
+        ],
+        "is_home":false
+    },
+    "hook":{
+        
+    }
+}

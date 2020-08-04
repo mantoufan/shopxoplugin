@@ -1,0 +1,42 @@
+{{include file="public/header" /}}
+
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content">
+        <legend>
+            <span class="fs-16">商品位置</span>
+            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+        </legend>
+
+        <div class="goodslocation-content">
+            <!-- 管理面板 -->
+            <div class="am-panel am-panel-secondary goodslocation-content-base">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">地图配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-4 am-avg-lg-4 am-gallery-default" data-am-gallery="{ pureview: true }" >
+                        <li>
+                            <div class="items">
+                                <label>百度地图AK</label>
+                                <div>
+                                    {{if !empty($data['common_baidu_map_ak']) }}
+                                        {{$data['common_baidu_map_ak']}}
+                                    {{else /}}
+                                        已关闭
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+            <a href="{{:PluginsAdminUrl('goodslocation', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>
+        </div>
+    </div>
+</div>
+<!-- right content end  -->
+        
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->

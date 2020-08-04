@@ -1,0 +1,28 @@
+{
+    "base":{
+        "plugins":"fontswitch",
+        "name":"字体切换",
+        "logo":"\/static\/upload\/images\/plugins_fontswitch\/icon\/icon.png",
+        "author":"小宇",
+        "author_url":"http:\/\/www.madfan.cn",
+        "version":"1.0.1",
+        "desc":"给商城换字体，上千款字体可选，支持中文，极速加载，智能渲染，不影响SEO。手写，可爱，文艺、书法等超多风格，想换就换！",
+        "apply_terminal":[
+            "pc",
+            "h5"
+        ],
+        "apply_version":[
+            "1.5.0",
+            "1.6.0",
+            "1.7.0",
+            "1.8.0",
+            "1.8.1"
+        ],
+        "is_home":false
+    },
+    "hook":{
+        "plugins_common_header":[
+            "app\\plugins\\fontswitch\\Hook"
+        ]
+    }
+}

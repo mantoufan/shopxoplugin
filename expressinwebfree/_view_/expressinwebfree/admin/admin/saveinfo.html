@@ -1,0 +1,33 @@
+{{include file="public/header" /}}
+
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content expressinwebfree-content">
+        <!-- form start -->
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('expressinwebfree', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('expressinwebfree', 'admin', 'index')}}" enctype="multipart/form-data">
+           <legend>
+                <span class="fs-16">快递查询免费版</span>
+                <a href="{{:PluginsAdminUrl('expressinwebfree', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+            </legend>
+            <div class="am-form-group express-items">
+                <label class="block">快递代码<span class="am-form-group-label-tips"> 选填，默认自动识别快递，填写有助于准确度，快递代码请参考 <a href='https://www.kuaidi100.com/download/chaxun(20140729).doc'>点击下载</a></span></label>
+                {{if !empty($express_list)}}
+                    {{foreach $express_list as $express}}
+                    	{{if $express.is_enable eq 1}}
+                    	   <p>{{$express.name}} <input type="text" name="express_ids[{{$express.id}}]" placeholder="快递代号" class="am-radius" value="{{if !empty($data['express_ids']) and isset($data.express_ids[$express.id])}}{{$data.express_ids[$express.id]}}{{/if}}"/></p> 
+                    	{{/if}}
+                    {{/foreach}}
+                {{/if}}
+            </div>
+            <div class="am-form-group am-form-group-refreshing">
+                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
+            </div>
+        </form>
+        <!-- form end -->
+    </div>
+</div>
+<!-- right content end  -->
+        
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->

@@ -1,0 +1,47 @@
+{{include file="public/header" /}}
+
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content">
+        <legend>
+            <span class="fs-16">订单备注</span>
+            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+        </legend>
+
+        <div class="orderremarks-content">
+            <div class="am-alert">
+                <p>1. 插件开启即可生效</p>
+                <p>2. 进入订单管理列表查看备注按钮</p>
+            </div>
+
+            <div class="items">
+                <label>开启站内信通知</label>
+                <div>
+                    {{if isset($data['is_site_inside_notice']) and $data['is_site_inside_notice'] eq 1}}
+                        已开启
+                    {{else /}}
+                        未开启
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="items">
+                <label>开启订单列表页显示备注</label>
+                <div>
+                    {{if isset($data['is_dispaly_on_list']) and $data['is_dispaly_on_list'] eq 1}}
+                        已开启
+                    {{else /}}
+                        未开启
+                    {{/if}}
+                </div>
+            </div>
+            
+            <a href="{{:PluginsAdminUrl('orderremarks', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>
+        </div>
+    </div>
+</div>
+<!-- right content end  -->
+        
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->

@@ -1,0 +1,109 @@
+{{include file="public/header" /}}
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content">
+        <!-- form start -->
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'index')}}" enctype="multipart/form-data">
+            <legend>
+                <span class="fs-16">订单和发货通知</span>
+                <a href="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+            </legend>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">新订单提醒</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>通知方式</label>
+                        <div>
+                            {{foreach $sms_bys as $v}}
+                            <label class="am-checkbox-inline m-r-10">
+                                <input type="checkbox" name="neworder_by" value="{{$v.value}}" {{if isset($data['neworder_by']) and in_array($v['value'], explode(',', $data['neworder_by']))}}checked="checked"{{elseif !isset($data['neworder_by']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>接收提醒的手机号<span class="am-form-group-label-tips">通知方式为手机时，必填</span></label>
+                        <input type="text" name="neworder_sms_phone" placeholder="请先选择国家再输入手机号" class="am-radius orderdeliverynotice_phone" value="{{if !empty($data['neworder_sms_phone'])}}{{$data.neworder_sms_phone}}{{/if}}" />
+                    </div>
+                    <div class="am-form-group">
+                        <label>手机通知模版ID<span class="am-form-group-label-tips">通知方式为手机时，必填 <a href="https://www.aliyun.com/acts/alicomcloud/new-discount?userCode=79tttihe" target="_blank">点此申请</a> 格式：国内消息模版ID</span></label>
+                        <input type="text" name="neworder_sms_tpl" placeholder="请输入您在阿里云短信获取的模版ID" class="am-radius" value="{{if !empty($data['neworder_sms_tpl'])}}{{$data.neworder_sms_tpl}}{{/if}}" />
+                        <span class="am-form-group-label-tips">示例：您有来自账号${account}的新订单${ordernum}，请及时处理！</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>手机通知签名<span class="am-form-group-label-tips">通知方式为手机时，必填 （签名适用场景：通用）</span></label>
+                        <input type="text" name="neworder_sms_signname" placeholder="请输入您在阿里云短信获取的签名" class="am-radius" value="{{if !empty($data['neworder_sms_signname'])}}{{$data.neworder_sms_signname}}{{/if}}" />
+                    </div>
+                    <div class="am-form-group">
+                        <label>接收提醒的邮箱<span class="am-form-group-label-tips">通知方式为邮件时，必填</span></label>
+                        <input type="text" name="neworder_mail_address" placeholder="请输入您接收提醒的邮箱" class="am-radius" value="{{if !empty($data['neworder_mail_address'])}}{{$data.neworder_mail_address}}{{/if}}" />
+                    </div>
+                    <div class="am-form-group">
+                        <label>邮箱通知模版：标题<span class="am-form-group-label-tips">通知方式为邮件时，必填</span></label>
+                        <input type="text" name="neworder_mail_tpl_title" placeholder="请输入邮箱通知的标题模版" class="am-radius" value="{{if !empty($data['neworder_mail_tpl_title'])}}{{$data.neworder_mail_tpl_title}}{{/if}}" />
+                        <span class="am-form-group-label-tips">示例：${sitename}您有来自账号${account}的新订单</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>邮箱通知模版：内容<span class="am-form-group-label-tips">通知方式为邮件时，必填</span></label>
+                        <input type="text" name="neworder_mail_tpl_content" placeholder="请输入邮箱通知的内容模版" class="am-radius" value="{{if !empty($data['neworder_mail_tpl_content'])}}{{$data.neworder_mail_tpl_content}}{{/if}}" />
+                        <span class="am-form-group-label-tips">示例：您有来自账号${account}的新订单${ordernum}，请及时处理！</span>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">发货通知</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>通知方式</label>
+                        <div>
+                            {{foreach $sms_bys as $v}}
+                            <label class="am-checkbox-inline m-r-10">
+                                <input type="checkbox" name="asn_by" value="{{$v.value}}" {{if isset($data['asn_by']) and in_array($v['value'], explode(',', $data['asn_by']))}}checked="checked"{{elseif !isset($data['asn_by']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>手机通知模版ID<span class="am-form-group-label-tips">通知方式为手机时，必填 <a href="https://www.aliyun.com/acts/alicomcloud/new-discount?userCode=79tttihe" target="_blank">点此申请</a> 格式：国内消息模版ID</span></label>
+                        <input type="text" name="asn_sms_tpl" placeholder="请输入您在阿里云短信获取的模版ID" class="am-radius" value="{{if !empty($data['asn_sms_tpl'])}}{{$data.asn_sms_tpl}}{{/if}}" />
+                        <span class="am-form-group-label-tips">示例：您购买的${goodsname}已发货，快递公司：${expname}，单号：${expnum}，请注意查收！</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>手机通知签名<span class="am-form-group-label-tips">通知方式为手机时，必填 （签名适用场景：通用）</span></label>
+                        <input type="text" name="asn_sms_signname" placeholder="请输入您在阿里云短信获取的签名" class="am-radius" value="{{if !empty($data['asn_sms_signname'])}}{{$data.asn_sms_signname}}{{/if}}" />
+                    </div>
+                    <div class="am-form-group">
+                        <label>邮箱通知模版：标题<span class="am-form-group-label-tips">通知方式为邮件时，必填</span></label>
+                        <input type="text" name="asn_mail_tpl_title" placeholder="请输入邮箱通知的标题模版" class="am-radius" value="{{if !empty($data['asn_mail_tpl_title'])}}{{$data.asn_mail_tpl_title}}{{/if}}" />
+                        <span class="am-form-group-label-tips">示例：${sitename}您购买的${goodsname}已发货</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>邮箱通知模版：内容<span class="am-form-group-label-tips">通知方式为邮件时，必填</span></label>
+                        <input type="text" name="asn_mail_tpl_content" placeholder="请输入邮箱通知的内容模版" class="am-radius" value="{{if !empty($data['asn_mail_tpl_content'])}}{{$data.asn_mail_tpl_content}}{{/if}}" />
+                        <span class="am-form-group-label-tips">示例：您购买的${goodsname}已发货，快递公司：${expname}，单号：${expnum}，请注意查收！</span>
+                    </div>
+                </div>
+            </div>
+            <div class="am-form-group am-form-group-refreshing">
+                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
+            </div>
+            <div class="am-alert-secondary">
+                <b>短信和邮箱模版支持的标签变量</b>
+                <div>${sitename} 站点名称 ${goodsname} 商品名称 ${expname} 快递公司名称 ${expnum} 快递单号 ${account} 用户昵称/用户名 ${phone} 收货人/用户手机号 ${mail} 用户邮箱 ${ordernum} 订单号</div>
+            </div>
+        </form>
+        <!-- form end -->
+    </div>
+</div>
+<!-- right content end  -->
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->
+<script>
+    $('head').append('<link href="/static/plugins/css/orderdeliverynotice/index/style.css?v=' + Math.floor(Math.random()*100000000) + '" rel="stylesheet" type="text/css" />')
+    $.getScript('/static/plugins/js/orderdeliverynotice/index/style.js?v=' + Math.floor(Math.random()*100000000));
+</script>

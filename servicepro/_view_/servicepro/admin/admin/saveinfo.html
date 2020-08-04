@@ -1,0 +1,233 @@
+{{include file="public/header" /}}
+
+<!-- right content start  -->
+
+<div class="content-right">
+
+    <div class="content">
+
+        <!-- form start -->
+
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('servicepro', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" enctype="multipart/form-data">
+
+            <legend>
+
+                <span class="fs-16">在线客服</span>
+
+                <a href="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+
+            </legend>
+
+            <div class="am-panel am-panel-secondary">
+
+                <div class="am-panel-hd">
+
+                    <span class="am-panel-title">基础配置</span>
+
+                </div>
+
+                <div class="am-panel-bd">
+
+                    <div class="am-form-group">
+
+                        <label>标题</label>
+
+                        <input type="text" name="title" placeholder="标题" class="am-radius" value="{{if !empty($data)}}{{$data.title}}{{/if}}" />
+
+                    </div>
+
+                    <div class="am-form-group am-form-file">
+
+                        <label class="block">在线客服<span class="am-form-group-label-tips">一行一个、以竖线 | 分割、如：客服一|123456|qq 客服二|旺旺昵称|wangwang 客服三|微信号|weixin</span></label>
+
+                        <textarea rows="5" name="online_service" class="am-radius am-field-valid" placeholder="在线客服">{{if !empty($data['online_service'])}}{{$data.online_service}}{{/if}}</textarea>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>电话</label>
+
+                        <input type="text" name="tel" placeholder="电话" class="am-radius" value="{{if !empty($data)}}{{$data.tel}}{{/if}}" />
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>悬浮范围</label>
+
+                        <div>
+
+                            {{foreach $is_whether_list as $v}}
+
+                            <label class="am-radio-inline m-r-10">
+
+                                <input type="radio" name="is_overall" value="{{$v.id}}" {{if isset($data['is_overall']) and $data['is_overall'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['is_overall']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+
+                            </label>
+
+                            {{/foreach}}
+
+                        </div>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>悬浮显示</label>
+
+                        <div>
+
+                            {{foreach $display_list as $v}}
+
+                            <label class="am-checkbox-inline m-r-10">
+
+                                <input type="checkbox" name="overall_display" value="{{$v.value}}" {{if isset($data['overall_display']) and in_array($v['value'], explode(',', $data['overall_display']))}}checked="checked"{{elseif !isset($data['overall_display']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+
+                            </label>
+
+                            {{/foreach}}
+
+                        </div>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>悬浮背景色</label>
+
+                        <input type="hidden" name="bg_color" value="{{if !empty($data['bg_color'])}}{{$data.bg_color}}{{/if}}" />
+
+                        <button class="am-btn am-btn-default am-btn-xs colorpicker-submit bg-color-tag am-btn-block bk-cr-white t-r am-radius" type="button" data-input-tag="button.bg-color-tag" data-color-tag="input[name='bg_color']" data-color-style="background-color" {{if
+
+                            !empty($data[ 'bg_color'])}}style="background:{{$data.bg_color}}" {{/if}}>
+
+                            <img src="{{$attachment_host}}/static/common/images/colorpicker.png" />
+
+                        </button>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>悬浮距离顶部<span class="am-form-group-label-tips">默认距离顶部30%</span></label>
+
+                        <div class="am-input-group am-input-group-sm">
+
+                            <input type="number" name="distance_top" placeholder="距离顶部" min="-1" max="100" data-validation-message="距离顶部 0~100" class="am-form-field" value="{{if isset($data['distance_top'])}}{{$data.distance_top}}{{else /}}30{{/if}}" />
+
+                            <span class="am-input-group-btn">
+
+                                <button type="button" class="am-btn am-btn-default am-radius">%</button>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    </div>
+
+            </div>
+
+            <div class="am-panel am-panel-secondary">
+
+                <div class="am-panel-hd">
+
+                    <span class="am-panel-title">网页聊天</span>
+
+                </div>
+
+                <div class="am-panel-bd">
+
+                    <div class="am-form-group">
+
+                        <label>APPID <a href="//dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a><span class="am-form-group-label-tips">安装到网站，在代码中找app_id。按钮位置和颜色请在DaoVoice聊天设置中修改</span></label>
+
+                        <div>
+
+                            <input type="text" name="daovoice_app_id" placeholder="APPID" data-validation-message="请填写APPID" class="am-radius" value="{{if !empty($data['daovoice_app_id'])}}{{$data.daovoice_app_id}}{{/if}}" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>浮动按钮权限</label>
+
+                        <div>
+
+                            {{foreach $dao_voice_list as $v}}
+
+                            <label class="am-radio-inline m-r-10">
+
+                                <input type="radio" name="daovoice_scope" value="{{$v.id}}" {{if isset($data['daovoice_scope']) and $data['daovoice_scope'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['daovoice_scope']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+
+                            </label>
+
+                            {{/foreach}}
+
+                        </div>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>浮动按钮显示</label>
+
+                        <div>
+
+                            {{foreach $display_list as $v}}
+
+                            <label class="am-checkbox-inline m-r-10">
+
+                                <input type="checkbox" name="daovoice_display" value="{{$v.value}}" {{if isset($data['daovoice_display']) and in_array($v['value'], explode(',', $data['daovoice_display']))}}checked="checked"{{elseif !isset($data['daovoice_display']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+
+                            </label>
+
+                            {{/foreach}}
+
+                        </div>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <label>是否接管固定客服<span class="am-form-group-label-tips">接管后，点页面上的固定客服按钮，将打开网页聊天，可配合上方 隐藏浮动按钮 使用</span></label><br>
+
+                        <div>
+
+                            <input name="daovoice_is_takeover" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['daovoice_is_takeover']) and $data['daovoice_is_takeover'] eq 1}}checked="true"{{/if}} />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="am-form-group am-form-group-refreshing">
+
+                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
+
+            </div>
+
+        </form>
+
+        <!-- form end -->
+
+    </div>
+
+</div>
+
+<!-- right content end  -->
+
+
+
+<!-- footer start -->
+
+{{include file="public/footer" /}}
+
+<!-- footer end -->
