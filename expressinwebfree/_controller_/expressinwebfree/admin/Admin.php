@@ -4,6 +4,7 @@ namespace app\plugins\expressinwebfree\admin;
 use think\Controller;
 use app\service\PluginsService;
 use app\service\ExpressService;
+use app\plugins\expressinwebfree\wga\WGA;
 
 /**
  * 快递鸟API接口 - 后台管理
@@ -58,7 +59,8 @@ class Admin extends Controller
      */
     public function save($params = [])
     {
-        return PluginsService::PluginsDataSave(['plugins'=>'expressinwebfree', 'data'=>$params]);
+        $wga = new WGA();
+        return $wga->save($params);
     }
 }
 ?>

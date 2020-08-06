@@ -120,7 +120,8 @@ class Hook extends Controller
      */
     public function html($params = [])
     {
-        return WGA::html($params);
+        $wga= new WGA();
+        return $wga->html($params);
     }
 
     /**
