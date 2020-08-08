@@ -182,13 +182,13 @@ class Service
         return $n;
     }
     // 绑定 解绑 查找
-    public static function do($action, $arv = array()) {
+    public static function todo($action, $arv = array()) {
         $n = isset($arv['db']) ? $arv['db'] : self::channel2n($arv);
         $openid = (isset($arv['unionid']) && !empty($arv['unionid'])) ? $arv['unionid'] : (isset($arv['openid']) ? $arv['openid'] : '');
         if ($n) {
             switch ($action) {
                 case 'bind':
-                    $id = self::do('find', $arv);
+                    $id = self::todo('find', $arv);
                     $data = array(
                         $n => $openid,
                         'nickname' => $arv['nick'],
@@ -201,7 +201,7 @@ class Service
                     if ($id && $id !== $arv['id']) {
                         $arv['id'] = $id;
                         $arv['NoUserLoginHandle'] = true;
-                        self::do('unbind', $arv);
+                        self::todo('unbind', $arv);
                     }
                     return DataReturn('绑定成功', 0);
                 break;
