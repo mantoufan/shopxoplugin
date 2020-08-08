@@ -126,7 +126,8 @@ class Service
             }
             $ret = Db::name('payment')->where(['payment	'=>$payment])->find();
             if ($ret !== false) {
-                $_config = array_merge($_config, $ret['config'] ? json_decode($ret['config'], true) : array());
+                $_config_ar = json_decode($ret['config'], true);
+                $_config = array_merge($_config, $_config_ar ? $_config_ar : array());
             }
             $_configs[$payment] = $_config;
         }
