@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_expressinwebfree\/icon\/icon.png",
         "author":"小宇",
         "author_url":"http:\/\/www.madfan.cn",
-        "version":"1.0.3",
+        "version":"1.0.4",
         "desc":"跳转到第三方查询快递，免费使用，支持绝大多数快递和物流，支持PC、H5移动版和微信小程序",
         "apply_terminal":[
             "pc",
