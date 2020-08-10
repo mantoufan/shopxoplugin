@@ -22,12 +22,6 @@ if (serviceproModal.length > 0)
 {
     serviceproModal.find('.am-modal-bd').html(serviceproBox.find('ul').html());
 }
-if (daovoice_is_takeover) {
-    $('.servicepro-btn, .nav-icon-comments').attr('data-am-modal','').click(function(){
-        event.preventDefault();
-        daovoice('openMessages');
-    }) 
-}
 var serviceproClipboard = new ClipboardJS('.servicepro-btn-a'), serviceproTimeout = 2500, serviceproStr = function(bt) {return '进入'+ serviceproGetNoName(bt) +'添加好友';}
 serviceproClipboard.on('success', function(e) {
     var bt = $(e.trigger);
@@ -48,4 +42,9 @@ function serviceproTipOnbtn (bt, s, t) {
 function serviceproGetNoName (bt) {
     return bt.hasClass('servicepro-btn-a-weixin') ? '微信' : '旺旺'
 }
-// 分享按钮转 
+if (daovoice_is_takeover) {
+    $('.servicepro-btn, .nav-icon-comments').attr('data-am-modal','').click(function(){
+        event.preventDefault();
+        daovoice('openMessages');
+    }) 
+}

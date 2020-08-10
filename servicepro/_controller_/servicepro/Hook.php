@@ -106,94 +106,42 @@ class Hook extends Controller
         $module_name = strtolower(request()->module());
         $controller_name = strtolower(request()->controller());
         $action_name = strtolower(request()->action());
-
+        
         // 获取应用数据
-        $ret = PluginsService::PluginsData('servicepro', ['images']);
+        $ret = PluginsService::PluginsData('servicepro');
         if($ret['code'] == 0)
-        {  
-            $ret['data']['servicepro_sider_hide'] = FALSE;
-                 
-            // 客服
-            $online_service = empty($ret['data']['online_service']) ? [] : explode("\n", $ret['data']['online_service']);
-            $online_service_data = [];
-            if(!empty($online_service))
-            {
-                foreach($online_service as $v)
+        {
+            $conf = array(
+                'type' => $params['type'],
+                'isMobile' => isMobile(),
+                'user' => array(),
+                'isHome' => false
+            );
+            // 用户信息
+            if (in_array($conf['type'], array('common_bottom'))) {
+                // 基本配置
+                $online_service = empty($ret['data']['online_service']) ? [] : explode("\n", $ret['data']['online_service']);
+                $online_service_data = [];
+                if(!empty($online_service))
                 {
-                    $items = explode('|', $v);
-                    if(count($items) >= 2)
+                    foreach($online_service as $v)
                     {
-                        $online_service_data[] = $items;
+                        $items = explode('|', $v);
+                        if(count($items) >= 2)
+                        {
+                            $online_service_data[] = $items;
+                        }
                     }
                 }
-            }
-            $ret['data']['online_service'] = $online_service_data;
-
-
-            $user = array();
-            $daovocie = array('display' => false, 'hidden'=> false);
-            if (!empty($ret['data']['daovoice_app_id'])) {
-                $daovocie['display'] = true;
-                if (in_array($params['type'], array('common_bottom')))  {
-                    $user = UserService::LoginUserInfo();
-                }
-                if (!empty($ret['data']['daovoice_scope'])) {
-                    if ($ret['data']['daovoice_scope'] === '2' || $ret['data']['daovoice_scope'] === '1' && empty($user)) {
-                        $daovocie['display'] = false;
-                    }
-                }
+                $ret['data']['online_service'] = $online_service_data;
+                $conf['user'] = UserService::LoginUserInfo();
+                $conf['isHome'] = $module_name.$controller_name.$action_name === 'indexindexindex';
+                $conf['isMicroMessenger'] = strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== FALSE;
             }
 
-            // 悬浮和浮动按钮显示
-            if(IsMobile())
-            {
-                if (!isset($ret['data']['overall_display']) || in_array('mobile', explode(',', $ret['data']['overall_display']))) {
-                    $ret['data']['servicepro_sider_hide'] = FALSE;
-                } else {
-                    $ret['data']['servicepro_sider_hide'] = TRUE;
-                }
-                if (!isset($ret['data']['daovoice_display']) || in_array('mobile', explode(',', $ret['data']['daovoice_display']))) {
-                    $daovocie['hidden'] = FALSE;
-                }else {
-                    $daovocie['hidden'] = TRUE;
-                }
-            } else {
-                if (!isset($ret['data']['overall_display']) || in_array('pc', explode(',', $ret['data']['overall_display']))) {
-                    $ret['data']['servicepro_sider_hide'] = FALSE;
-                } else {
-                    $ret['data']['servicepro_sider_hide'] = TRUE;
-                }
-                if (!isset($ret['data']['daovoice_display']) || in_array('pc', explode(',', $ret['data']['daovoice_display']))) {
-                    $daovocie['hidden'] = FALSE;
-                }else {
-                    $daovocie['hidden'] = TRUE;
-                }
-            }
-
-            if(!isset($ret['data']['is_overall'])){
-                $ret['data']['is_overall'] = '1';
-            }    
-            // 非全局
-            if($ret['data']['is_overall'] === '0')
-            {
-                // 非首页则空
-                if($module_name.$controller_name.$action_name != 'indexindexindex')
-                {
-                    $ret['data']['servicepro_sider_hide'] = TRUE;
-                }
-            }
-
-            // 如果是微信
-            if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== FALSE) {
-                $ret['data']['isWeiXin'] = TRUE;
-            } else {
-                $ret['data']['isWeiXin'] = FALSE;
-            }
-
-            $this->assign('serviceproData', $ret['data']);
-            $this->assign('serviceproType', $params['type']);
-            $this->assign('serviceproUser', $user);
-            $this->assign('serviceproDaovocie', $daovocie);
+            $this->assign('data', $ret['data']);
+            $this->assign('conf', $conf);
+            $this->assign('user', $user);
             return $this->fetch('../../../plugins/view/servicepro/index/public/content');
         } else {
             return $ret['msg'];

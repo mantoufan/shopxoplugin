@@ -70,6 +70,12 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="items">
+                        <label>开关</label>
+                        <div>
+                            {{if isset($data['available_chat_daovoice']) && !empty($data['available_chat_daovoice'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
                         <label>app_id</label>
                         <div>
                             {{if !empty($data['id_chat_daovoice'])}} {{$data.id_chat_daovoice}} {{else /}} 未填写 {{/if}}
@@ -96,6 +102,12 @@
                     <span class="am-panel-title">网页聊天：Crisp</span>
                 </div>
                 <div class="am-panel-bd">
+                    <div class="items">
+                        <label>开关</label>
+                        <div>
+                            {{if isset($data['available_chat_crisp']) && !empty($data['available_chat_crisp'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
                     <div class="items">
                         <label>CRISP_WEBSITE_ID</label>
                         <div>

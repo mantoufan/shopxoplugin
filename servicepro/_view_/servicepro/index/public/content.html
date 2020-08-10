@@ -1,48 +1,46 @@
-{{if $serviceproType eq 'title' }}
-    {{if !IsMobile()}}
+{{if $conf['type'] eq 'title' }}
+    {{if !$conf['isMobile']}}
         <a class="servicepro-btn" data-am-modal="{target: '#js_servicepro_modal'}">
             <i class="am-icon-comments"></i>
             联系客服
         </a>
     {{/if}}
-{{elseif $serviceproType eq 'nav' }}
-    {{if IsMobile()}}
+{{elseif $conf['type'] eq 'nav' }}
+    {{if $conf['isMobile']}}
         <span class="nav-icon nav-icon-comments" data-am-modal="{target: '#js_servicepro_modal'}">
             <i class="am-icon-comments am-icon-fw"></i>
             <em>客服</em>
         </span>
     {{/if}}
-{{elseif $serviceproType eq 'goods_bottom' }}
+{{elseif $conf['type'] eq 'goods_bottom' }}
     <div class="am-modal am-modal-no-btn servicepro-modal" id="js_servicepro_modal">
         <div class="am-modal-dialog">
-        <div class="am-modal-hd">{{if !empty($serviceproData['title']) }}{{$serviceproData.title}}{{/if}}
+        <div class="am-modal-hd">{{if !empty($data['title']) }}{{$data.title}}{{/if}}
             <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
         </div>
         <div class="am-modal-bd"></div>
         </div>
     </div>
-{{elseif $serviceproType eq 'common_bottom' }}
-    {{if !$serviceproData['servicepro_sider_hide'] }}
-        <div class="servicepro" id="js_servicepro_sider" {{if isset($serviceproData['distance_top'])}} style="top:{{$serviceproData.distance_top}}%"{{/if}}>
-            <div class="float-left" style="{{if !empty($serviceproData['bg_color'])}}background-color: {{$serviceproData.bg_color}};{{/if}}">
-                <a class="btn-open" title="查看在线客服" href="javascript:void(0);">展开</a>
-                <a class="btn-ctn" title="关闭在线客服" href="javascript:void(0);">收缩</a>
-            </div>
-            <div class="content" style="{{if !empty($serviceproData['bg_color'])}}background-color: {{$serviceproData.bg_color}};{{/if}}">
-                <div class="cn"></div>
-            </div>
+{{elseif $conf['type'] eq 'common_bottom' }}
+    <div class="servicepro" id="js_servicepro_sider" {{if isset($data['distance_top_float'])}} style="top:{{$data.distance_top_float}}%"{{/if}}>
+        <div class="float-left" style="{{if !empty($data['bg_color_float'])}}background-color: {{$data.bg_color_float}};{{/if}}">
+            <a class="btn-open" title="查看在线客服" href="javascript:void(0);">展开</a>
+            <a class="btn-ctn" title="关闭在线客服" href="javascript:void(0);">收缩</a>
         </div>
-    {{/if}}
+        <div class="content" style="{{if !empty($data['bg_color_float'])}}background-color: {{$data.bg_color_float}};{{/if}}">
+            <div class="cn"></div>
+        </div>
+    </div>
     <div class="servicepro-box" id="js_servicepro_box">
-        {{if !empty($serviceproData['title'])}}
-            <h3 class="title">{{$serviceproData.title}}</h3>
+        {{if !empty($data['title'])}}
+            <h3 class="title">{{$data.title}}</h3>
         {{/if}}
-        {{if !empty($serviceproData['online_service'])}}
+        {{if !empty($data['online_service'])}}
             <ul>
-                {{foreach name=$serviceproData.online_service as $v}}
+                {{foreach name=$data.online_service as $v}}
                     <li>
                         {{if !isset($v[2]) or strtolower($v[2]) eq 'qq'}}
-                            {{if IsMobile()}}
+                            {{if $conf['isMobile']}}
                                 <a target="_blank" href="mqqwpa://im/chat?chat_type=wpa&uin={{$v[1]}}&version=1&src_type=web&web_src=shopxo.net">
                             {{else}}
                                 <a target="_blank" href="https://wpa.qq.com/msgrd?v=3&amp;uin={{$v[1]}}&amp;site=qq&amp;menu=yes">
@@ -51,50 +49,28 @@
                                 <span>{{$v[0]}}</span>
                             </a>
                         {{elseif strtolower($v[2]) eq 'wangwang'}}
-                            <a class="servicepro-btn-a servicepro-btn-a-wangwang" target="{{if IsMobile()}}_self{{else}}_blank{{/if}}" data-clipboard-text="{{$v[1]}}" href="{{if IsMobile()}}javascript:;{{else}}https://www.taobao.com/go/market/webww/ww.php?ver=3&touid={{$v[1]}}&siteid=cntaobao&status=1&charset=utf-8{{/if}}">
+                            <a class="servicepro-btn-a servicepro-btn-a-wangwang" target="{{if $conf['isMobile']}}_self{{else}}_blank{{/if}}" data-clipboard-text="{{$v[1]}}" href="{{if $conf['isMobile']}}javascript:;{{else}}https://www.taobao.com/go/market/webww/ww.php?ver=3&touid={{$v[1]}}&siteid=cntaobao&status=1&charset=utf-8{{/if}}">
                                 <img border="0" src="https://amos.im.alisoft.com/online.aw?v=2&uid={{$v[1]}}&site=cntaobao&s=2&charset=utf-8" alt="点击这里给我发消息" title="点击这里给我发消息">
-                                <span contenteditable="true">{{if IsMobile()}}{{$v[1]}}{{else}}{{$v[0]}}{{/if}}</span>
+                                <span contenteditable="true">{{if $conf['isMobile']}}{{$v[1]}}{{else}}{{$v[0]}}{{/if}}</span>
                             </a>
                         {{elseif strtolower($v[2]) eq 'weixin'}}
-                            <a class="servicepro-btn-a servicepro-btn-a-weixin" data-clipboard-text="{{$v[1]}}" href="{{if IsMobile() AND !$serviceproData.isWeiXin }}weixin://{{else}}javascript:;{{/if}}">
+                            <a class="servicepro-btn-a servicepro-btn-a-weixin" data-clipboard-text="{{$v[1]}}" href="{{if $conf['isMobile'] AND !$conf['isMicroMessenger'] }}weixin://{{else}}javascript:;{{/if}}">
                                 <i class="am-icon-weixin"></i>
                                 <span contenteditable="true">{{$v[1]}}</span>
                             </a>
                         {{/if}}
                     </li>
                 {{/foreach}}
-                {{if !empty($serviceproData['tel'])}}
+                {{if !empty($data['tel'])}}
                     <li>
                         <i class="am-icon-phone"></i>
-                        <a href="tel:{{$serviceproData.tel}}">{{$serviceproData.tel}}</a>
+                        <a href="tel:{{$data.tel}}">{{$data.tel}}</a>
                     </li>
                 {{/if}}
             </ul>
         {{/if}}
     </div>
-    <script>var daovoice_is_takeover = false;</script>
-    {{if $serviceproDaovocie['display']}}
-        <script>
-            (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/e9333ef8.js","daovoice");
-            daovoice_is_takeover = false;
-            daovoice('init', {
-                app_id: "{{if!empty($serviceproData['daovoice_app_id'])}}{{$serviceproData.daovoice_app_id}}{{/if}}",
-                user_id: "{{if !empty($serviceproUser['id']) }}{{$serviceproUser.id}}{{/if}}",
-                email: "{{if !empty($serviceproUser['email']) }}{{$serviceproUser.email}}{{/if}}",
-                name: "{{if !empty($serviceproUser['username']) }}{{$serviceproUser.username}}{{/if}}",
-                signed_up: "{{if !empty($serviceproUser['add_time']) }}{{$serviceproUser.add_time}}{{/if}}"
-            });
-            daovoice('update');
-        </script>
-        {{if isset($serviceproData['daovoice_is_takeover']) and $serviceproData['daovoice_is_takeover']}}
-        <script>
-            daovoice_is_takeover = true;
-        </script>
-        {{/if}}
-        {{if isset($serviceproDaovocie['hidden']) and $serviceproDaovocie['hidden']}}
-        <style>
-            .daodream-launcher {visibility: hidden !important;}
-        </style>
-        {{/if}}
-    {{/if}}
+    <script>
+        var serviceproData = '{{:json_encode($data)}}', serviceproConf = '{{:json_encode($conf)}}';
+    </script>
 {{/if}}
