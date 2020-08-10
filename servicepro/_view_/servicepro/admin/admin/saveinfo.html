@@ -5,7 +5,7 @@
         <!-- form start -->
         <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('servicepro', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
-                <span class="fs-16">在线客服</span>
+                <span class="fs-16">客服专业版</span>
                 <a href="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
             <div class="am-panel am-panel-secondary">
@@ -25,12 +25,19 @@
                         <label>电话</label>
                         <input type="text" name="tel" placeholder="电话" class="am-radius" value="{{if !empty($data)}}{{$data.tel}}{{/if}}" />
                     </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">悬浮客服</span>
+                </div>
+                <div class="am-panel-bd">
                     <div class="am-form-group">
                         <label>悬浮范围</label>
                         <div>
-                            {{foreach $is_whether_list as $v}}
+                            {{foreach $conf['scope'] as $v}}
                             <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="is_overall" value="{{$v.id}}" {{if isset($data['is_overall']) and $data['is_overall'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['is_overall']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="radio" name="scope_float" value="{{$v.id}}" {{if isset($data['scope_float']) and $data['scope_float'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_float']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
@@ -38,31 +45,31 @@
                     <div class="am-form-group">
                         <label>悬浮显示</label>
                         <div>
-                            {{foreach $display_list as $v}}
+                            {{foreach $conf['display'] as $v}}
                             <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="overall_display" value="{{$v.value}}" {{if isset($data['overall_display']) and in_array($v['value'], explode(',', $data['overall_display']))}}checked="checked"{{elseif !isset($data['overall_display']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="checkbox" name="display_float" value="{{$v.value}}" {{if isset($data['display_float']) and in_array($v['value'], explode(',', $data['display_float']))}}checked="checked"{{elseif !isset($data['display_float']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
                     </div>
                     <div class="am-form-group">
                         <label>悬浮背景色</label>
-                        <input type="hidden" name="bg_color" value="{{if !empty($data['bg_color'])}}{{$data.bg_color}}{{/if}}" />
-                        <button class="am-btn am-btn-default am-btn-xs colorpicker-submit bg-color-tag am-btn-block bk-cr-white t-r am-radius" type="button" data-input-tag="button.bg-color-tag" data-color-tag="input[name='bg_color']" data-color-style="background-color" {{if
-                            !empty($data[ 'bg_color'])}}style="background:{{$data.bg_color}}" {{/if}}>
+                        <input type="hidden" name="bg_color_float" value="{{if !empty($data['bg_color_float'])}}{{$data.bg_color_float}}{{/if}}" />
+                        <button class="am-btn am-btn-default am-btn-xs colorpicker-submit bg-color-tag am-btn-block bk-cr-white t-r am-radius" type="button" data-input-tag="button.bg-color-tag" data-color-tag="input[name='bg_color_float']" data-color-style="background-color" {{if
+                            !empty($data[ 'bg_color_float'])}}style="background:{{$data.bg_color_float}}" {{/if}}>
                             <img src="{{$attachment_host}}/static/common/images/colorpicker.png" />
                         </button>
                     </div>
                     <div class="am-form-group">
                         <label>悬浮距离顶部<span class="am-form-group-label-tips">默认距离顶部30%</span></label>
                         <div class="am-input-group am-input-group-sm">
-                            <input type="number" name="distance_top" placeholder="距离顶部" min="-1" max="100" data-validation-message="距离顶部 0~100" class="am-form-field" value="{{if isset($data['distance_top'])}}{{$data.distance_top}}{{else /}}30{{/if}}" />
+                            <input type="number" name="distance_top_float" placeholder="距离顶部" min="-1" max="100" data-validation-message="距离顶部 0~100" class="am-form-field" value="{{if isset($data['distance_top_float'])}}{{$data.distance_top_float}}{{else /}}30{{/if}}" />
                             <span class="am-input-group-btn">
                                 <button type="button" class="am-btn am-btn-default am-radius">%</button>
                             </span>
                         </div>
                     </div>
-                    </div>
+                </div>
             </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
@@ -71,20 +78,20 @@
                 <div class="am-panel-bd">
                     <div class="am-form-group">
                         <label class="block">开启</label>
-                        <input name="{{$_v['id']}}" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data[$_v['id']]) and $data[$_v['id']] eq 1}}checked="true"{{/if}} />
+                        <input name="available_chat_daovoice" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_daovoice']) and $data['available_chat_daovoice'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
-                        <label>app_id <a href="//dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a><span class="am-form-group-label-tips">安装到网站，在代码中找app_id。按钮位置和颜色请在DaoVoice聊天设置中修改</span></label>
+                        <label>app_id <a href="//dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a><span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。按钮位置和颜色请在DaoVoice聊天设置中修改。</span></label>
                         <div>
-                            <input type="text" name="daovoice_app_id" placeholder="APPID" data-validation-message="请填写APPID" class="am-radius" value="{{if !empty($data['daovoice_app_id'])}}{{$data.daovoice_app_id}}{{/if}}" />
+                            <input type="text" name="id_chat_daovoice" placeholder="申请后，进入 安装到网站，在代码中找app_id，填到此处" data-validation-message="请填写APPID" class="am-radius" value="{{if !empty($data['id_chat_daovoice'])}}{{$data.id_chat_daovoice}}{{/if}}" />
                         </div>
                     </div>
                     <div class="am-form-group">
                         <label>浮动按钮权限</label>
                         <div>
-                            {{foreach $dao_voice_list as $v}}
+                            {{foreach $conf['rights'] as $v}}
                             <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="daovoice_scope" value="{{$v.id}}" {{if isset($data['daovoice_scope']) and $data['daovoice_scope'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['daovoice_scope']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="radio" name="rights_chat_daovoice" value="{{$v.id}}" {{if isset($data['rights_chat_daovoice']) and $data['rights_chat_daovoice'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_chat_daovoice']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
@@ -92,17 +99,11 @@
                     <div class="am-form-group">
                         <label>浮动按钮显示</label>
                         <div>
-                            {{foreach $display_list as $v}}
+                            {{foreach $conf['display'] as $v}}
                             <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="daovoice_display" value="{{$v.value}}" {{if isset($data['daovoice_display']) and in_array($v['value'], explode(',', $data['daovoice_display']))}}checked="checked"{{elseif !isset($data['daovoice_display']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="checkbox" name="display_chat_daovoice" value="{{$v.value}}" {{if isset($data['display_chat_daovoice']) and in_array($v['value'], explode(',', $data['display_chat_daovoice']))}}checked="checked"{{elseif !isset($data['display_chat_daovoice']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>是否接管固定客服<span class="am-form-group-label-tips">接管后，点页面上的固定客服按钮，将打开网页聊天，可配合上方 隐藏浮动按钮 使用</span></label><br>
-                        <div>
-                            <input name="daovoice_is_takeover" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['daovoice_is_takeover']) and $data['daovoice_is_takeover'] eq 1}}checked="true"{{/if}} />
                         </div>
                     </div>
                 </div>
@@ -114,20 +115,20 @@
                 <div class="am-panel-bd">
                     <div class="am-form-group">
                         <label class="block">开启</label>
-                        <input name="{{$_v['id']}}" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data[$_v['id']]) and $data[$_v['id']] eq 1}}checked="true"{{/if}} />
+                        <input name="available_chat_crisp" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_crisp']) and $data['available_chat_crisp'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
-                        <label>CRISP_WEBSITE_ID <a href="//app.crisp.chat/initiate/signup/" target="_blank">免费申请</a><span class="am-form-group-label-tips">安装到网站，在代码中找app_id。按钮位置和颜色请在DaoVoice聊天设置中修改</span></label>
+                        <label>CRISP_WEBSITE_ID <a href="//app.crisp.chat/initiate/signup/" target="_blank">免费申请</a><span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span></label>
                         <div>
-                            <input type="text" name="daovoice_app_id" placeholder="APPID" data-validation-message="请填写APPID" class="am-radius" value="{{if !empty($data['daovoice_app_id'])}}{{$data.daovoice_app_id}}{{/if}}" />
+                            <input type="text" name="id_chat_crisp" placeholder="申请后，进入 安装，选择 HTML，在代码中找CRISP_WEBSITE_ID，填到此处" data-validation-message="请填写CRISP_WEBSITE_ID" class="am-radius" value="{{if !empty($data['id_chat_crisp'])}}{{$data.id_chat_crisp}}{{/if}}" />
                         </div>
                     </div>
                     <div class="am-form-group">
                         <label>浮动按钮权限</label>
                         <div>
-                            {{foreach $dao_voice_list as $v}}
+                            {{foreach $conf['rights'] as $v}}
                             <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="daovoice_scope" value="{{$v.id}}" {{if isset($data['daovoice_scope']) and $data['daovoice_scope'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['daovoice_scope']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="radio" name="rights_chat_crisp" value="{{$v.id}}" {{if isset($data['rights_chat_crisp']) and $data['rights_chat_crisp'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_chat_crisp']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
@@ -135,17 +136,28 @@
                     <div class="am-form-group">
                         <label>浮动按钮显示</label>
                         <div>
-                            {{foreach $display_list as $v}}
+                            {{foreach $conf['display'] as $v}}
                             <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="daovoice_display" value="{{$v.value}}" {{if isset($data['daovoice_display']) and in_array($v['value'], explode(',', $data['daovoice_display']))}}checked="checked"{{elseif !isset($data['daovoice_display']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="checkbox" name="display_chat_crisp" value="{{$v.value}}" {{if isset($data['display_chat_crisp']) and in_array($v['value'], explode(',', $data['display_chat_crisp']))}}checked="checked"{{elseif !isset($data['display_chat_crisp']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">固定客服</span>
+                </div>
+                <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label>是否接管固定客服<span class="am-form-group-label-tips">接管后，点页面上的固定客服按钮，将打开网页聊天，可配合上方 隐藏浮动按钮 使用</span></label><br>
+                        <label>点击固定客服 <span class="am-form-group-label-tips">如果选弹出网页聊天，请先 开启 相应网页聊天</span></label>
                         <div>
-                            <input name="daovoice_is_takeover" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['daovoice_is_takeover']) and $data['daovoice_is_takeover'] eq 1}}checked="true"{{/if}} />
+                            {{foreach $conf['fix'] as $v}}
+                            <label class="am-radio-inline m-r-10">
+                                <input type="radio" name="fix_on_click" value="{{$v.id}}" {{if isset($data['fix_on_click']) and $data['fix_on_click'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['fix_on_click']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
                         </div>
                     </div>
                 </div>

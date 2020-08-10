@@ -1,211 +1,140 @@
-{{include file="public/header" /}}
-
-
-
-<!-- right content start  -->
-
-<div class="content-right">
-
-    <div class="content">
-
-        <legend>
-
-            <span class="fs-16">在线客服</span>
-
-            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
-
-        </legend>
-
-
-
-        <div class="servicepro-content">
-
-            <div class="am-panel am-panel-secondary">
-
-                <div class="am-panel-hd">
-
-                    <span class="am-panel-title">基础配置</span>
-
-                </div>
-
-                <div class="am-panel-bd">
-
-                    <div class="items">
-
-                        <label>标题</label>
-
-                        <div>
-
-                            {{if !empty($data['title'])}} {{$data.title}} {{else /}} 未填写 {{/if}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>在线客服</label>
-
-                        <div>
-
-                            {{if !empty($data['online_service'])}} {{$data.online_service|raw}} {{else /}} 未填写 {{/if}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>电话</label>
-
-                        <div>
-
-                            {{if !empty($data['tel'])}} {{$data.tel}} {{else /}} 未填写 {{/if}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>悬浮位置</label>
-
-                        <div>
-
-                            {{if isset($data['is_overall']) and isset($is_whether_list[$data['is_overall']]) }} {{$is_whether_list[$data['is_overall']]['name']}} {{else}} {{$is_whether_list[1]['name']}} {{/if}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>悬浮显示</label>
-
-                        <div>
-
-                            {{foreach $display_list as $v}}
-
-                                {{if !isset($data['overall_display']) or isset($data['overall_display']) and in_array($v['value'], explode(',', $data['overall_display']))}}{{$v['name']}}{{/if}} 
-
-                            {{/foreach}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>悬浮背景色</label>
-
-                        <div class="bg-color-tag" {{if !empty($data[ 'bg_color'])}}style="background:{{$data.bg_color}}" {{/if}}></div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>悬浮距离顶部</label>
-
-                        <div>
-
-                            {{if !empty($data['distance_top'])}} {{$data.distance_top}} {{else /}} 30 {{/if}} %
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="am-panel am-panel-secondary">
-
-                <div class="am-panel-hd">
-
-                    <span class="am-panel-title">网页聊天</span>
-
-                </div>
-
-                <div class="am-panel-bd">
-
-                    <div class="items">
-
-                        <label>APPID</label>
-
-                        <div>
-
-                            {{if !empty($data['daovoice_app_id'])}} {{$data.daovoice_app_id}} {{else /}} 未填写 {{/if}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>浮动按钮权限</label>
-
-                        <div>
-
-                            {{if isset($data['daovoice_scope']) and isset($dao_voice_list[$data['daovoice_scope']]) }} {{$dao_voice_list[$data['daovoice_scope']]['name']}} {{else}} {{$dao_voice_list[0]['name']}} {{/if}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>浮动按钮显示</label>
-
-                        <div>
-
-                            {{foreach $display_list as $v}}
-
-                                {{if !isset($data['daovoice_display']) or isset($data['daovoice_display']) and in_array($v['value'], explode(',', $data['daovoice_display']))}}{{$v['name']}}{{/if}} 
-
-                            {{/foreach}}
-
-                        </div>
-
-                    </div>
-
-                    <div class="items">
-
-                        <label>是否接管固定客服</label>
-
-                        <div>
-
-                            {{if isset($data['daovoice_is_takeover']) and $data['daovoice_is_takeover'] eq 1}}
-
-                                已接管
-
-                            {{else /}}
-
-                                未接管
-
-                            {{/if}}
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <a href="{{:PluginsAdminUrl('servicepro', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- right content end  -->
-
-
-
-<!-- footer start -->
-
-{{include file="public/footer" /}}
-
+{{include file="public/header" /}}
+
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content">
+        <legend>
+            <span class="fs-16">客服专业版</span>
+            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+        </legend>
+        <div class="servicepro-content">
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">基础配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>标题</label>
+                        <div>
+                            {{if !empty($data['title'])}} {{$data.title}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>在线客服</label>
+                        <div>
+                            {{if !empty($data['online_service'])}} {{$data.online_service|raw}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>电话</label>
+                        <div>
+                            {{if !empty($data['tel'])}} {{$data.tel}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">悬浮客服</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>悬浮范围</label>
+                        <div>
+                            {{if isset($data['scope_float']) and isset($conf['scope'][$data['scope_float']]) }} {{$conf['scope'][$data['scope_float']]['name']}} {{else}} {{$conf['scope'][1]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>悬浮显示</label>
+                        <div>
+                            {{foreach $conf['display'] as $v}}
+                                {{if !isset($data['display_float']) or isset($data['display_float']) and in_array($v['value'], explode(',', $data['display_float']))}}{{$v['name']}}{{/if}} 
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>悬浮背景色</label>
+                        <div class="bg-color-tag" {{if !empty($data['bg_color_float'])}}style="background:{{$data.bg_color_float}}" {{/if}}></div>
+                    </div>
+                    <div class="items">
+                        <label>悬浮距离顶部</label>
+                        <div>
+                            {{if !empty($data['distance_top_float'])}} {{$data.distance_top_float}} {{else /}} 30 {{/if}} %
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">网页聊天：Daovoice</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>app_id</label>
+                        <div>
+                            {{if !empty($data['id_chat_daovoice'])}} {{$data.id_chat_daovoice}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮权限</label>
+                        <div>
+                            {{if isset($data['rights_chat_daovoice']) and isset($conf['rights'][$data['rights_chat_daovoice']]) }} {{$conf['rights'][$data['rights_chat_daovoice']]['name']}} {{else}} {{$conf['rights'][0]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮显示</label>
+                        <div>
+                            {{foreach $conf['display'] as $v}}
+                                {{if !isset($data['display_chat_daovoice']) or isset($data['display_chat_daovoice']) and in_array($v['value'], explode(',', $data['display_chat_daovoice']))}}{{$v['name']}}{{/if}} 
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">网页聊天：Crisp</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>CRISP_WEBSITE_ID</label>
+                        <div>
+                            {{if !empty($data['id_chat_crisp'])}} {{$data.id_chat_crisp}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮权限</label>
+                        <div>
+                            {{if isset($data['rights_chat_crisp']) and isset($conf['rights'][$data['rights_chat_crisp']]) }} {{$conf['rights'][$data['rights_chat_crisp']]['name']}} {{else}} {{$conf['rights'][0]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮显示</label>
+                        <div>
+                            {{foreach $conf['display'] as $v}}
+                                {{if !isset($data['display_chat_crisp']) or isset($data['display_chat_crisp']) and in_array($v['value'], explode(',', $data['display_chat_crisp']))}}{{$v['name']}}{{/if}} 
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">固定客服</span>
+                </div>
+                <div class="am-panel-bd">
+                    <label>点击固定客服</label>
+                    <div>
+                        {{if isset($data['fix_on_click']) and isset($conf['fix'][$data['fix_on_click']]) }} {{$conf['fix'][$data['fix_on_click']]['name']}} {{else}} {{$conf['fix'][0]['name']}} {{/if}}
+                    </div>
+                </div>
+            </div>
+            <a href="{{:PluginsAdminUrl('servicepro', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>
+        </div>
+    </div>
+</div>
+<!-- right content end  -->
+
+<!-- footer start -->
+{{include file="public/footer" /}}
 <!-- footer end -->

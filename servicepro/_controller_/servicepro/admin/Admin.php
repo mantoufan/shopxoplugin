@@ -21,19 +21,26 @@ use app\plugins\servicepro\wga\WGA;
  */
 class Admin extends Controller
 {
-    private static $is_whether_list =  [
-        0 => array('id' => 0, 'name' => '首页'),
-        1 => array('id' => 1, 'name' => '全局', 'checked' => true)
-    ];
-    private static $dao_voice_list = [
-        0 => array('id' => 0, 'name' => '全部用户（含匿名访客）', 'checked' => true),
-        1 => array('id' => 1, 'name' => '仅登录用户'),
-        2 => array('id' => 2, 'name' => '停用')
-    ];
-    private static $display_list =  [
-        0 => array('value' => 'pc', 'name' => 'PC版', 'checked' => true),
-        1 => array('value' => 'mobile', 'name' => 'H5移动版', 'checked' => true)
-    ];
+    private static $conf = array(
+        'scope' =>  array(
+            0 => array('id' => 0, 'name' => '首页'),
+            1 => array('id' => 1, 'name' => '全局', 'checked' => true)
+        ),
+        'display' =>  array(
+            0 => array('value' => 'pc', 'name' => 'PC版', 'checked' => true),
+            1 => array('value' => 'mobile', 'name' => 'H5移动版', 'checked' => true)
+        ),
+        'rights' => array(
+            0 => array('id' => 0, 'name' => '全部用户（含匿名访客）', 'checked' => true),
+            1 => array('id' => 1, 'name' => '仅登录用户')
+        ),
+        'fix' => array(
+            0 => array('id' => 0, 'name' => '弹出悬浮客服', 'checked' => true),
+            1 => array('id' => 1, 'name' => '弹出网页聊天：Daovoice'),
+            2 => array('id' => 2, 'name' => '弹出网页聊天：Crisp')
+        )
+    );
+
     /**
      * 首页
      * @author   Devil
@@ -49,9 +56,7 @@ class Admin extends Controller
         {
             // 数据处理
             $ret['data']['online_service'] = str_replace("\n", '<br />', $ret['data']['online_service']);
-            $this->assign('is_whether_list', self::$is_whether_list);
-            $this->assign('dao_voice_list',  self::$dao_voice_list);
-            $this->assign('display_list',  self::$display_list);
+            $this->assign('conf', self::$conf);
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/servicepro/admin/admin/index');
         } else {
@@ -71,10 +76,7 @@ class Admin extends Controller
         $ret = PluginsService::PluginsData('servicepro');
         if($ret['code'] == 0)
         {
-            
-            $this->assign('is_whether_list', self::$is_whether_list);
-            $this->assign('dao_voice_list',  self::$dao_voice_list);
-            $this->assign('display_list',  self::$display_list);
+            $this->assign('conf', self::$conf);
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/servicepro/admin/admin/saveinfo');
         } else {
