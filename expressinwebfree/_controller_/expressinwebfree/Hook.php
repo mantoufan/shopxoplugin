@@ -104,7 +104,8 @@ class Hook extends Controller
 									$("#plugins-expressinwebfree-popup .am-popup-bd").html(result.data || result.msg);
 								}
 							}
-						});
+                        });
+                        return false;
 					});
                 });
                 </script>';
