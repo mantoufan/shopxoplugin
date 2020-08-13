@@ -59,7 +59,7 @@ class Index extends Controller
                 $com = $ret['data']['express_ids'][$params['express_id']];
             }
 
-            $url = 'https://m.kuaidi100.com/app/query/?coname=' . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'),0,5) . '&com=' . $com . '&nu=' . $params['express_number'] . '&callbackurl=' . $_SERVER['HTTP_REFERER'];
+            $url = 'https://m.kuaidi100.com/app/query/?coname=' . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'),0,5) . '&com=' . $com . '&nu=' . trim($params['express_number']) . '&callbackurl=' . $_SERVER['HTTP_REFERER'];
 
             $html = '<script>var expressinwebfree_url = "' . $url . '".replace(/amp;/g, \'\');';
             if (stripos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
