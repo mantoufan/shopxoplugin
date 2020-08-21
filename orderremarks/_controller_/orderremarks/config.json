@@ -4,7 +4,7 @@
         "name":"订单备注",
         "logo":"\/static\/upload\/images\/plugins_orderremarks\/icon\/icon.png",
         "author":"小宇",
-        "author_url":"https:\/\/www.madfan.cn\/",
+        "author_url":"https:\/\/www.yzhan.co",
         "version":"1.0.3",
         "desc":"在后台备注订单，可在订单列表显示备注，将备注信息通知下单客户",
         "apply_terminal":[
