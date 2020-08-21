@@ -83,7 +83,7 @@
                     <div class="am-form-group">
                         <label>app_id <a href="//dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a><span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。按钮位置和颜色请在DaoVoice聊天设置中修改。</span></label>
                         <div>
-                            <input type="text" name="id_chat_daovoice" placeholder="申请后，进入 安装到网站，在代码中找app_id，填到此处" data-validation-message="请填写APPID" class="am-radius" value="{{if !empty($data['id_chat_daovoice'])}}{{$data.id_chat_daovoice}}{{/if}}" />
+                            <input type="text" name="id_chat_daovoice" placeholder="申请后，进入 安装到网站，在代码中找app_id，填到此处" class="am-radius" value="{{if !empty($data['id_chat_daovoice'])}}{{$data.id_chat_daovoice}}{{/if}}" />
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -120,7 +120,7 @@
                     <div class="am-form-group">
                         <label>CRISP_WEBSITE_ID <a href="//app.crisp.chat/initiate/signup/" target="_blank">免费申请</a><span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span></label>
                         <div>
-                            <input type="text" name="id_chat_crisp" placeholder="申请后，进入 安装，选择 HTML，在代码中找CRISP_WEBSITE_ID，填到此处" data-validation-message="请填写CRISP_WEBSITE_ID" class="am-radius" value="{{if !empty($data['id_chat_crisp'])}}{{$data.id_chat_crisp}}{{/if}}" />
+                            <input type="text" name="id_chat_crisp" placeholder="申请后，进入 安装，选择 HTML，在代码中找CRISP_WEBSITE_ID，填到此处" class="am-radius" value="{{if !empty($data['id_chat_crisp'])}}{{$data.id_chat_crisp}}{{/if}}" />
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -139,6 +139,43 @@
                             {{foreach $conf['display'] as $v}}
                             <label class="am-checkbox-inline m-r-10">
                                 <input type="checkbox" name="display_chat_crisp" value="{{$v.value}}" {{if isset($data['display_chat_crisp']) and in_array($v['value'], explode(',', $data['display_chat_crisp']))}}checked="checked"{{elseif !isset($data['display_chat_crisp']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">网页聊天：腾讯云智服</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label class="block">开关</label>
+                        <input name="available_chat_qqyzf" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_qqyzf']) and $data['available_chat_qqyzf'] eq 1}}checked="true"{{/if}} />
+                    </div>
+                    <div class="am-form-group">
+                        <label>sign <a href="https://yzf.qq.com/xv/html/signUp" target="_blank">免费申请</a><span class="am-form-group-label-tips">支持微信公众号、微信小程序、网站PC版和移动版，长期免费。关注微信公众号 腾讯云智服，随时收消息。</span></label>
+                        <div>
+                            <input type="text" name="id_chat_qqyzf" placeholder="申请后，进入 设置，选择 网站渠道，新增网站，在方法二：链接地址，找sign=后面的代码，填到此处" class="am-radius" value="{{if !empty($data['id_chat_qqyzf'])}}{{$data.id_chat_qqyzf}}{{/if}}" />
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>浮动按钮权限</label>
+                        <div>
+                            {{foreach $conf['rights'] as $v}}
+                            <label class="am-radio-inline m-r-10">
+                                <input type="radio" name="rights_chat_qqyzf" value="{{$v.id}}" {{if isset($data['rights_chat_qqyzf']) and $data['rights_chat_qqyzf'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_chat_qqyzf']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>浮动按钮显示</label>
+                        <div>
+                            {{foreach $conf['display'] as $v}}
+                            <label class="am-checkbox-inline m-r-10">
+                                <input type="checkbox" name="display_chat_qqyzf" value="{{$v.value}}" {{if isset($data['display_chat_qqyzf']) and in_array($v['value'], explode(',', $data['display_chat_qqyzf']))}}checked="checked"{{elseif !isset($data['display_chat_qqyzf']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
