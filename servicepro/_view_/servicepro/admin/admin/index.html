@@ -132,6 +132,39 @@
             </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
+                    <span class="am-panel-title">网页聊天：腾讯云智服</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>开关</label>
+                        <div>
+                            {{if isset($data['available_chat_qqyzf']) && !empty($data['available_chat_qqyzf'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>sign</label>
+                        <div>
+                            {{if !empty($data['id_chat_qqyzf'])}} {{$data.id_chat_qqyzf}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮权限</label>
+                        <div>
+                            {{if isset($data['rights_chat_qqyzf']) and isset($conf['rights'][$data['rights_chat_qqyzf']]) }} {{$conf['rights'][$data['rights_chat_qqyzf']]['name']}} {{else}} {{$conf['rights'][0]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮显示</label>
+                        <div>
+                            {{foreach $conf['display'] as $v}}
+                                {{if !isset($data['display_chat_qqyzf']) or isset($data['display_chat_qqyzf']) and in_array($v['value'], explode(',', $data['display_chat_qqyzf']))}}{{$v['name']}}{{/if}} 
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
                     <span class="am-panel-title">固定客服</span>
                 </div>
                 <div class="am-panel-bd">
