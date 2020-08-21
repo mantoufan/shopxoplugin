@@ -1,2 +1,2 @@
-<button class="am-btn am-btn-default am-btn-xs am-radius am-btn-block plugins-orderremarks-order-submit" data-id="{{$order.id}}" data-url="{{:PluginsAdminUrl('orderremarks', 'order', 'detail')}}" {{if !empty($order.admin_note) }}title="后台备注:{{$order.admin_note}}
+<button type="button" class="am-btn am-btn-default am-btn-xs am-radius am-btn-block plugins-orderremarks-order-submit" data-id="{{$order.id}}" data-url="{{:PluginsAdminUrl('orderremarks', 'order', 'detail')}}" {{if !empty($order.admin_note) }}title="后台备注:{{$order.admin_note}}
 备注时间:{{$order.upd_time}}"{{/if}}><i class="am-icon-sticky-note-o"></i> 备注</button>
