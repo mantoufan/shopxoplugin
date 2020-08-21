@@ -13,6 +13,7 @@ use think\Db;
 use app\service\PluginsService;
 use app\service\OrderService;
 use app\service\MessageService;
+use app\plugins\orderremarks\wga\WGA;
 /**
  * 基础服务层
  * @author  Devil
@@ -37,7 +38,8 @@ class BaseService
      */
     public static function BaseConfigSave($params = array())
     {
-        return PluginsService::PluginsDataSave(['plugins'=>'orderremarks', 'data'=>$params]);
+        $wga= new WGA();
+        return $wga->save($params);
     }
     /**
      * 基础配置信息获取
@@ -135,10 +137,11 @@ class BaseService
             return $ret;
         }
         // 更新数据
-        $data = [
-            'order_no' => $ret['data']['order_no'],
-            'admin_note' => $params['admin_note']
-        ];
+        $wga= new WGA();
+        $data = $wga->getOrderUpdateData($ret, $params);
+        if (isset($data['msg'])) {
+            return $data;
+        }
         if (isset($ret['data']['admin_note'])) {
             if(Db::name('plugins_orderremarks_notes')->where(['order_no'=>$ret['data']['order_no']])->update($data))
             {
