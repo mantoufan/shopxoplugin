@@ -134,14 +134,28 @@ class Hook extends Controller
                     }
                 }
                 $ret['data']['online_service'] = $online_service_data;
-                $conf['user'] = UserService::LoginUserInfo();
+                $user = array_merge(array(
+                    'id' => '',
+                    'username' => '',
+                    'nickname' => '',
+                    'mobile' => '',
+                    'email' => '',
+                    'gender_text'=> 0
+                ), UserService::LoginUserInfo());
+                $conf['user'] = array(
+                    'id' => $user['id'],
+                    'username' => $user['username'],
+                    'nickname' => $user['nickname'],
+                    'mobile' => $user['mobile'],
+                    'email' => $user['email'],
+                    'gender_text' => $user['gender_text']
+                );
                 $conf['isHome'] = $module_name.$controller_name.$action_name === 'indexindexindex';
                 $conf['isMicroMessenger'] = strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== FALSE;
             }
 
             $this->assign('data', $ret['data']);
             $this->assign('conf', $conf);
-            $this->assign('user', $user);
             return $this->fetch('../../../plugins/view/servicepro/index/public/content');
         } else {
             return $ret['msg'];

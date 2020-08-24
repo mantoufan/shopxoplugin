@@ -37,7 +37,8 @@ class Admin extends Controller
         'fix' => array(
             0 => array('id' => 0, 'name' => '弹出悬浮客服', 'checked' => true),
             1 => array('id' => 1, 'name' => '弹出网页聊天：Daovoice'),
-            2 => array('id' => 2, 'name' => '弹出网页聊天：Crisp')
+            2 => array('id' => 2, 'name' => '弹出网页聊天：Crisp'),
+            3 => array('id' => 3, 'name' => '弹出网页聊天：腾讯云智服')
         )
     );
 
