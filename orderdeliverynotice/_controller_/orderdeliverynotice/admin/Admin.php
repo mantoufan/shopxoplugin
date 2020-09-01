@@ -3,6 +3,8 @@ namespace app\plugins\orderdeliverynotice\admin;
 
 use think\Controller;
 use app\service\PluginsService;
+use app\plugins\orderdeliverynotice\wga\WGA;
+
 /**
  * 国际手机号 - 后台管理
  * @author   小宇
@@ -43,7 +45,8 @@ class Admin extends Controller
     }
     public function save($params = [])
     {
-        return PluginsService::PluginsDataSave(['plugins'=>'orderdeliverynotice', 'data'=>$params]);
+        $wga = new WGA();
+        return $wga->save($params);
     }
 }
 ?>
