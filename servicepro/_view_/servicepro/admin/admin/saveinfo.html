@@ -81,9 +81,12 @@
                         <input name="available_chat_daovoice" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_daovoice']) and $data['available_chat_daovoice'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
-                        <label>app_id <a href="//dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a><span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。按钮位置和颜色请在DaoVoice聊天设置中修改。</span></label>
+                        <label>app_id <a href="https://dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a> | <a href="https://account.daocloud.io/signin" target="_blank">进入后台</a></label>
                         <div>
                             <input type="text" name="id_chat_daovoice" placeholder="申请后，进入 安装到网站，在代码中找app_id，填到此处" class="am-radius" value="{{if !empty($data['id_chat_daovoice'])}}{{$data.id_chat_daovoice}}{{/if}}" />
+                        </div>
+                        <div>
+                            特点：<span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。按钮位置和颜色请在DaoVoice聊天设置中修改。</span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -118,9 +121,12 @@
                         <input name="available_chat_crisp" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_crisp']) and $data['available_chat_crisp'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
-                        <label>CRISP_WEBSITE_ID <a href="//app.crisp.chat/initiate/signup/" target="_blank">免费申请</a><span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span></label>
+                        <label>CRISP_WEBSITE_ID <a href="https://app.crisp.chat/initiate/signup/" target="_blank">免费申请</a> | <a href="https://app.crisp.chat/initiate/login/" target="_blank">进入后台</a></label>
                         <div>
                             <input type="text" name="id_chat_crisp" placeholder="申请后，进入 安装，选择 HTML，在代码中找CRISP_WEBSITE_ID，填到此处" class="am-radius" value="{{if !empty($data['id_chat_crisp'])}}{{$data.id_chat_crisp}}{{/if}}" />
+                        </div>
+                        <div>
+                            特点：<span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -155,9 +161,12 @@
                         <input name="available_chat_qqyzf" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_qqyzf']) and $data['available_chat_qqyzf'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
-                        <label>sign <a href="https://yzf.qq.com/xv/html/signUp" target="_blank">免费申请</a><span class="am-form-group-label-tips">支持微信公众号、微信小程序、网站PC版和移动版，长期免费。关注微信公众号 腾讯云智服，随时收消息。</span></label>
+                        <label>sign <a href="https://yzf.qq.com/xv/html/signUp" target="_blank">免费申请</a> | <a href="https://yzf.qq.com/xv/html/login" target="_blank">进入后台</a></label>
                         <div>
                             <input type="text" name="id_chat_qqyzf" placeholder="申请后，进入 设置，选择 网站渠道，新增网站，在方法二：链接地址，找sign=后面的代码，填到此处" class="am-radius" value="{{if !empty($data['id_chat_qqyzf'])}}{{$data.id_chat_qqyzf}}{{/if}}" />
+                        </div>
+                        <div>
+                            特点：<span class="am-form-group-label-tips">支持微信公众号、微信小程序、网站PC版和移动版，长期免费。关注微信公众号 腾讯云智服，随时收消息。</span>
                         </div>
                     </div>
                     <div class="am-form-group">
