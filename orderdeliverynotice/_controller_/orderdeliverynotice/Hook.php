@@ -95,18 +95,24 @@ class Hook extends Controller
             $this->codes = $this->get_codes($params['order_id']);
             if ($neworder_by_sms && $ret['data']['neworder_sms_tpl'] && $ret['data']['neworder_sms_signname'] && $ret['data']['neworder_sms_phone']) {
                 $obj = new \base\Sms();
-                $obj->SendCode($ret['data']['neworder_sms_phone'], $this->limit_codes_length($this->codes), $ret['data']['neworder_sms_tpl'], $ret['data']['neworder_sms_signname']);
+                $neworder_sms_phone_ar = explode(',', $ret['data']['neworder_sms_phone']);
+                foreach ($neworder_sms_phone_ar as $k => $neworder_sms_phone) {
+                    $obj->SendCode($neworder_sms_phone, $this->limit_codes_length($this->codes), $ret['data']['neworder_sms_tpl'], $ret['data']['neworder_sms_signname']);
+                }
             }
             if ($neworder_by_mail && $ret['data']['neworder_mail_tpl_title'] && $ret['data']['neworder_mail_tpl_content']  && $ret['data']['neworder_mail_address']) {
                 $title = preg_replace_callback('/\$\{(.*?)\}/', function($m){return $this->codes[$m[1]];}, $ret['data']['neworder_mail_tpl_title']);
                 $content = preg_replace_callback('/\$\{(.*?)\}/', function($m){return $this->codes[$m[1]];}, $ret['data']['neworder_mail_tpl_content']);
                 $obj = new \base\Email();
-                $obj->SendHTML(array(
-                    'email' => $ret['data']['neworder_mail_address'],
-                    'title' => $title,
-                    'content' => $content,
-                    'username' => 'Admin'
-                ));
+                $neworder_mail_address_ar = explode(',', $ret['data']['neworder_mail_address']);
+                foreach ($neworder_mail_address_ar as $k => $neworder_mail_address) {
+                    $obj->SendHTML(array(
+                        'email' => $neworder_mail_address,
+                        'title' => $title,
+                        'content' => $content,
+                        'username' => 'Admin'
+                    ));
+                } 
             }
         }
         return '';
