@@ -1,0 +1,11 @@
+.yz-plugin-error .yz-plugin-title {
+    text-align: center;
+    font-size: 16pt;
+}
+.yz-plugin-error .yz-plugin-content {
+    margin: 5pt 0;
+    font-size: 12pt;
+    line-height: 2;
+    text-align: center;
+    color: #666;
+}

@@ -1,50 +1,58 @@
-{{include file="public/header" /}}
-<div class="content-right">
-    <div class="content">
-        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'index')}}" enctype="multipart/form-data">
-            <legend>
-                <span class="fs-16">第三方登录</span>
-                <a href="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
-            </legend>
-            <!-- <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">基础配置</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label class="block">开启帐号绑定<span class="am-form-group-label-tips">开启后，会提示用户绑定已有帐号，关闭后，会直接创建新的帐号</span></label>
-                        <input name="enable_account_bind" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['enable_account_bind']) and $data['enable_account_bind'] eq 1}}checked="true"{{/if}} />
-                    </div>
-                </div>
-            </div> -->
-            {{foreach $config as $k => $v}}
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">{{$v['n']}}</span>
-                </div>
-                <div class="am-panel-bd">
-                    {{foreach $v['form'] as $_k => $_v}}
-                        <div class="am-form-group">
-                            {{if $_k == 0}}
-                                <label class="block">开启</label>
-                                <input name="{{$_v['id']}}" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data[$_v['id']]) and $data[$_v['id']] eq 1}}checked="true"{{/if}} />
-                            {{else}}
-                                <label>{{$_v['n']}}{{if isset($_v['url'])}}<span class="am-form-group-label-tips"><a href="{{$_v['url']}}" target="_blank">点此申请</a></span>{{/if}}</label>
-                                <input type="text" name="{{$_v['id']}}" maxlength="2000" data-validation-message="最多 2000 个字符" class="am-radius" {{if !empty($data[$_v['id']])}} value="{{$data[$_v['id']]}}"{{/if}} />
-                            {{/if}}
-                        </div>
-                    {{/foreach}}
-                    <div class="am-form-group">
-                        <label>回调地址</label>
-                        <div>{{$v['callback']}}</div>
-                    </div>
-                </div>
-            </div>
-            {{/foreach}}
-            <div class="am-form-group am-form-group-refreshing">
-                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
-            </div>
-        </form>
-    </div>
-</div>
+{{include file="public/header" /}}
+<div class="content-right">
+    <div class="content">
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'index')}}" enctype="multipart/form-data">
+            <legend>
+                <span class="fs-16">第三方登录</span>
+                <a href="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+            </legend>
+            <!-- <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">基础配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label class="block">开启帐号绑定<span class="am-form-group-label-tips">开启后，会提示用户绑定已有帐号，关闭后，会直接创建新的帐号</span></label>
+                        <input name="enable_account_bind" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['enable_account_bind']) and $data['enable_account_bind'] eq 1}}checked="true"{{/if}} />
+                    </div>
+                </div>
+            </div> -->
+            {{foreach $config as $k => $v}}
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">{{$v['n']}}</span>
+                </div>
+                <div class="am-panel-bd">
+                    {{foreach $v['form'] as $_k => $_v}}
+                        <div class="am-form-group">
+                            {{if $_k == 0}}
+                                <label class="block">开启</label>
+                                <input name="{{$_v['id']}}" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data[$_v['id']]) and $data[$_v['id']] eq 1}}checked="true"{{/if}} />
+                            {{else}}
+                                <label>{{$_v['n']}}{{if isset($_v['url'])}}<span class="am-form-group-label-tips"><a href="{{$_v['url']}}" target="_blank">点此申请</a></span>{{/if}}</label>
+                                <input type="text" name="{{$_v['id']}}" maxlength="2000" data-validation-message="最多 2000 个字符" class="am-radius" {{if !empty($data[$_v['id']])}} value="{{$data[$_v['id']]}}"{{/if}} />
+                            {{/if}}
+                        </div>
+                    {{/foreach}}
+                    <div class="am-form-group">
+                        <label>回调地址</label>
+                        <div>{{$v['callback']}}</div>
+                    </div>
+                    {{if isset($v['help'])}}
+                    <div class="am-form-group">
+                        <label>帮助</label>
+                        {{foreach $v['help'] as $_k => $_v}}
+                            <div>{{$_k + 1}}. {{$_v}}</div>
+                        {{/foreach}}
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            {{/foreach}}
+            <div class="am-form-group am-form-group-refreshing">
+                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
 {{include file="public/footer" /}}

@@ -63,7 +63,11 @@ class Auth extends Controller
                 ));
             }
             //获取格式化后的第三方用户信息
-            $snsInfo = OAuth::$party($this->config)->userinfo();
+            try {
+                $snsInfo = OAuth::$party($this->config)->userinfo();
+            } catch (\Exception $e) {
+                Service::error($e);
+            }
             // 获取登录用户
             $user = UserService::LoginUserInfo();
             if (!empty($user)) { // 如果已经登陆了开始绑定流程

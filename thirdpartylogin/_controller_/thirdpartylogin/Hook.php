@@ -40,7 +40,10 @@ class Hook extends Controller
                     break;
                 // 样式
                 case 'plugins_css' :
-                    $ret = __MY_ROOT_PUBLIC__.'static/plugins/css/thirdpartylogin/index/style.css';
+                    $ret = array(
+                        __MY_ROOT_PUBLIC__.'static/plugins/css/thirdpartylogin/index/style.css',
+                        __MY_ROOT_PUBLIC__.'static/plugins/css/thirdpartylogin/index/error.css'
+                    );
                     break;
                 // 脚本
                 case 'plugins_js' :
@@ -142,8 +145,8 @@ class Hook extends Controller
             {
                 if  (
                         (stripos(__MY_VIEW_URL__, '?') !== false &&
-                         (stripos(__MY_VIEW_URL__, '/index/goods') !== false || 
-                          stripos(__MY_VIEW_URL__, '/index/article') !== false)) ||
+                         (stripos(__MY_VIEW_URL__, '/index/goods/index/id/') !== false || 
+                          stripos(__MY_VIEW_URL__, '/index/article/index/id/') !== false)) ||
                         stripos(__MY_VIEW_URL__, '/goods-') !== false || 
                         stripos(__MY_VIEW_URL__, '/article-') !== false
                     ) {

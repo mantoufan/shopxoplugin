@@ -19,6 +19,13 @@ class Service
                     array('id' => 'weixin_secret_web', 'n' => 'AppSecret（网站应用）'),
                     array('id' => 'weixin_appid_m', 'n' => 'AppId（公众号）', 'url' => 'https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&lang=zh_CN'),
                     array('id' => 'weixin_secret_m', 'n' => 'AppSecret（公众号）')
+                ),
+                'help' => array(
+                    'PC版的微信登录，请在微信开发者平台（需完成开发者认证），创建网站应用，填写网站应用的AppId和AppSecert，用户通过微信扫码登录。',
+                    'PC版的回调地址，填写回调域名，不含http、https和//。',
+                    'H5移动版的微信登录，请在微信公众号平台（建议完成微信公众号认证），开发，基本设置里，获取AppId和AppSecert，用户在微信中打开网站，点微信登录，授权后登录。微信不支持其他手机浏览器登录。',
+                    'H5移动版的回调地址，也填写回调域名，在微信公众平台，设置，公众号设置，功能设置，网页授权域名里，添加。',
+                    '微信小程序的登录，shopXO自带，创建网站应用后，请在微信开发者平台，绑定你的微信公众号，微信小程序，插件会自动将使用同一微信，分别进行PC扫码，微信公众号授权和小程序登录的用户，识别为同一用户。'
                 )
             ),
             'qq' => array(
@@ -29,6 +36,9 @@ class Service
                     array('id' => 'enable_qq'),
                     array('id' => 'qq_appid', 'n' => 'AppId', 'url' => 'https://connect.qq.com/manage.html#/appcreate/web'),
                     array('id' => 'qq_secret', 'n' => 'AppSecret'),
+                ),
+                'help' => array(
+                    'QQ小程序的登录，shopXO自带，创建网站应用后，请在QQ互联平台，绑定你的QQ小程序，插件会自动将使用同一QQ号，分别进行PC扫码，手机QQ一键登录，QQ小程序登录的用户，识别为同一用户。'
                 )
             ),
             'weibo'=> array(
@@ -245,6 +255,8 @@ class Service
         if ($case === 'admin') {
             if(in_array($party, array('line'))) {
                 $url = $http .'//'. $ar[2] . '/';
+            } else if (in_array($party, array('weixin'))) {
+                $url = $ar[2];
             }
         }
         if (stripos($url, '?') === FALSE) {
@@ -253,6 +265,10 @@ class Service
             $url = str_replace('index.php?s=', '?s=', $url);
         }
         return $url;
+    }
+    public static function error($e) {
+        $this->assign('msg', $e->getMessage());
+        return $this->fetch('../../../plugins/view/thirdpartylogin/public/index/error');
     }
 }
 ?>
