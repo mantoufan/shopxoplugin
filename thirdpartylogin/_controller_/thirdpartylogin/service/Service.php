@@ -266,9 +266,5 @@ class Service
         }
         return $url;
     }
-    public static function error($e) {
-        $this->assign('msg', $e->getMessage());
-        return $this->fetch('../../../plugins/view/thirdpartylogin/public/index/error');
-    }
 }
 ?>
