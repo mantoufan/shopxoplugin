@@ -1,59 +1,60 @@
-{{include file="public/header" /}}
-<div class="content-right">
-    <div class="content">
-        <legend>
-            <span class="fs-16">第三方登录</span>
-            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
-        </legend>
-        <div class="thirdpartylogin-content">
-            <!-- <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">基础配置</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="items">
-                        <div class="am-form-group">
-                            <label>账号绑定</label>
-                            {{if !empty($data['enable_account_bind']) }}
-                                已开启
-                            {{else /}}
-                                已关闭
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            {{foreach $config as $k => $v}}
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">{{$v['n']}}</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="items">
-                        {{foreach $v['form'] as $_k => $_v}}
-                        <div class="am-form-group">
-                            {{if $_k == 0}}
-                                {{if isset($data[$_v['id']]) && !empty($data[$_v['id']])}}
-                                    已开启
-                                {{else /}}
-                                    已关闭
-                                {{/if}}
-                            {{elseif $_k > 0}}
-                                <label>{{$_v['n']}}</label>
-                                {{if isset($data[$_v['id']]) && !empty($data[$_v['id']]) }}
-                                    {{$data[$_v['id']]}}
-                                {{else /}}
-                                    未填写
-                                {{/if}}
-                            {{/if}}
-                        </div>
-                        {{/foreach}}
-                    </div>
-                </div>
-            </div>
-            {{/foreach}}
-            <a href="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>
-        </div>
-    </div>
-</div>
+{{include file="public/header" /}}
+<div class="content-right">
+    <div class="content">
+        <legend>
+            <span class="fs-16">第三方登录</span>
+            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+        </legend>
+        {{$wga_tip | RAW}}
+        <div class="thirdpartylogin-content">
+            <!-- <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">基础配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <div class="am-form-group">
+                            <label>账号绑定</label>
+                            {{if !empty($data['enable_account_bind']) }}
+                                已开启
+                            {{else /}}
+                                已关闭
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            {{foreach $config as $k => $v}}
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">{{$v['n']}}</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        {{foreach $v['form'] as $_k => $_v}}
+                        <div class="am-form-group">
+                            {{if $_k == 0}}
+                                {{if isset($data[$_v['id']]) && !empty($data[$_v['id']])}}
+                                    已开启
+                                {{else /}}
+                                    已关闭
+                                {{/if}}
+                            {{elseif $_k > 0}}
+                                <label>{{$_v['n']}}</label>
+                                {{if isset($data[$_v['id']]) && !empty($data[$_v['id']]) }}
+                                    {{$data[$_v['id']]}}
+                                {{else /}}
+                                    未填写
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        {{/foreach}}
+                    </div>
+                </div>
+            </div>
+            {{/foreach}}
+            <a href="{{:PluginsAdminUrl('thirdpartylogin', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>
+        </div>
+    </div>
+</div>
 {{include file="public/footer" /}}

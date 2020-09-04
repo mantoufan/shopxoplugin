@@ -16,6 +16,7 @@ class Admin extends Controller
         {
             $this->assign('data', $data);
             $this->assign('config', Service::config());
+            $this->assign('wga_tip', WGA::tip());
             return $this->fetch('../../../plugins/view/thirdpartylogin/admin/admin/index');
         } else {
             return $ret['msg'];
@@ -33,6 +34,7 @@ class Admin extends Controller
                 $config[$party]['callback'] = Service::PluginsHomeUrl(PluginsHomeUrl('thirdpartylogin', 'auth', 'callback', array('party' => $party)), $party, 'admin');
             }
             $this->assign('config', $config);
+            $this->assign('wga_tip', WGA::tip());
             return $this->fetch('../../../plugins/view/thirdpartylogin/admin/admin/saveinfo');
         } else {
             return $ret['msg'];

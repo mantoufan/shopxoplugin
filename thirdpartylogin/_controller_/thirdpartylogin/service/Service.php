@@ -203,7 +203,7 @@ class Service
                         $n => $openid,
                         'nickname' => $arv['nick'],
                         'gender' => $arv['gender'] === 'm' ? 2 : ($arv['gender'] === 'f' ? 1 : 0),
-                        'avatar' => $arv['avatar'],
+                        'avatar' => str_replace('http://', 'https://', $arv['avatar']),
                         'upd_time' => time()
                     );
                     Db::name('User')->where(['id'=>$arv['id']])->update($data);
