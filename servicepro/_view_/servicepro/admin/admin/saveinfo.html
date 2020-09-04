@@ -8,6 +8,7 @@
                 <span class="fs-16">客服专业版</span>
                 <a href="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
+            {{$wga_tip | RAW}}
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
                     <span class="am-panel-title">基础配置</span>
@@ -25,6 +26,21 @@
                         <label>电话</label>
                         <input type="text" name="tel" placeholder="电话" class="am-radius" value="{{if !empty($data)}}{{$data.tel}}{{/if}}" />
                     </div>
+                    <div class="am-form-group am-form-file">
+                        <label class="block">二维码图片（最多三张）</label>
+                        <ul class="plug-file-upload-view slide-qrcodes_url-images-view" data-form-name="qrcodes_url[]" data-max-number="3" data-delete="1" data-dialog-type="images">
+                            {{if !empty($data['qrcodes_url'])}}
+                                {{foreach $data['qrcodes_url'] as $qrcodes_url}}
+                                <li>
+                                    <input type="text" name="qrcodes_url[]" value="{{$qrcodes_url}}" data-validation-message="请上传图片" required />
+                                    <img src="{{$qrcodes_url}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/servicepro/default-images.jpg"' />
+                                    <i>×</i>
+                                </li>
+                                {{/foreach}}
+                            {{/if}}
+                        </ul>
+                        <div class="plug-file-upload-submit" data-view-tag="ul.slide-qrcodes_url-images-view">+上传图片</div>
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -32,6 +48,10 @@
                     <span class="am-panel-title">悬浮客服</span>
                 </div>
                 <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label class="block">开关</label>
+                        <input name="available_float" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_float']) and $data['available_float'] eq 1}}checked="true"{{/if}} />
+                    </div>
                     <div class="am-form-group">
                         <label>悬浮范围</label>
                         <div>
@@ -197,7 +217,25 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label>点击固定客服 <span class="am-form-group-label-tips">如果选弹出网页聊天，请先 开启 相应网页聊天</span></label>
+                        <label class="block">开关</label>
+                        <input name="available_fix" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_fix']) and $data['available_fix'] eq 1}}checked="true"{{/if}} />
+                    </div>
+                    <div class="am-form-group">
+                        <label class="block">固定客服显示</label>
+                        <div>
+                            {{foreach $conf['display'] as $v}}
+                            <label class="am-checkbox-inline m-r-10">
+                                <input type="checkbox" name="display_fix" value="{{$v.value}}" {{if isset($data['display_fix']) and in_array($v['value'], explode(',', $data['display_fix']))}}checked="checked"{{elseif !isset($data['display_fix']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
+                            <div>
+                                PC版：<span class="am-form-group-label-tips">商品页，商品名称，右侧 联系客服 按钮</span><br>
+                                H5移动版：<span class="am-form-group-label-tips">商品页，可视区域浮动底部，客服 按钮</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>点固定客服弹出 <span class="am-form-group-label-tips">如果选网页聊天，请先 开启 相应网页聊天</span></label>
                         <div>
                             {{foreach $conf['fix'] as $v}}
                             <label class="am-radio-inline m-r-10">

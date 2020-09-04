@@ -134,6 +134,7 @@ class Hook extends Controller
                     }
                 }
                 $ret['data']['online_service'] = $online_service_data;
+                $user = UserService::LoginUserInfo();
                 $user = array_merge(array(
                     'id' => '',
                     'username' => '',
@@ -141,7 +142,7 @@ class Hook extends Controller
                     'mobile' => '',
                     'email' => '',
                     'gender_text'=> 0
-                ), UserService::LoginUserInfo());
+                ), $user ? $user : array());
                 $conf['user'] = array(
                     'id' => $user['id'],
                     'username' => $user['username'],

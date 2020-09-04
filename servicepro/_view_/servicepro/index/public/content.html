@@ -67,12 +67,19 @@
                         <a href="tel:{{$data.tel}}">{{$data.tel}}</a>
                     </li>
                 {{/if}}
+                {{if !empty($data['qrcodes_url'])}}
+                    <div class="servicepro-qrcodes">
+                    {{foreach $data['qrcodes_url'] as $qrcodes_url}}
+                    <a href="{{$qrcodes_url}}" target="_blank">
+                        <img src="{{$qrcodes_url}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/servicepro/default-images.jpg"' class="am-radius"/>
+                    </a>
+                    {{/foreach}}
+                    </div>
+                {{/if}}
             </ul>
         {{/if}}
     </div>
     <script>
         var serviceproData = '{{:json_encode($data)}}', serviceproConf = '{{:json_encode($conf)}}';
-
-        
     </script>
 {{/if}}

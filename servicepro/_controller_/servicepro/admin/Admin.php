@@ -35,10 +35,10 @@ class Admin extends Controller
             1 => array('id' => 1, 'name' => '仅登录用户')
         ),
         'fix' => array(
-            0 => array('id' => 0, 'name' => '弹出悬浮客服', 'checked' => true),
-            1 => array('id' => 1, 'name' => '弹出网页聊天：Daovoice'),
-            2 => array('id' => 2, 'name' => '弹出网页聊天：Crisp'),
-            3 => array('id' => 3, 'name' => '弹出网页聊天：腾讯云智服')
+            0 => array('id' => 0, 'name' => '基础配置 填写的客服', 'checked' => true),
+            1 => array('id' => 1, 'name' => '网页聊天：Daovoice'),
+            2 => array('id' => 2, 'name' => '网页聊天：Crisp'),
+            3 => array('id' => 3, 'name' => '网页聊天：腾讯云智服')
         )
     );
 
@@ -57,6 +57,7 @@ class Admin extends Controller
         {
             // 数据处理
             $ret['data']['online_service'] = str_replace("\n", '<br />', $ret['data']['online_service']);
+            $this->assign('wga_tip', WGA::tip());
             $this->assign('conf', self::$conf);
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/servicepro/admin/admin/index');
@@ -74,9 +75,11 @@ class Admin extends Controller
      */
     public function saveinfo($params = [])
     {
+        
         $ret = PluginsService::PluginsData('servicepro');
         if($ret['code'] == 0)
         {
+            $this->assign('wga_tip', WGA::tip());
             $this->assign('conf', self::$conf);
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/servicepro/admin/admin/saveinfo');

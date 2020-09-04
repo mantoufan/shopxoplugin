@@ -7,6 +7,7 @@
             <span class="fs-16">客服专业版</span>
             <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
         </legend>
+        {{$wga_tip | RAW}}
         <div class="servicepro-content">
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
@@ -31,6 +32,20 @@
                             {{if !empty($data['tel'])}} {{$data.tel}} {{else /}} 未填写 {{/if}}
                         </div>
                     </div>
+                    <div class="items">
+                        <label>二维码</label>
+                        <div>
+                            {{if !empty($data['qrcodes_url'])}}
+                                {{foreach $data['qrcodes_url'] as $qrcodes_url}}
+                                <a href="{{$qrcodes_url}}" target="_blank">
+                                    <img src="{{$qrcodes_url}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/servicepro/default-images.jpg"' class="am-radius" width="100" />
+                                </a>
+                                {{/foreach}}
+                            {{else /}}
+                                <span class="cr-ddd">暂无图片</span>
+                            {{/if}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -38,6 +53,12 @@
                     <span class="am-panel-title">悬浮客服</span>
                 </div>
                 <div class="am-panel-bd">
+                    <div class="items">
+                        <label>开关</label>
+                        <div>
+                            {{if isset($data['available_float']) && !empty($data['available_float'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
                     <div class="items">
                         <label>悬浮范围</label>
                         <div>
@@ -168,9 +189,25 @@
                     <span class="am-panel-title">固定客服</span>
                 </div>
                 <div class="am-panel-bd">
-                    <label>点击固定客服</label>
-                    <div>
-                        {{if isset($data['fix_on_click']) and isset($conf['fix'][$data['fix_on_click']]) }} {{$conf['fix'][$data['fix_on_click']]['name']}} {{else}} {{$conf['fix'][0]['name']}} {{/if}}
+                    <div class="items">
+                        <label>开关</label>
+                        <div>
+                            {{if isset($data['available_fix']) && !empty($data['available_fix'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮显示</label>
+                        <div>
+                            {{foreach $conf['display'] as $v}}
+                                {{if !isset($data['display_fix']) or isset($data['display_fix']) and in_array($v['value'], explode(',', $data['display_fix']))}}{{$v['name']}}{{/if}} 
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>点固定客服弹出</label>
+                        <div>
+                            {{if isset($data['fix_on_click']) and isset($conf['fix'][$data['fix_on_click']]) }} {{$conf['fix'][$data['fix_on_click']]['name']}} {{else}} {{$conf['fix'][0]['name']}} {{/if}}
+                        </div>
                     </div>
                 </div>
             </div>
