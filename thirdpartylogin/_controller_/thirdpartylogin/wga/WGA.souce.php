@@ -4,7 +4,6 @@ use app\service\PluginsService;
 use app\plugins\thirdpartylogin\service\Service;
 class WGA
 {
-    private $_config = array();
     private static function wga() {
         $root = dirname(__FILE__);
         $config = self::config();
@@ -23,10 +22,7 @@ class WGA
         return false;
     }
     public static function config() {
-        if (!$this->_config) {
-            $this->_config = json_decode(file_get_contents($root . '/../config.json'), true);
-        }
-        return $this->_config; 
+        return json_decode(file_get_contents(dirname(__FILE__) . '/../config.json'), true); 
     }
     public static function tip() {
         if (file_exists(dirname(__FILE__) . '/wga_tip.txt')){
