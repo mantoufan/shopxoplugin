@@ -5,7 +5,7 @@ class WGA
 {
     private static function wga() {
         $root = dirname(__FILE__);
-        $config = json_decode(file_get_contents($root . '/../config.json'), true); 
+        $config = self::config();
         $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_SERVER['SERVER_NAME'], false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 3))));
         if ($r) {
             $r = json_decode($r, true);
@@ -19,6 +19,9 @@ class WGA
             }
         }
         return false;
+    }
+    public static function config() {
+        return json_decode(file_get_contents(dirname(__FILE__) . '/../config.json'), true); 
     }
     public static function tip() {
         if (file_exists(dirname(__FILE__) . '/wga_tip.txt')){
@@ -35,7 +38,8 @@ class WGA
         if (isset($params['online_service'])) {
             $params['online_service'] = preg_replace("/\s+\n/", "\n", $params['online_service']);
         }
-        return PluginsService::PluginsDataSave(['plugins'=>'servicepro', 'data'=>$params]);
+        $config = self::config();
+        return PluginsService::PluginsDataSave(['plugins'=>$config['base']['plugins'], 'data'=>$params]);
     }
 }
 ?>

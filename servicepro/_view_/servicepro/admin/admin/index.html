@@ -66,6 +66,12 @@
                         </div>
                     </div>
                     <div class="items">
+                        <label>悬浮权限</label>
+                        <div>
+                            {{if isset($data['rights_float']) and isset($conf['rights'][$data['rights_float']]) }} {{$conf['rights'][$data['rights_float']]['name']}} {{else}} {{$conf['rights'][0]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
                         <label>悬浮显示</label>
                         <div>
                             {{foreach $conf['display'] as $v}}
@@ -103,6 +109,12 @@
                         </div>
                     </div>
                     <div class="items">
+                        <label>浮动按钮范围</label>
+                        <div>
+                            {{if isset($data['scope_chat_daovoice']) and isset($conf['scope'][$data['scope_chat_daovoice']]) }} {{$conf['scope'][$data['scope_chat_daovoice']]['name']}} {{else}} {{$conf['scope'][1]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
                         <label>浮动按钮权限</label>
                         <div>
                             {{if isset($data['rights_chat_daovoice']) and isset($conf['rights'][$data['rights_chat_daovoice']]) }} {{$conf['rights'][$data['rights_chat_daovoice']]['name']}} {{else}} {{$conf['rights'][0]['name']}} {{/if}}
@@ -133,6 +145,12 @@
                         <label>CRISP_WEBSITE_ID</label>
                         <div>
                             {{if !empty($data['id_chat_crisp'])}} {{$data.id_chat_crisp}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>浮动按钮范围</label>
+                        <div>
+                            {{if isset($data['scope_chat_crisp']) and isset($conf['scope'][$data['scope_chat_crisp']]) }} {{$conf['scope'][$data['scope_chat_crisp']]['name']}} {{else}} {{$conf['scope'][1]['name']}} {{/if}}
                         </div>
                     </div>
                     <div class="items">
@@ -169,6 +187,12 @@
                         </div>
                     </div>
                     <div class="items">
+                        <label>浮动按钮范围</label>
+                        <div>
+                            {{if isset($data['scope_chat_qqyzf']) and isset($conf['scope'][$data['scope_chat_qqyzf']]) }} {{$conf['scope'][$data['scope_chat_qqyzf']]['name']}} {{else}} {{$conf['scope'][1]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
                         <label>浮动按钮权限</label>
                         <div>
                             {{if isset($data['rights_chat_qqyzf']) and isset($conf['rights'][$data['rights_chat_qqyzf']]) }} {{$conf['rights'][$data['rights_chat_qqyzf']]['name']}} {{else}} {{$conf['rights'][0]['name']}} {{/if}}
@@ -196,7 +220,13 @@
                         </div>
                     </div>
                     <div class="items">
-                        <label>浮动按钮显示</label>
+                        <label>固定客服权限</label>
+                        <div>
+                            {{if isset($data['rights_fix']) and isset($conf['rights'][$data['rights_fix']]) }} {{$conf['rights'][$data['rights_fix']]['name']}} {{else}} {{$conf['rights'][0]['name']}} {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>固定客服显示</label>
                         <div>
                             {{foreach $conf['display'] as $v}}
                                 {{if !isset($data['display_fix']) or isset($data['display_fix']) and in_array($v['value'], explode(',', $data['display_fix']))}}{{$v['name']}}{{/if}} 

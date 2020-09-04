@@ -35,7 +35,7 @@ class Admin extends Controller
             1 => array('id' => 1, 'name' => '仅登录用户')
         ),
         'fix' => array(
-            0 => array('id' => 0, 'name' => '基础配置 填写的客服', 'checked' => true),
+            0 => array('id' => 0, 'name' => '基础配置填写的客服', 'checked' => true),
             1 => array('id' => 1, 'name' => '网页聊天：Daovoice'),
             2 => array('id' => 2, 'name' => '网页聊天：Crisp'),
             3 => array('id' => 3, 'name' => '网页聊天：腾讯云智服')

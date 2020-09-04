@@ -1,36 +1,40 @@
 {{if $conf['type'] eq 'title' }}
-    {{if !$conf['isMobile']}}
+    {{if !$conf['isMobile'] && isset($data['available_fix']) && $data['available_fix']}}
         <a class="servicepro-btn" data-am-modal="{target: '#js_servicepro_modal'}">
             <i class="am-icon-comments"></i>
             联系客服
         </a>
     {{/if}}
 {{elseif $conf['type'] eq 'nav' }}
-    {{if $conf['isMobile']}}
+    {{if $conf['isMobile'] && isset($data['available_fix']) && $data['available_fix']}}
         <span class="nav-icon nav-icon-comments" data-am-modal="{target: '#js_servicepro_modal'}">
             <i class="am-icon-comments am-icon-fw"></i>
             <em>客服</em>
         </span>
     {{/if}}
 {{elseif $conf['type'] eq 'goods_bottom' }}
-    <div class="am-modal am-modal-no-btn servicepro-modal" id="js_servicepro_modal">
-        <div class="am-modal-dialog">
-        <div class="am-modal-hd">{{if !empty($data['title']) }}{{$data.title}}{{/if}}
-            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    {{if isset($data['available_fix']) && $data['available_fix']}}
+        <div class="am-modal am-modal-no-btn servicepro-modal" id="js_servicepro_modal">
+            <div class="am-modal-dialog">
+            <div class="am-modal-hd">{{if !empty($data['title']) }}{{$data.title}}{{/if}}
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd"></div>
+            </div>
         </div>
-        <div class="am-modal-bd"></div>
-        </div>
-    </div>
+    {{/if}}
 {{elseif $conf['type'] eq 'common_bottom' }}
-    <div class="servicepro" id="js_servicepro_sider" {{if isset($data['distance_top_float'])}} style="top:{{$data.distance_top_float}}%"{{/if}}>
-        <div class="float-left" style="{{if !empty($data['bg_color_float'])}}background-color: {{$data.bg_color_float}};{{/if}}">
-            <a class="btn-open" title="查看在线客服" href="javascript:void(0);">展开</a>
-            <a class="btn-ctn" title="关闭在线客服" href="javascript:void(0);">收缩</a>
+    {{if isset($data['available_float']) && $data['available_float']}}
+        <div class="servicepro" id="js_servicepro_sider" {{if isset($data['distance_top_float'])}} style="top:{{$data.distance_top_float}}%"{{/if}}>
+            <div class="float-left" style="{{if !empty($data['bg_color_float'])}}background-color: {{$data.bg_color_float}};{{/if}}">
+                <a class="btn-open" title="查看在线客服" href="javascript:void(0);">展开</a>
+                <a class="btn-ctn" title="关闭在线客服" href="javascript:void(0);">收缩</a>
+            </div>
+            <div class="content" style="{{if !empty($data['bg_color_float'])}}background-color: {{$data.bg_color_float}};{{/if}}">
+                <div class="cn"></div>
+            </div>
         </div>
-        <div class="content" style="{{if !empty($data['bg_color_float'])}}background-color: {{$data.bg_color_float}};{{/if}}">
-            <div class="cn"></div>
-        </div>
-    </div>
+    {{/if}}
     <div class="servicepro-box" id="js_servicepro_box">
         {{if !empty($data['title'])}}
             <h3 class="title">{{$data.title}}</h3>
@@ -80,6 +84,6 @@
         {{/if}}
     </div>
     <script>
-        var serviceproData = '{{:json_encode($data)}}', serviceproConf = '{{:json_encode($conf)}}';
+        var serviceproData = eval('(' + '{{:json_encode($data)}}' + ')'), serviceproConf = eval('(' + '{{:json_encode($conf)}}' + ')'), cacheVersion = '{{:MyC(\'home_static_cache_version\')}}';
     </script>
 {{/if}}

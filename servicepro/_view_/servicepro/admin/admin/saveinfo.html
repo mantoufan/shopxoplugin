@@ -19,7 +19,7 @@
                         <input type="text" name="title" placeholder="标题" class="am-radius" value="{{if !empty($data)}}{{$data.title}}{{/if}}" />
                     </div>
                     <div class="am-form-group am-form-file">
-                        <label class="block">在线客服<span class="am-form-group-label-tips">一行一个、以竖线 | 分割、如：客服一|123456|qq 客服二|旺旺昵称|wangwang 客服三|微信号|weixin</span></label>
+                        <label>在线客服<span class="am-form-group-label-tips">一行一个、以竖线 | 分割、如：客服一|123456|qq 客服二|旺旺昵称|wangwang 客服三|微信号|weixin</span></label>
                         <textarea rows="5" name="online_service" class="am-radius am-field-valid" placeholder="在线客服">{{if !empty($data['online_service'])}}{{$data.online_service}}{{/if}}</textarea>
                     </div>
                     <div class="am-form-group">
@@ -27,7 +27,7 @@
                         <input type="text" name="tel" placeholder="电话" class="am-radius" value="{{if !empty($data)}}{{$data.tel}}{{/if}}" />
                     </div>
                     <div class="am-form-group am-form-file">
-                        <label class="block">二维码图片（最多三张）</label>
+                        <label>二维码图片（最多三张）</label>
                         <ul class="plug-file-upload-view slide-qrcodes_url-images-view" data-form-name="qrcodes_url[]" data-max-number="3" data-delete="1" data-dialog-type="images">
                             {{if !empty($data['qrcodes_url'])}}
                                 {{foreach $data['qrcodes_url'] as $qrcodes_url}}
@@ -49,7 +49,7 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label class="block">开关</label>
+                        <label>开关</label>
                         <input name="available_float" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_float']) and $data['available_float'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
@@ -58,6 +58,16 @@
                             {{foreach $conf['scope'] as $v}}
                             <label class="am-radio-inline m-r-10">
                                 <input type="radio" name="scope_float" value="{{$v.id}}" {{if isset($data['scope_float']) and $data['scope_float'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_float']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>悬浮权限</label>
+                        <div>
+                            {{foreach $conf['rights'] as $v}}
+                            <label class="am-radio-inline m-r-10">
+                                <input type="radio" name="rights_float" value="{{$v.id}}" {{if isset($data['rights_float']) and $data['rights_float'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_float']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
@@ -97,16 +107,26 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label class="block">开关</label>
+                        <label>开关</label>
                         <input name="available_chat_daovoice" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_daovoice']) and $data['available_chat_daovoice'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
-                        <label>app_id <a href="https://dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a> | <a href="https://account.daocloud.io/signin" target="_blank">进入后台</a></label>
+                        <label>app_id <a href="https://dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a> | <a href="https://account.daocloud.io/signin?from=daovoice&ret=aHR0cDovL2Rhc2hib2FyZC5kYW92b2ljZS5pby9yZWRpcmVjdC9leUp6ZEdGMFpTSTZJbVZ1ZEdWeUlpd2ljR0Z5WVcxeklqcDdmWDAlM0Q%3D" target="_blank">进入后台</a></label>
                         <div>
                             <input type="text" name="id_chat_daovoice" placeholder="申请后，进入 安装到网站，在代码中找app_id，填到此处" class="am-radius" value="{{if !empty($data['id_chat_daovoice'])}}{{$data.id_chat_daovoice}}{{/if}}" />
                         </div>
                         <div>
                             特点：<span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。按钮位置和颜色请在DaoVoice聊天设置中修改。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>浮动按钮范围</label>
+                        <div>
+                            {{foreach $conf['scope'] as $v}}
+                            <label class="am-radio-inline m-r-10">
+                                <input type="radio" name="scope_chat_daovoice" value="{{$v.id}}" {{if isset($data['scope_chat_daovoice']) and $data['scope_chat_daovoice'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_chat_daovoice']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -137,7 +157,7 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label class="block">开关</label>
+                        <label>开关</label>
                         <input name="available_chat_crisp" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_crisp']) and $data['available_chat_crisp'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
@@ -147,6 +167,16 @@
                         </div>
                         <div>
                             特点：<span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>浮动按钮范围</label>
+                        <div>
+                            {{foreach $conf['scope'] as $v}}
+                            <label class="am-radio-inline m-r-10">
+                                <input type="radio" name="scope_chat_crisp" value="{{$v.id}}" {{if isset($data['scope_chat_crisp']) and $data['scope_chat_crisp'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_chat_crisp']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -177,7 +207,7 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label class="block">开关</label>
+                        <label>开关</label>
                         <input name="available_chat_qqyzf" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_qqyzf']) and $data['available_chat_qqyzf'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
@@ -186,7 +216,18 @@
                             <input type="text" name="id_chat_qqyzf" placeholder="申请后，进入 设置，选择 网站渠道，新增网站，在方法二：链接地址，找sign=后面的代码，填到此处" class="am-radius" value="{{if !empty($data['id_chat_qqyzf'])}}{{$data.id_chat_qqyzf}}{{/if}}" />
                         </div>
                         <div>
-                            特点：<span class="am-form-group-label-tips">支持微信公众号、微信小程序、网站PC版和移动版，长期免费。关注微信公众号 腾讯云智服，随时收消息。</span>
+                            特点：<span class="am-form-group-label-tips">支持微信公众号、微信小程序、网站PC版和移动版，长期免费。关注微信公众号 腾讯云智服，随时收消息。</span><br>
+                            帮助：<span class="am-form-group-label-tips">登录腾讯云智服后台后，请在 人工，人工会话中，将 离线 改为 在线，方可正常使用 排队、机器人、自动回复 等功能。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>浮动按钮范围</label>
+                        <div>
+                            {{foreach $conf['scope'] as $v}}
+                            <label class="am-radio-inline m-r-10">
+                                <input type="radio" name="scope_chat_qqyzf" value="{{$v.id}}" {{if isset($data['scope_chat_qqyzf']) and $data['scope_chat_qqyzf'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_chat_qqyzf']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -217,11 +258,21 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label class="block">开关</label>
+                        <label>开关</label>
                         <input name="available_fix" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_fix']) and $data['available_fix'] eq 1}}checked="true"{{/if}} />
                     </div>
                     <div class="am-form-group">
-                        <label class="block">固定客服显示</label>
+                        <label>固定客服权限</label>
+                        <div>
+                            {{foreach $conf['rights'] as $v}}
+                            <label class="am-radio-inline m-r-10">
+                                <input type="radio" name="rights_fix" value="{{$v.id}}" {{if isset($data['rights_fix']) and $data['rights_fix'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_fix']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                            </label>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>固定客服显示</label>
                         <div>
                             {{foreach $conf['display'] as $v}}
                             <label class="am-checkbox-inline m-r-10">
