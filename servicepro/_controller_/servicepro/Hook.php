@@ -62,6 +62,11 @@ class Hook extends Controller
                         $ret = __MY_ROOT_PUBLIC__.'static/plugins/js/servicepro/index/style.js';
                         break;
 
+                    case 'plugins_common_header' :
+                        $params['type'] = 'plugins_common_header';
+                        $ret = $this->html($params);
+                        break;
+
                     case 'plugins_view_common_bottom' :
                         $params['type'] = 'common_bottom';
                         $ret = $this->html($params);
@@ -141,7 +146,10 @@ class Hook extends Controller
                     'nickname' => '',
                     'mobile' => '',
                     'email' => '',
-                    'gender_text'=> 0
+                    'gender_text' => 0,
+                    'avatar' => '',
+                    'add_time' => '',
+                    'upd_time' => ''
                 ), $user ? $user : array());
                 $conf['user'] = array(
                     'id' => $user['id'],
@@ -149,12 +157,15 @@ class Hook extends Controller
                     'nickname' => $user['nickname'],
                     'mobile' => $user['mobile'],
                     'email' => $user['email'],
-                    'gender_text' => $user['gender_text']
+                    'gender_text' => $user['gender_text'],
+                    'avatar' => $user['avatar'],
+                    'add_time' => $user['add_time'],
+                    'upd_time' => $user['upd_time']
                 );
                 $conf['isHome'] = $module_name.$controller_name.$action_name === 'indexindexindex';
                 $conf['isMicroMessenger'] = strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== FALSE;
+                unset($ret['data']['css_pc'], $ret['data']['css_mobile']);
             }
-
             $this->assign('data', $ret['data']);
             $this->assign('conf', $conf);
             return $this->fetch('../../../plugins/view/servicepro/index/public/content');

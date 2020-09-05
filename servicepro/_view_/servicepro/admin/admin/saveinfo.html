@@ -116,7 +116,8 @@
                             <input type="text" name="id_chat_daovoice" placeholder="申请后，进入 安装到网站，在代码中找app_id，填到此处" class="am-radius" value="{{if !empty($data['id_chat_daovoice'])}}{{$data.id_chat_daovoice}}{{/if}}" />
                         </div>
                         <div>
-                            特点：<span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。按钮位置和颜色请在DaoVoice聊天设置中修改。</span>
+                            特点：<span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。</span><br>
+                            样式：<span class="am-form-group-label-tips">DaoVoice后台，应用设置，聊天设置，可以修改 浮动按钮 位置和颜色。修改后，需等待一段时间生效。也可用本页下方的自定义CSS。</span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -166,7 +167,8 @@
                             <input type="text" name="id_chat_crisp" placeholder="申请后，进入 安装，选择 HTML，在代码中找CRISP_WEBSITE_ID，填到此处" class="am-radius" value="{{if !empty($data['id_chat_crisp'])}}{{$data.id_chat_crisp}}{{/if}}" />
                         </div>
                         <div>
-                            特点：<span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span>
+                            特点：<span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span><br>
+                            样式：<span class="am-form-group-label-tips">Crisp后台，设置（齿轮图标），网站设置，聊天框与邮箱设置，可配置聊天框的外观。也可用本页下方的自定义CSS。</span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -217,7 +219,8 @@
                         </div>
                         <div>
                             特点：<span class="am-form-group-label-tips">支持微信公众号、微信小程序、网站PC版和移动版，长期免费。关注微信公众号 腾讯云智服，随时收消息。</span><br>
-                            帮助：<span class="am-form-group-label-tips">登录腾讯云智服后台后，请在 人工，人工会话中，将 离线 改为 在线，方可正常使用 排队、机器人、自动回复 等功能。</span>
+                            样式：<span class="am-form-group-label-tips">腾讯云智服后台，设置，渠道设置，网站渠道，编辑，可配置主题颜色，头像。也可用本页下方的自定义CSS。</span><br>
+                            帮助：<span class="am-form-group-label-tips">腾讯云智服后台，人工，人工会话，将 离线 改为 在线，方可正常使用 排队、机器人、自动回复、接收微信公众号和小程序消息 等功能。</span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -290,10 +293,34 @@
                         <div>
                             {{foreach $conf['fix'] as $v}}
                             <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="fix_on_click" value="{{$v.id}}" {{if isset($data['fix_on_click']) and $data['fix_on_click'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['fix_on_click']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="radio" name="click_fix" value="{{$v.id}}" {{if isset($data['click_fix']) and $data['click_fix'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['click_fix']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                             {{/foreach}}
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">高级设置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>自定义CSS：PC版</label>
+                        <textarea name="css_pc" rows="5">{{$data['css_pc'] | RAW}}</textarea>
+                        <span class="am-form-group-label-tips">以上CSS只会在PC网站生效</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>自定义CSS：H5移动版（含公众号）</label>
+                        <textarea name="css_mobile" rows="5">{{$data['css_mobile'] | RAW}}</textarea>
+                        <span class="am-form-group-label-tips">以上CSS只会在H5移动版（含微信公众号）生效</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>示例</label>
+                        <pre>#crisp-chatbox .crisp-kquevr {bottom: 50px !important;}
+#crisp-chatbox .crisp-kquevr>span+span {background-color: pink !important;}</pre>
+                        <span class="am-form-group-label-tips">开启网页聊天：crisp，将上面代码粘贴到PC或H5的自定义CSS，您可在相应页面看到粉色的距离页面底部50像素的浮动按钮。</span><br>
+                        <span class="am-form-group-label-tips">样式定制对部分第三方是付费功能，CSS不容易写，由前端或具备相关经验的人来实现更丰富的样式和交互体验是更好选择。</span>
                     </div>
                 </div>
             </div>

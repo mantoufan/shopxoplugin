@@ -29,6 +29,9 @@
         "plugins_js":[
             "app\\plugins\\servicepro\\Hook"
         ],
+        "plugins_common_header":[
+            "app\\plugins\\servicepro\\Hook"
+        ],
         "plugins_view_common_bottom":[
             "app\\plugins\\servicepro\\Hook"
         ],

@@ -236,7 +236,26 @@
                     <div class="items">
                         <label>点固定客服弹出</label>
                         <div>
-                            {{if isset($data['fix_on_click']) and isset($conf['fix'][$data['fix_on_click']]) }} {{$conf['fix'][$data['fix_on_click']]['name']}} {{else}} {{$conf['fix'][0]['name']}} {{/if}}
+                            {{if isset($data['click_fix']) and isset($conf['fix'][$data['click_fix']]) }} {{$conf['fix'][$data['click_fix']]['name']}} {{else}} {{$conf['fix'][0]['name']}} {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">高级设置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>自定义CSS：PC版</label>
+                        <div class="am-form">
+                            <textarea name="css_pc" rows="5" disabled>{{$data['css_pc'] | RAW}}</textarea>
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>自定义CSS：H5移动版（含公众号）</label>
+                        <div class="am-form">
+                            <textarea name="css_mobile" rows="5" disabled>{{$data['css_mobile'] | RAW}}</textarea>
                         </div>
                     </div>
                 </div>
