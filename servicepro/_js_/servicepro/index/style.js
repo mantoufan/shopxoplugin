@@ -2,14 +2,15 @@
 var serviceproBox = $('#js_servicepro_box');
 if (serviceproBox.length > 0)
 {
-    var serviceproClipboard = new ClipboardJS('.servicepro-btn-a'), serviceproTimeout = 2500, serviceproStr = function(bt) {return '进入'+ serviceproGetNoName(bt) +'添加好友';}
+    var serviceproClipboard = new ClipboardJS('.servicepro-btn-a'), serviceproTimeout = 2500, 
+        serviceproClip = function(e, type) {
+            var bt = $(e.trigger), n = serviceproGetNoName(bt);
+            serviceproTipOnbtn (bt, '复制' + n + (n === '号码' ? '' : '号') + (type === 'success' ? '成功' : '失败，请手动复制') + (n === '号码' ? '' : '，进入'+ serviceproGetNoName(bt) +'添加好友'), serviceproTimeout)
+        }
     serviceproClipboard.on('success', function(e) {
-        var bt = $(e.trigger);
-        serviceproTipOnbtn (bt, '复制' + serviceproGetNoName(bt) + '号成功，请' + serviceproStr(bt), serviceproTimeout)
-    })
-    serviceproClipboard.on('error', function(e) {
-        var bt = $(e.trigger);
-        serviceproTipOnbtn (bt, '复制失败，请手动复制' + serviceproGetNoName(bt) + '号，' + serviceproStr(bt), serviceproTimeout)
+        serviceproClip(e, 'success');
+    }).on('error', function(e) {
+        serviceproClip(e, 'error');
     })
     function serviceproTipOnbtn (bt, s, t) {
         bt.popover({
@@ -20,7 +21,7 @@ if (serviceproBox.length > 0)
         }, t)
     }
     function serviceproGetNoName (bt) {
-        return bt.hasClass('servicepro-btn-a-weixin') ? '微信' : '旺旺'
+        return bt.hasClass('servicepro-btn-a-weixin') ? '微信' : (bt.hasClass('servicepro-btn-a-wangwang') ? '旺旺' : '号码');
     }
 }
 var serviceproAr = [

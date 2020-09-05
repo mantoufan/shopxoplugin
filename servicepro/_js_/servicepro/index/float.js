@@ -15,4 +15,5 @@ if (serviceproSider.length > 0) {
         $('.servicepro .btn-open').css('display', 'block');
         $('.servicepro .btn-ctn').css('display', 'none');  
     })
+    $('.servicepro').fadeIn();
 }

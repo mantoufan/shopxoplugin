@@ -5,12 +5,12 @@
     border-radius: 5px 0 0 5px;
 }
 .servicepro {
-    font-size: 12px;
     position: fixed;
     top: 30%;
     right: 0px;
     z-index: 1001;
     height: 120px;
+    font-size: 12px;
     opacity: .8;
 }
 .servicepro .float-left {
@@ -91,9 +91,6 @@
 .servicepro .am-icon-weixin {
     color: #1aad19;
 }
-.servicepro-box {
-    display: none;
-}
 .servicepro-btn {
     float: right;
     font-size: 13px;
@@ -126,6 +123,9 @@
 }
 .servicepro-qrcodes img {
     max-width: 118px;
+}
+.servicepro, .servicepro-fix, .servicepro-box {
+    display: none;
 }
 .daodream-composer-action-button {
     display: inline !important;

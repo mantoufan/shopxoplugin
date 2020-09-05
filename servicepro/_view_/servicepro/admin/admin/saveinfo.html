@@ -19,12 +19,8 @@
                         <input type="text" name="title" placeholder="标题" class="am-radius" value="{{if !empty($data)}}{{$data.title}}{{/if}}" />
                     </div>
                     <div class="am-form-group am-form-file">
-                        <label>在线客服<span class="am-form-group-label-tips">一行一个、以竖线 | 分割、如：客服一|123456|qq 客服二|旺旺昵称|wangwang 客服三|微信号|weixin</span></label>
+                        <label>客服<span class="am-form-group-label-tips">一行一个、以竖线 | 分割、如：客服一|123456|qq 客服二|旺旺昵称|wangwang 客服三|微信号|weixin 客服四|手机号（电话号）|tel</span></label>
                         <textarea rows="5" name="online_service" class="am-radius am-field-valid" placeholder="在线客服">{{if !empty($data['online_service'])}}{{$data.online_service}}{{/if}}</textarea>
-                    </div>
-                    <div class="am-form-group">
-                        <label>电话</label>
-                        <input type="text" name="tel" placeholder="电话" class="am-radius" value="{{if !empty($data)}}{{$data.tel}}{{/if}}" />
                     </div>
                     <div class="am-form-group am-form-file">
                         <label>二维码图片（最多三张）</label>

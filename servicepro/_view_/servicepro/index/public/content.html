@@ -2,14 +2,14 @@
 {{if $conf['isMobile'] && isset($data['css_mobile'])}}<style>{{:htmlspecialchars_decode($data['css_mobile'])}}</style>{{elseif  isset($data['css_pc'])}}<style>{{:htmlspecialchars_decode($data['css_pc'])}}</style>{{/if}}
 {{elseif $conf['type'] eq 'title' }}
     {{if !$conf['isMobile'] && isset($data['available_fix']) && $data['available_fix']}}
-        <a class="servicepro-btn" data-am-modal="{target: '#js_servicepro_modal'}">
+        <a class="servicepro-btn servicepro-fix" data-am-modal="{target: '#js_servicepro_modal'}">
             <i class="am-icon-comments"></i>
             联系客服
         </a>
     {{/if}}
 {{elseif $conf['type'] eq 'nav' }}
     {{if $conf['isMobile'] && isset($data['available_fix']) && $data['available_fix']}}
-        <span class="nav-icon nav-icon-comments" data-am-modal="{target: '#js_servicepro_modal'}">
+        <span class="nav-icon nav-icon-comments servicepro-fix" data-am-modal="{target: '#js_servicepro_modal'}">
             <i class="am-icon-comments am-icon-fw"></i>
             <em>客服</em>
         </span>
@@ -64,15 +64,14 @@
                                 <i class="am-icon-weixin"></i>
                                 <span contenteditable="true">{{$v[1]}}</span>
                             </a>
+                        {{elseif strtolower($v[2]) eq 'tel'}}
+                            <a class="servicepro-btn-a servicepro-btn-a-tel" data-clipboard-text="{{$v[1]}}" href="tel:{{$v[1]}}">
+                                <i class="am-icon-phone"></i>
+                                <span contenteditable="true">{{$v[1]}}</span>
+                            </a>
                         {{/if}}
                     </li>
                 {{/foreach}}
-                {{if !empty($data['tel'])}}
-                    <li>
-                        <i class="am-icon-phone"></i>
-                        <a href="tel:{{$data.tel}}">{{$data.tel}}</a>
-                    </li>
-                {{/if}}
                 {{if !empty($data['qrcodes_url'])}}
                     <div class="servicepro-qrcodes">
                     {{foreach $data['qrcodes_url'] as $qrcodes_url}}
