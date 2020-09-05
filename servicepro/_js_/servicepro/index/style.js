@@ -53,13 +53,16 @@ var serviceproAr = [
         }, e[n].l = 1 * new Date();
     }, cb: function() {
         daovoice('init', {
-            app_id: serviceproData['id_chat_daovoice'],
-            user_id: serviceproConf.user.id,
-            email: serviceproConf.user.email,
-            name: serviceproConf.user.nickname || serviceproConf.user.username,
-            signed_up: serviceproConf.user.add_time
-          });
-          daovoice('update');
+         app_id: serviceproData['id_chat_daovoice'],
+         user_id: serviceproConf.user.id,
+         email: serviceproConf.user.email,
+         name: serviceproConf.user.nickname || serviceproConf.user.username,
+         signed_up: serviceproConf.user.add_time,
+         company: { 
+            company_plan: document.title + ':' + window.location.href
+         }
+        });
+        daovoice('update');
     }},
     {k: 'chat_crisp', j: 'https://client.crisp.chat/l.js', bb: function() {
         window.$crisp = [];
@@ -68,7 +71,6 @@ var serviceproAr = [
         $crisp.push(['set', 'user:phone', serviceproConf.user.mobile]);
         $crisp.push(['set', 'user:nickname', serviceproConf.user.nickname || serviceproConf.user.username]);
         $crisp.push(['set', 'user:avatar', serviceproConf.user.avatar]);
-        $crisp.push(['do', 'message:send', ['text', document.title + ':' + window.location.href]]);
         $crisp.push(["safe", true]);
     }},
     {k: 'chat_qqyzf', j: 'https://yzf.qq.com/xv/web/static/chat_sdk/yzf_chat.min.js', cb: function() {
@@ -76,13 +78,13 @@ var serviceproAr = [
             sign: serviceproData['id_chat_qqyzf'],
             uid: serviceproConf.user.id,
             data: {
-              c1: serviceproConf.user.nickname || serviceproConf.user.username,
-              c2: serviceproConf.user.email,
-              c3: serviceproConf.user.mobile,
-              c4: document.title,
-              c5: window.location.href
+                c1: serviceproConf.user.nickname || serviceproConf.user.username,
+                c2: serviceproConf.user.email,
+                c3: serviceproConf.user.mobile,
+                c4: document.title,
+                c5: window.location.href
             }
-        })
+        })      
     }},
 ];
 for (var i = 0; i < serviceproAr.length; i++) {
