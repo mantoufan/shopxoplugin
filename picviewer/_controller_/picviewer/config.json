@@ -1,0 +1,35 @@
+{
+    "base":{
+        "plugins":"picviewer",
+        "name":"图片查看器",
+        "logo":"\/static\/upload\/images\/plugins_picviewer\/icon\/icon.png",
+        "author":"小宇",
+        "author_url":"http:\/\/www.yzhan.co",
+        "version":"1.0.0",
+        "desc":"点商品详情、文章中图片沉浸浏览，图尺寸适应屏幕，滑动切换上下张，双击和双指缩放，兼顾鼠标和触摸屏。朋友圈般看图效果，增加SEO体验分。",
+        "apply_terminal":[
+            "pc",
+            "h5"
+        ],
+        "apply_version":[
+            "1.5.0",
+            "1.6.0",
+            "1.7.0",
+            "1.8.0",
+            "1.8.1",
+            "1.9.0"
+        ],
+        "is_home":false
+    },
+    "hook":{
+        "plugins_css":[
+            "app\\plugins\\picviewer\\Hook"
+        ],
+        "plugins_js":[
+            "app\\plugins\\picviewer\\Hook"
+        ],
+        "plugins_common_page_bottom":[
+            "app\\plugins\\picviewer\\Hook"
+        ]
+    }
+}
