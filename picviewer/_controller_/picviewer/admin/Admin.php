@@ -18,6 +18,7 @@ class Admin extends Controller
         $ret = PluginsService::PluginsData('picviewer');
         if($ret['code'] == 0)
         {
+            $this->assign('wga_tip', WGA::tip());
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/picviewer/admin/admin/index');
         } else {
@@ -38,6 +39,7 @@ class Admin extends Controller
         $ret = PluginsService::PluginsData('picviewer');
         if($ret['code'] == 0)
         {
+            $this->assign('wga_tip', WGA::tip());
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/picviewer/admin/admin/saveinfo');
         } else {

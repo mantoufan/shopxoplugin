@@ -4,9 +4,9 @@
         "name":"图片查看器",
         "logo":"\/static\/upload\/images\/plugins_picviewer\/icon\/icon.png",
         "author":"小宇",
-        "author_url":"http:\/\/www.yzhan.co",
+        "author_url":"https:\/\/www.yzhan.co",
         "version":"1.0.0",
-        "desc":"点商品详情、文章中图片沉浸浏览，图尺寸适应屏幕，滑动切换上下张，双击和双指缩放，兼顾鼠标和触摸屏。朋友圈般看图效果，增加SEO体验分。",
+        "desc":"点商品详情、评论、文章、页面中图片进入沉浸浏览，图片尺寸适应屏幕，滑动切换上下张，双击和双指缩放，兼顾鼠标和触摸屏。还原微信朋友圈的看图体验，利于SEO。",
         "apply_terminal":[
             "pc",
             "h5"

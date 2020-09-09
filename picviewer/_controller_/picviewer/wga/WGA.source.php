@@ -95,11 +95,8 @@ class WGA
         if($ret['code'] == 0)
         {
             if (isset($ret['data']['available']) && $ret['data']['available']) {
-                return "<script>$('.details, .article-content').mtfpicviewer({
-                    selector: 'img',
-                    attrSelector: 'src'," .
-                    (isset($ret['data']['maxwidth']) && !empty($ret['data']['maxwidth']) ? "maxWidth: '" . $ret['data']['maxwidth'] . "'," : '') .
-                "});</script>";
+                $maxwidth = isset($ret['data']['maxwidth']) && !empty($ret['data']['maxwidth']) ? "maxWidth: '" . $ret['data']['maxwidth'] . "'," : '';
+                return "<script>$('.detail-content, .article-content, .customview-content').mtfpicviewer({selector: 'img', attrSelector: 'src'," . $maxwidth . "});$('.goods-comment-content').mtfpicviewer({selector: 'img', attrSelector: 'src', parentSelector: '.comment-images'});</script>";
             } else {
                 return '';
             }           
