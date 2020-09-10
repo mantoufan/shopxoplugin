@@ -15,16 +15,54 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label class="block">开关</label>
-                        <input name="available" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                        <label>开关</label>
+                        <div>
+                            <input name="available" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                        </div>
                     </div>
                     <div class="am-form-group">
                         <label>最大宽度</label>
                         <div>
-                            <input type="text" name="maxwidth" placeholder="请带上单位：px或%等" class="am-radius" value="{{if !empty($data['maxwidth'])}}{{$data.maxwidth}}{{/if}}" />
+                            <input type="text" name="max_width" placeholder="请带上单位：px或%等" class="am-radius" value="{{if !empty($data['max_width'])}}{{$data.max_width}}{{/if}}" />
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">留空，默认100%，查看器会撑满整个窗口。设置最大宽度后，查看器会居中，宽度不会超过最大宽度。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>背景色：固定值</label>
+                        <div>
+                            <input type="hidden" name="background_color" value="{{if !empty($data['background_color'])}}{{$data.background_color}}{{/if}}" />
+                            <button class="am-btn am-btn-default am-btn-xs colorpicker-submit bg-color-tag am-btn-block bk-cr-white t-r am-radius" type="button" data-input-tag="button.bg-color-tag" data-color-tag="input[name='background_color']" data-color-style="background-color" {{if
+                                !empty($data['background_color'])}}style="background:{{$data.background_color}}" {{/if}}>
+                                <img src="{{$attachment_host}}/static/common/images/colorpicker.png" />
+                            </button>
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">查看器的背景色，默认是 黑色。<br>
+                                                                    　　　　当自动取色开启时，此处颜色，也作为切换图片时的过渡背景色。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>背景色：自动取色开关</label>
+                        <div>
+                            <input name="background_color_auto" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['background_color_auto']) and $data['background_color_auto'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，将自动从当前正在浏览的图片上取主要颜色，作为查看器的背景色。每次切换图片时，会根据图片更换背景色。<br>
+                                                                    　　　　读取图片颜色需要一定时间，在读取期间，采用上方设置的颜色作为过渡背景色。<br>
+                                                                    　　　　您需要在服务器预览，且图片与当前网页在同一域名，同一端口，同一协议下可看到效果。<br>
+                                                                    　　　　如果图片在第三方存储或域名上，请设置图片的响应头，返回Access-Control-Allow-Origin: 你的域名(包含http)。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>关闭查看器：自动滚动定位开关</label>
+                        <div>
+                            <input name="scroll_auto" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['scroll_auto']) and $data['scroll_auto'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，当关闭查看器时，页面将自动滚动到关闭前正在浏览的图片。<br>
+                                                                    　　　　例如：点第一张图片，打开查看器，左右切换到第十张图片后，关闭查看器，页面将自动向下滚动，直到找到第十张图片。</span>
                         </div>
                     </div>
                 </div> 

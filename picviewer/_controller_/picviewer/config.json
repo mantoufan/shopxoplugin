@@ -6,7 +6,7 @@
         "author":"小宇",
         "author_url":"https:\/\/www.yzhan.co",
         "version":"1.0.0",
-        "desc":"点商品详情、评论、文章、页面中图片进入沉浸浏览，图片尺寸适应屏幕，滑动切换上下张，双击和双指缩放，兼顾鼠标和触摸屏。还原微信朋友圈的看图体验，利于SEO。",
+        "desc":"点商品详情、评论、文章、页面中的图片看大图，上下张切换，双击双指缩放，拖动看细节，兼顾鼠标和触屏，背景色随图片智能匹配。微信朋友圈般的沉浸看图体验，有利于提升搜索引擎排名体验分。",
         "apply_terminal":[
             "pc",
             "h5"
@@ -26,6 +26,9 @@
             "app\\plugins\\picviewer\\Hook"
         ],
         "plugins_js":[
+            "app\\plugins\\picviewer\\Hook"
+        ],
+        "plugins_common_header":[
             "app\\plugins\\picviewer\\Hook"
         ],
         "plugins_common_page_bottom":[

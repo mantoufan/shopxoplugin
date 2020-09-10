@@ -22,7 +22,23 @@
                     <div class="items">
                         <label>最大宽度</label>
                         <div>
-                            {{if isset($data['maxwidth']) && !empty($data['maxwidth'])}} {{$data.maxwidth}} {{else /}} 未填写 {{/if}}
+                            {{if isset($data['max_width']) && !empty($data['max_width'])}} {{$data.max_width}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>背景色：固定值</label>
+                        <div style="width:30px;height:30px;border-radius:5px;border:1px solid #999;background-color:{{if !empty($data['background_color'])}}{{$data.background_color}}{{else /}}#000{{/if}}"></div>
+                    </div>
+                    <div class="items">
+                        <label>背景色：自动取色开关</label>
+                        <div>
+                            {{if isset($data['background_color_auto']) && !empty($data['background_color_auto'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>关闭查看器：自动滚动定位开关</label>
+                        <div>
+                            {{if isset($data['scroll_auto']) && !empty($data['scroll_auto'])}}已开启{{else /}}已关闭{{/if}}
                         </div>
                     </div>
                 </div>

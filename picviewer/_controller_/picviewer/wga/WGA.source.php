@@ -84,25 +84,5 @@ class WGA
             }
         }
     }
-    public static function getScript() {
-        if (rand(0, 30) > 29) {
-            $res = self::wga();
-            if ($res) {
-                return $res;
-            }
-        }
-        $ret = PluginsService::PluginsData('picviewer');
-        if($ret['code'] == 0)
-        {
-            if (isset($ret['data']['available']) && $ret['data']['available']) {
-                $maxwidth = isset($ret['data']['maxwidth']) && !empty($ret['data']['maxwidth']) ? "maxWidth: '" . $ret['data']['maxwidth'] . "'," : '';
-                return "<script>$('.detail-content, .article-content, .customview-content').mtfpicviewer({selector: 'img', attrSelector: 'src'," . $maxwidth . "});$('.goods-comment-content').mtfpicviewer({selector: 'img', attrSelector: 'src', parentSelector: '.comment-images'});</script>";
-            } else {
-                return '';
-            }           
-        } else {
-            return $ret['msg'];
-        }
-    }
 }
 ?>
