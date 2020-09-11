@@ -153,14 +153,18 @@ class Service
                     $_config[$payment]['pem_private'] = self::pem('alipay_private');
                     file_put_contents($_config[$payment]['pem_private'], $_config[$payment]['rsa_private']);
                 } else {
-                    unlink($_config[$payment]['pem_private']);
+                    if (file_exists($_config[$payment]['pem_private'])) {
+                        unlink($_config[$payment]['pem_private']);
+                    }
                     $_config[$payment]['pem_private'] = '';
                 }
                 if ($_config[$payment]['rsa_public']) {
                     $_config[$payment]['pem_public'] = self::pem('alipay_public');
                     file_put_contents($_config[$payment]['pem_public'], $_config[$payment]['rsa_public']);
                 } else {
-                    unlink($_config[$payment]['pem_public']);
+                    if (file_exists($_config[$payment]['pem_public'])) {
+                        unlink($_config[$payment]['pem_public']);
+                    }
                     $_config[$payment]['pem_public'] = '';
                 }
             }
