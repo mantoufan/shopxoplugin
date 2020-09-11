@@ -66,7 +66,7 @@ class Auth extends Controller
             try {
                 $snsInfo = OAuth::$party($this->config)->userinfo();
             } catch (\Exception $e) {
-                return $this->error($e, array(
+                return $this->tip($e, array(
                     'msg' => '回调地址仅供第三方调用，直接打开报错是正常的。'
                 ));
             }
@@ -87,7 +87,7 @@ class Auth extends Controller
             } 
         }
     }
-    public function error($e, $arv = array('msg'=>'')) {
+    public function tip($e, $arv = array('msg'=>'')) {
         $this->assign('msg', $e->getMessage() . ($arv['msg'] ? $arv['msg'] : ''));
         return $this->fetch('../../../plugins/view/thirdpartylogin/public/index/error');
     }
