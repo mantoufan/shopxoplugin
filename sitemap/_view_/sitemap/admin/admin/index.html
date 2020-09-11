@@ -1,88 +1,89 @@
-{{include file="public/header" /}}
-<!-- right content start  -->
-<style>
-    .update-time {
-        min-width: 80px;
-    }
-    
-    .size {
-        min-width: 58px;
-    }
-    
-    .view-operation .am-btn {
-        margin-bottom: 5px;
-    }
-</style>
-<div class="content-right">
-    <div class="content">
-        <legend>
-            <span class="fs-16">生成Sitemap</span>
-            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
-        </legend>
-        <div class="am-alert am-alert-warning" data-am-alert>
-            <p>添加商品/文章时，Sitemap自动更新，每张Sitemap最多容纳网址{{$page_size}}条，超出自动拆分</p>
-        </div>
-        <div class="am-g am-margin-top-sm">
-            {{if !empty($is_enable)}}
-            <a href="{{:PluginsAdminUrl('sitemap', 'admin', 'sitemap')}}" data-view="reload" class="am-btn am-btn-success am-radius am-btn-xs cache-submit am-icon-circle-o"> 更新Sitemap</a>
-            <a onclick="pagesizePrompt()" class="am-btn am-btn-secondary am-radius am-btn-xs cache-submit am-icon-cog"> 设置分页条数</a> {{else}}
-            <a data-url="{{:PluginsAdminUrl('sitemap', 'admin', 'open')}}" data-view="reload" data-is-confirm=0 class="am-btn am-btn-secondary am-radius am-btn-xs submit-delete am-icon-check" data-id="db_backup"> 启用插件</a>
-            <span class="am-text-danger am-margin-left-xs">
-                插件处于关闭状态。需要生成请先启用后再进行生成操作。
-            </span> {{/if}}
-        </div>
-        <table class="am-table am-table-striped am-table-hover am-text-middle am-margin-top-xs">
-            <thead>
-                <tr>
-                    <th>名称</th>
-                    <th class="update-time">更新时间</th>
-                    <th class="size">大小</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{if !empty($data_list)}} {{foreach $data_list as $v}}
-                <tr>
-                    <td>{{$v.name}}</td>
-                    <td>{{$v.time}}</td>
-                    <td>{{$v.size}}</td>
-                    <td class="view-operation">
-                        <a class="am-btn am-btn-success am-btn-xs am-radius am-icon-eye" href="{{:config('shopxo.attachment_host')}}/download/sitemap/{{$v.name}}" target="_blank"> 打开</a>
-                        <a class="am-btn am-btn-secondary am-btn-xs am-radius am-icon-download" href="{{:PluginsAdminUrl('sitemap', 'admin', 'down_file',['id'=>$v['name']])}}"> 下载</a>
-                        <button class="am-btn am-btn-danger am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:PluginsAdminUrl('sitemap', 'admin', 'del_file')}}" data-id="{{$v.name}}" data-view="reload"> 删除</button>
-                    </td>
-                </tr>
-                {{/foreach}} {{/if}}
-            </tbody>
-        </table>
-        {{if empty($data_list)}}
-        <div class="table-no"><i class="am-icon-warning"></i> 没有相关数据</div>
-        {{/if}}
-    </div>
-</div>
-<div class="am-modal am-modal-prompt" tabindex="-1" id="js_pagesize_prompt">
-    <div class="am-modal-dialog">
-        <div class="am-modal-hd">设置条数</div>
-        <div class="am-modal-bd">
-            <input type="number" class="am-modal-prompt-input" value="{{$page_size}}" min="1">
-        </div>
-        <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-            <span class="am-modal-btn" data-am-modal-confirm>提交</span>
-        </div>
-    </div>
-</div>
-<script>
-    function pagesizePrompt() {
-        $('#js_pagesize_prompt').modal({
-            relatedTarget: this,
-            onConfirm: function(e) {
-                window.location.href = "{{:PluginsAdminUrl('sitemap', 'admin', 'set_pagesize', ['pagesize'=>'var_pagesize'])}}".replace('var_pagesize', e.data);
-            }
-        });
-    }
-</script>
-<!-- right content end  -->
-<!-- footer start -->
-{{include file="public/footer" /}}
+{{include file="public/header" /}}
+<!-- right content start  -->
+<style>
+    .update-time {
+        min-width: 80px;
+    }
+    
+    .size {
+        min-width: 58px;
+    }
+    
+    .view-operation .am-btn {
+        margin-bottom: 5px;
+    }
+</style>
+<div class="content-right">
+    <div class="content">
+        <legend>
+            <span class="fs-16">生成Sitemap</span>
+            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+        </legend>
+        {{$wga_tip | RAW}}
+        <div class="am-alert am-alert-warning" data-am-alert>
+            <p>添加商品/文章时，Sitemap自动更新，每张Sitemap最多容纳网址{{$page_size}}条，超出自动拆分</p>
+        </div>
+        <div class="am-g am-margin-top-sm">
+            {{if !empty($is_enable)}}
+            <a href="{{:PluginsAdminUrl('sitemap', 'admin', 'sitemap')}}" data-view="reload" class="am-btn am-btn-success am-radius am-btn-xs cache-submit am-icon-circle-o"> 更新Sitemap</a>
+            <a onclick="pagesizePrompt()" class="am-btn am-btn-secondary am-radius am-btn-xs cache-submit am-icon-cog"> 设置分页条数</a> {{else}}
+            <a data-url="{{:PluginsAdminUrl('sitemap', 'admin', 'open')}}" data-view="reload" data-is-confirm=0 class="am-btn am-btn-secondary am-radius am-btn-xs submit-delete am-icon-check" data-id="db_backup"> 启用插件</a>
+            <span class="am-text-danger am-margin-left-xs">
+                插件处于关闭状态。需要生成请先启用后再进行生成操作。
+            </span> {{/if}}
+        </div>
+        <table class="am-table am-table-striped am-table-hover am-text-middle am-margin-top-xs">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th class="update-time">更新时间</th>
+                    <th class="size">大小</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{if !empty($data_list)}} {{foreach $data_list as $v}}
+                <tr>
+                    <td>{{$v.name}}</td>
+                    <td>{{$v.time}}</td>
+                    <td>{{$v.size}}</td>
+                    <td class="view-operation">
+                        <a class="am-btn am-btn-success am-btn-xs am-radius am-icon-eye" href="{{:config('shopxo.attachment_host')}}/download/sitemap/{{$v.name}}" target="_blank"> 打开</a>
+                        <a class="am-btn am-btn-secondary am-btn-xs am-radius am-icon-download" href="{{:PluginsAdminUrl('sitemap', 'admin', 'down_file',['id'=>$v['name']])}}"> 下载</a>
+                        <button class="am-btn am-btn-danger am-btn-xs am-radius am-icon-trash-o submit-delete" data-url="{{:PluginsAdminUrl('sitemap', 'admin', 'del_file')}}" data-id="{{$v.name}}" data-view="reload"> 删除</button>
+                    </td>
+                </tr>
+                {{/foreach}} {{/if}}
+            </tbody>
+        </table>
+        {{if empty($data_list)}}
+        <div class="table-no"><i class="am-icon-warning"></i> 没有相关数据</div>
+        {{/if}}
+    </div>
+</div>
+<div class="am-modal am-modal-prompt" tabindex="-1" id="js_pagesize_prompt">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">设置条数</div>
+        <div class="am-modal-bd">
+            <input type="number" class="am-modal-prompt-input" value="{{$page_size}}" min="1">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+        </div>
+    </div>
+</div>
+<script>
+    function pagesizePrompt() {
+        $('#js_pagesize_prompt').modal({
+            relatedTarget: this,
+            onConfirm: function(e) {
+                window.location.href = "{{:PluginsAdminUrl('sitemap', 'admin', 'set_pagesize', ['pagesize'=>'var_pagesize'])}}".replace('var_pagesize', e.data);
+            }
+        });
+    }
+</script>
+<!-- right content end  -->
+<!-- footer start -->
+{{include file="public/footer" /}}
 <!-- footer end -->

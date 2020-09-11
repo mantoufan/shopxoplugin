@@ -2,11 +2,11 @@
     "base":{
         "plugins":"sitemap",
         "name":"Sitemap",
-        "logo":"\/static\/upload\/images\/plugins_sitemap\/icon\/icon.jpg",
+        "logo":"\/static\/upload\/images\/plugins_sitemap\/icon\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.1",
-        "desc":"生成站点地图sitemap.xml，利于搜索引擎抓取",
+        "version":"1.0.2",
+        "desc":"生成站点地图Sitemap.xml，随商品、文章自动更新，超出指定条数自动分页，利于搜索引擎抓取。",
         "apply_terminal":[
             "pc",
             "h5",
@@ -22,7 +22,8 @@
             "1.6.0",
             "1.7.0",
             "1.8.0",
-            "1.8.1"
+            "1.8.1",
+            "1.9.0"
         ],
         "is_home":false
     },
