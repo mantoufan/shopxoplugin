@@ -202,18 +202,24 @@ class Service
         if ($n) {
             switch ($action) {
                 case 'bind':
-                    $id = self::todo('find', $arv);
+                    $user = self::todo('find', $arv);
                     $data = array(
                         $n => $openid,
-                        'nickname' => $arv['nick'],
-                        'gender' => $arv['gender'] === 'm' ? 2 : ($arv['gender'] === 'f' ? 1 : 0),
-                        'avatar' => str_replace('http://', 'https://', $arv['avatar']),
                         'upd_time' => time()
                     );
+                    if (empty($user['nickname']) || stripos($user['nickname'], '游客-') !== FALSE) {
+                        $data['nickname'] = $arv['nick'];
+                    }
+                    if (empty($user['gender'])) {
+                        $data['gender'] = $arv['gender'] === 'm' ? 2 : ($arv['gender'] === 'f' ? 1 : 0);
+                    }
+                    if (empty($user['avatar'])) {
+                        $data['avatar'] = str_replace('http://', 'https://', $arv['avatar']);
+                    }
                     Db::name('User')->where(['id'=>$arv['id']])->update($data);
                     UserService::UserLoginHandle($arv['id'], array());
-                    if ($id && $id !== $arv['id']) {
-                        $arv['id'] = $id;
+                    if ($user && isset($user['id']) && $user['id'] !== $arv['id']) {
+                        $arv['id'] = $user['id'];
                         $arv['NoUserLoginHandle'] = true;
                         self::todo('unbind', $arv);
                     }
@@ -237,7 +243,7 @@ class Service
                         if(!empty($user))
                         {
                             UserService::UserLoginHandle($user['id'], array());
-                            return $user['id'];
+                            return $user;
                         }
                     } elseif (isset($arv['openid']) && !empty($arv['openid'])) {
                         $openid = $arv['openid'];
@@ -245,7 +251,7 @@ class Service
                         if(!empty($user))
                         {
                             UserService::UserLoginHandle($user['id'], array());
-                            return $user['id'];
+                            return $user;
                         }
                     }
                     return false;
