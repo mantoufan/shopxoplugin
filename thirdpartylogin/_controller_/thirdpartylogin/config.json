@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_thirdpartylogin\/icon\/icon.jpg",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.6",
+        "version":"1.0.7",
         "desc":"支持微信、QQ、微博、支付宝、Line、Google登录、绑定和解绑，自动获取昵称、头像和性别。",
         "apply_terminal":[
             "pc",
