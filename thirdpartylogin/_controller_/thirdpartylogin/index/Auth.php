@@ -88,7 +88,7 @@ class Auth extends Controller
         }
     }
     public function tip($e, $arv = array('msg'=>'')) {
-        $this->assign('msg', $e->getMessage() . ($arv['msg'] ? $arv['msg'] : ''));
+        $this->assign('msg', $e->getMessage() . ($arv['msg'] ? "\n" . $arv['msg'] : ''));
         return $this->fetch('../../../plugins/view/thirdpartylogin/public/index/tip');
     }
 }
