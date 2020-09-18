@@ -4,12 +4,20 @@
 <div class="content-right">
     <div class="content">
         <legend>
-            <span class="fs-16">快递查询免费版</span>
+            <span class="fs-16">快递查询<sup>Y站</sup></span>
             <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
         </legend>
-
+        {{$wga_tip | RAW}}
         <div class="expressinwebfree-content">
-         	<div class="am-form-group">
+            <div class="items">
+                <label>渠道开关</label>
+                <div>
+                    {{foreach $conf['available'] as $key => $v}}
+                        {{if !isset($data['available']) or isset($data['available']) and in_array($key, explode(',', $data['available']))}}{{$v['name']}}{{/if}} 
+                    {{/foreach}}
+                </div>
+            </div>
+         	<div class="items">
                 <label>快递代码（选填，默认根据单号自动识别快递）</label>
                 <div class="express-items">
                     {{if !empty($express_list)}}

@@ -6,11 +6,11 @@ use app\service\PluginsService;
 use app\plugins\expressinwebfree\wga\WGA;
 
 /**
- * 快递鸟API接口 - 钩子入口
- * @author   GuoGuo
- * @blog     http://gadmin.cojz8.com/
+ * 快递查询接口 - 钩子入口
+ * @author   Shon Ng
+ * @blog     https://www.madfan.cn
  * @version  1.0.0
- * @datetime 2016-12-01T21:51:08+0800
+ * @datetime 2020-09-17T11:39:08+0800
  */
 class Hook extends Controller
 {
@@ -49,10 +49,10 @@ class Hook extends Controller
                 case 'plugins_admin_common_header' :
                     $ret = $this->css($params);
                     break;
-            }
-        }
+           }
+       }
         return $ret;
-    }
+   }
 
     /**
      * css
@@ -65,14 +65,19 @@ class Hook extends Controller
     public function css($params = [])
     {
         return '<style type="text/css">
-                    #plugins-expressinwebfree-popup p { font-size: 16px; color: #FF9800; font-weight: 500; padding: 1rem; text-align: center; margin: 0; }
-        			#plugins-expressinwebfree-popup .am-list-static > li { padding: .8rem 1rem; }
-        			#plugins-expressinwebfree-popup .am-popup-bd { padding: 0; height: 100%; }
-                    #plugins-expressinwebfree-popup .am-list > li { border: 1px dashed #dedede; border-width: 1px 0; }
-                    #plugins-expressinwebfree-popup .am-popup-bd iframe { width: 100%; height: 100%; }
-                    .order-base .operation .plugins-expressinwebfree-submit { display: inline-block; }
+                    #plugins-expressinwebfree-popup p {font-size: 16px; color: #FF9800; font-weight: 500; padding: 1rem; text-align: center; margin: 0;}
+        			#plugins-expressinwebfree-popup .am-list-static > li {padding: .8rem 1rem;}
+        			#plugins-expressinwebfree-popup .am-popup-bd {padding: 0; height: 100%;}
+                    #plugins-expressinwebfree-popup .am-list > li {border: 1px dashed #dedede; border-width: 1px 0;}
+                    #plugins-expressinwebfree-popup .am-popup-bd iframe {width: 100%; height: 100%;}
+                    .expressinwebfree-tab {display: flex}
+                    .expressinwebfree-tab-none {display: none}
+                    .expressinwebfree-tab a {flex:1; font-size: 14px; background-color:#fff; color: #666;}
+                    .expressinwebfree-tab a:hover {background-color:#f7f7f7;}
+                    .expressinwebfree-tab .expressinwebfree_a_active {background-color:#e7e7e7;}
+                    .order-base .operation .plugins-expressinwebfree-submit {display: inline-block;}
                 </style>';
-    }
+   }
 
     /**
      * js
@@ -104,12 +109,12 @@ class Hook extends Controller
 									$("#plugins-expressinwebfree-popup .am-popup-bd").html(result.data || result.msg);
 								}
 							}
-                        });
+                       });
                         return false;
 					});
-                });
+               });
                 </script>';
-    }
+   }
 
     /**
      * 视图
@@ -123,7 +128,7 @@ class Hook extends Controller
     {
         $wga= new WGA();
         return $wga->html($params);
-    }
+   }
 
     /**
      * 操作
@@ -140,6 +145,6 @@ class Hook extends Controller
     		return '<button class="am-btn am-btn-warning am-btn-xs am-radius am-btn-block plugins-expressinwebfree-submit" data-exp-id="'.$params['data']['express_id'].'" data-exp-num="'.$params['data']['express_number'].'"><i class="am-icon-cube"></i> 物流</button>';
     	}
     	return '';
-    }
+   }
 }
 ?>

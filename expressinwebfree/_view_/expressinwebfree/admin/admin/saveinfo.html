@@ -1,14 +1,39 @@
 {{include file="public/header" /}}
-
+<style>
+    .am-checkbox-inline input[type=number] {
+        display: inline-block;
+        width: 50px;
+    }
+</style>
 <!-- right content start  -->
 <div class="content-right">
     <div class="content expressinwebfree-content">
         <!-- form start -->
         <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('expressinwebfree', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('expressinwebfree', 'admin', 'index')}}" enctype="multipart/form-data">
            <legend>
-                <span class="fs-16">快递查询免费版</span>
+                <span class="fs-16">快递查询<sup>Y站</sup></span>
                 <a href="{{:PluginsAdminUrl('expressinwebfree', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
+            {{$wga_tip | RAW}}
+            <div class="am-form-group express-items">
+                <label>渠道开关</label>
+                <div>
+                {{foreach $conf['available'] as $key => $v}}
+                <label class="am-checkbox-inline m-r-10">
+                    <input type="checkbox" name="available" value="{{$key}}" {{if isset($data['available']) and in_array($key, explode(',', $data['available']))}}checked="checked"{{elseif !isset($data['available']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
+                    <input type="number" name="order_{{$key}}" {{if(isset($data['order_' . $key]))}}value="{{$data['order_' . $key]}}"{{else/}}value="0"{{/if}}>
+                </label>
+                {{/foreach}}
+                </div>
+                <div>
+                    <span class="am-form-group-label-tips"><b>帮助</b>：<br> 
+                    　顺序：右侧数字越大，排在越前面。<br>
+                    　开关：请至少保留一个渠道，多渠道时，显示切换按钮。<br>
+                    　快递100：无跳转，微信内跳转到查询页，兼容微信小程序（请参考教程），有返回按钮，可返回。<br>
+                    　爱查快递：无跳转。适合其他查询方式无结果时，补充查询。<br>
+                    　百度：跳转查询。快递公司直连。托底查询。</span>
+                </div>
+            </div>
             <div class="am-form-group express-items">
                 <label class="block">快递代码<span class="am-form-group-label-tips"> 选填，默认自动识别快递，填写有助于准确度，快递代码请参考 <a href='https://www.kuaidi100.com/download/chaxun(20140729).doc'>点击下载</a></span></label>
                 {{if !empty($express_list)}}
