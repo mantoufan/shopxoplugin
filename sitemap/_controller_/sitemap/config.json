@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_sitemap\/icon\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.2",
+        "version":"1.0.3",
         "desc":"生成站点地图Sitemap.xml，随商品、文章自动更新，超出指定条数自动分页，利于搜索引擎抓取。",
         "apply_terminal":[
             "pc",

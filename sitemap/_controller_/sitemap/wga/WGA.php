@@ -1,5 +1,54 @@
 <?php
-/*
- Encode by www.phpen.cn 
-*/
- namespace app\plugins\sitemap\wga; use app\service\PluginsService; use think\Db; class WGA { private static function wga() { goto qETfJ; YV43T: GcMOb: goto T9nOI; NDLtq: return $r["\155\x73\x67"]; goto VKjzL; A8gBG: if (!$r) { goto k8cVX; } goto siPdq; T9nOI: file_put_contents($root . "\57\x77\x67\x61\x5f\x74\151\x70\x2e\x74\x78\164", $r["\144\141\164\141"]["\x74\151\160"]); goto jDZkO; uE8tu: if (!(isset($r["\143\157\144\x65"]) && $r["\x63\157\x64\x65"] === -1)) { goto sTCUS; } goto NDLtq; VKjzL: sTCUS: goto syKKz; y2_gH: unlink($root . "\x2f\167\x67\x61\x5f\164\151\x70\x2e\x74\x78\164"); goto JpFjZ; jDZkO: GzoFN: goto fu2RG; syKKz: if (isset($r["\144\x61\x74\x61"]) && isset($r["\144\x61\x74\x61"]["\164\x69\x70"]) && !empty($r["\144\x61\x74\x61"]["\x74\151\160"])) { goto GcMOb; } goto Hgeu2; GqXZl: goto GzoFN; goto YV43T; qETfJ: $root = dirname(__FILE__); goto v2CKo; fu2RG: k8cVX: goto Zi4j8; v2CKo: $config = self::config(); goto bs0FP; siPdq: $r = json_decode($r, true); goto uE8tu; JpFjZ: b52CR: goto GqXZl; bs0FP: $r = @file_get_contents("\150\x74\x74\x70\163\72\x2f\57\x61\160\x69\x2e\x6f\x73\61\x32\x30\56\x63\x6f\x6d\x2f\x77\147\141\x2f\x76\x65\x72\x69\x66\171\77\x6f\x75\x74\x5f\x74\171\160\x65\75\152\x73\157\156\x26\x6e\x61\155\145\75\163\150\x6f\160\x78\x6f\160\154\x75\147\x69\156\x5f" . $config["\142\x61\x73\x65"]["\160\x6c\165\147\x69\x6e\163"] . "\46\x76\x65\x72\163\x69\157\156\x3d" . $config["\x62\141\x73\145"]["\166\145\x72\163\x69\x6f\156"] . "\x26\x64\145\163\75\xe6\255\xa3\xe7\211\x88\351\xaa\x8c\xe8\xaf\201\46\x64\157\155\x61\151\156\75" . $_SERVER["\123\105\x52\126\105\x52\x5f\116\x41\115\105"], false, stream_context_create(array("\150\x74\164\x70" => array("\155\x65\x74\150\x6f\x64" => "\x47\x45\124", "\x74\151\155\x65\x6f\165\x74" => 3)))); goto A8gBG; Hgeu2: if (!file_exists($root . "\57\167\147\x61\137\164\x69\160\56\164\170\164")) { goto b52CR; } goto y2_gH; Zi4j8: return false; goto bX2Z2; bX2Z2: } public static function config() { return json_decode(file_get_contents(dirname(__FILE__) . "\x2f\x2e\56\x2f\143\157\156\x66\x69\147\56\152\163\x6f\x6e"), true); } public static function tip() { goto k2cOM; POkPc: return ''; goto B7PuJ; TxrVi: rOKAX: goto POkPc; RruvY: return "\x3c\x64\151\x76\x20\x63\154\x61\163\163\75\x22\141\155\x2d\x61\x6c\x65\162\164\42\x20\x64\x61\164\x61\x2d\141\x6d\x2d\141\x6c\x65\x72\164\76\x3c\142\x75\164\x74\x6f\156\40\164\171\x70\145\75\x22\142\x75\164\x74\157\156\42\40\143\x6c\141\163\x73\x3d\x22\x61\x6d\x2d\143\x6c\157\x73\x65\42\x3e\46\164\x69\155\x65\163\73\74\x2f\142\165\164\x74\157\156\76" . file_get_contents(dirname(__FILE__) . "\x2f\167\x67\x61\137\164\x69\160\x2e\x74\170\x74") . "\x3c\x2f\x64\151\166\x3e"; goto TxrVi; k2cOM: if (!file_exists(dirname(__FILE__) . "\57\167\x67\141\x5f\164\x69\x70\56\164\x78\164")) { goto rOKAX; } goto RruvY; B7PuJ: } public static function getGenerateWhereByTable($table, $key) { goto AMMmN; wHM3G: f9kVk: goto ZQVXH; MV6JE: return DataReturn($res, -1); goto HOmIN; Xzx5f: switch ($table) { case "\147\x6f\157\144\163": $where = "\x69\163\137\163\150\x65\x6c\166\145\163\40\75\40\61"; goto f9kVk; case "\141\x72\x74\x69\143\154\145": $where = "\151\163\137\145\156\141\142\154\x65\x20\75\40\x31"; goto f9kVk; default: $where = "\61"; } goto y62bu; AMMmN: if (!($key === 0)) { goto QvOW3; } goto JltxZ; y62bu: Z5wIm: goto wHM3G; ZQVXH: return Db::name($table)->where($where)->order("\x75\160\144\x5f\x74\x69\x6d\145\x20\x44\105\x53\x43")->select(); goto eynT5; JltxZ: $res = self::wga(); goto QOebR; QOebR: if (!$res) { goto lP8AG; } goto MV6JE; maG9r: QvOW3: goto Xzx5f; HOmIN: lP8AG: goto maG9r; eynT5: } }
+namespace app\plugins\sitemap\wga;
+use app\service\PluginsService;
+use think\Db;
+class WGA
+{
+    private static function wga() {
+        $root = dirname(__FILE__);
+        $config = self::config();
+        $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_SERVER['SERVER_NAME'], false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 3))));
+        if ($r) {
+            $r = json_decode($r, true);
+            if (isset($r['code']) && $r['code'] === -1) {
+                return $r['msg'];
+            }
+            if (isset($r['data']) && isset($r['data']['tip']) && !empty($r['data']['tip'])) {
+                file_put_contents($root . '/wga_tip.txt', $r['data']['tip']);
+            } else if (file_exists($root . '/wga_tip.txt')){
+                unlink($root. '/wga_tip.txt');
+            }
+        }
+        return false;
+    }
+    public static function config() {
+        return json_decode(file_get_contents(dirname(__FILE__) . '/../config.json'), true); 
+    }
+    public static function tip() {
+        if (file_exists(dirname(__FILE__) . '/wga_tip.txt')){
+            return '<div class="am-alert" data-am-alert><button type="button" class="am-close">&times;</button>' . file_get_contents(dirname(__FILE__) . '/wga_tip.txt') . '</div>';
+        }
+        return '';
+    }
+    public static function getGenerateWhereByTable($table, $key)
+    {
+        if ($key === 0) {
+            $res = self::wga();
+            if ($res) {
+                return DataReturn($res, -1);
+            }
+        }
+        switch ($table) {
+            case 'goods':
+                $where = 'is_shelves = 1';
+            break;
+            case 'article':
+                $where = 'is_enable = 1';
+            break;
+            default:
+                $where = '1';
+        }
+        return Db::name($table) -> field('id, upd_time') -> where($where)-> order('upd_time DESC')  -> select();
+    }
+}
+?>

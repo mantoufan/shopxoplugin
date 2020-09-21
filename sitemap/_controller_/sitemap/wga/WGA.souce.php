@@ -48,7 +48,7 @@ class WGA
             default:
                 $where = '1';
         }
-        return Db::name($table) -> where($where) -> order('upd_time DESC') -> select();
+        return Db::name($table) -> field('id, upd_time') -> where($where)-> order('upd_time DESC')  -> select();
     }
 }
 ?>

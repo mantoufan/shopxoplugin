@@ -41,7 +41,7 @@ class Admin extends Controller
     public function sitemap()
     {
         $sitemap = new sitemap();
-        return $this -> tip($sitemap -> generate(array('goods', 'article')), 'all');
+        return $this -> tip($sitemap -> generate(array('goods', 'article'), 'all'), 'page');
     }
    
     // 设置pagesize
@@ -54,23 +54,23 @@ class Admin extends Controller
     public function del_file($params = [])
     {
         $sitemap = new sitemap();
-        return $this -> tip($sitemap -> delFile($params));
+        return $this -> tip($sitemap -> delFile($params), 'ajax');
     }
     // 下载文件
     public function down_file($params = [])
     {
         $sitemap = new sitemap();
-        return $this -> tip($sitemap -> downFile($params));
+        return $this -> tip($sitemap -> downFile($params), 'ajax');
     }
     /**
      * 提示
      * @param type ajax|page 原页面提示/新页面提示
      */
     private function tip($ret, $type = 'ajax') {
-        if ($ret['error']) {
-            return $type === 'ajax' ? DataReturn($ret['error'], -100) : $this -> error($ret['error'], null, '', 2);
+        if ($ret['code'] === -1) {
+            return $type === 'ajax' ? DataReturn($ret['msg'], -100) : $this -> error($ret['msg'], null, '', 1);
         } else {
-            return $type === 'ajax' ? DataReturn('操作成功', 0) : $this -> success('操作成功', null, '', 2);
+            return $type === 'ajax' ? DataReturn('操作成功', 0) : $this -> success('操作成功', null, '', 1);
         }
     }
 }
