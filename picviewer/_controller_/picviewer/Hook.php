@@ -21,24 +21,52 @@ class Hook extends Controller
             switch($params['hook_name'])
             {
                 case 'plugins_css' :
-                    $ret = __MY_ROOT_PUBLIC__.'static/plugins/css/picviewer/index/jquery.mtfpicviewer.css';
+                    $ret = $this->getCSS('array');
                     break;
                 case 'plugins_js' :
-                    $ret = array(
-                        __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/jquery.mtfpicviewer.js',
-                        __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/rgbaster.min.js',
-                        __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/style.js',
-                    );
+                    $ret = $this->getJS('array');
                     break;
+                case 'plugins_admin_common_header' :
+                    $ret = $this->getCSS('html');
                 case 'plugins_common_header' :
-                    $ret = $this->getStyle();
+                    $ret .= $this->getStyle();
                     break;
+                case 'plugins_admin_common_page_bottom' :
+                    $ret = $this->getJS('html');
                 case 'plugins_common_page_bottom' :
-                    $ret = $this->getScript();
+                    $ret .= $this->getScript($params);
                     break;
             }
         }
         return $ret;
+    }
+    private function getCSS($type = 'array')
+    {
+        $ar = array(__MY_ROOT_PUBLIC__.'static/plugins/css/picviewer/index/jquery.mtfpicviewer.css');
+        if ($type === 'html') {
+            $html = '';
+            foreach($ar as $k => $v) {
+                $html .= '<link rel="stylesheet" type="text/css" href="' . $v . '" />';
+            }
+            return $html;
+        }
+        return $ar;
+    }
+    private function getJS($type = 'array')
+    {
+        $ar = array(
+            __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/jquery.mtfpicviewer.js',
+            __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/rgbaster.min.js',
+            __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/style.js',
+        );
+        if ($type === 'html') {
+            $html = '';
+            foreach($ar as $k => $v) {
+                $html .= '<script type="text/javascript" src="' . $v . '"></script>';
+            }
+            return $html;
+        }
+        return $ar;
     }
     // 获取样式
     private function getStyle()
@@ -58,7 +86,7 @@ class Hook extends Controller
         }
     }
     // 获取脚本
-    private function getScript()
+    private function getScript($params)
     {
         $ret = PluginsService::PluginsData('picviewer');
         if($ret['code'] == 0)
@@ -72,7 +100,23 @@ class Hook extends Controller
                 if (isset($ret['data']['scroll_auto']) && !empty($ret['data']['scroll_auto'])) {
                     $opt.= ', onClose(curIndex) {pluginPicviewer.scrollAuto(curIndex)}';
                 }
-                return "<script>$('.detail-content, .article-content, .customview-content').mtfpicviewer(" . $opt . "});$('.goods-comment-content').mtfpicviewer(" . $opt . ", parentSelector: '.comment-images'});</script>";
+
+                $selectors = Array();
+                $script = Array();
+                if ($params['hook_name'] === 'plugins_admin_common_page_bottom') {
+                    // 适配后台页面
+                    $q = isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : $_SERVER['REQUEST_URI'];
+                    if (stripos($q, '/slide/') || stripos($q, '/brand/') || stripos($q, '/apphomenav/') || stripos($q, '/appcenternav/')) { // 首页轮播 品牌管理 首页导航 用户中心导航
+                        $selectors []= '.am-table';
+                        if (stripos($q, '/slide/')) {
+                            $script []= "$('.am-table img').css({'width':'100%','height':'auto','padding':'5px 10px','vertical-align':'middle'})";
+                        } 
+                    } elseif (stripos($q, '/goods/detail/id')) { // 商品详情
+                        $selectors []= '.am-panel-bd';
+                    }
+                }
+                
+                return "<script>$('.detail-content, .article-content, .customview-content, .plug-file-upload-view" . (!empty($selectors) ? ', ' . implode(', ', $selectors) : '') . "').mtfpicviewer(" . $opt . "});$('.goods-comment-content').mtfpicviewer(" . $opt . ", parentSelector: '.comment-images'});" . implode(';', $script) . "</script>";
             } else {
                 return '';
             }           
