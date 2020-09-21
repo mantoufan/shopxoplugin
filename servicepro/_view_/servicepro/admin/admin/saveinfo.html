@@ -303,12 +303,12 @@
                 <div class="am-panel-bd">
                     <div class="am-form-group">
                         <label>自定义CSS：PC版</label>
-                        <textarea name="css_pc" rows="5">{{$data['css_pc'] | RAW}}</textarea>
+                        <textarea name="css_pc" rows="5">{{if isset($data['css_pc'])}}{{$data['css_pc'] | RAW}}{{/if}}</textarea>
                         <span class="am-form-group-label-tips">以上CSS只会在PC网站生效</span>
                     </div>
                     <div class="am-form-group">
                         <label>自定义CSS：H5移动版（含公众号）</label>
-                        <textarea name="css_mobile" rows="5">{{$data['css_mobile'] | RAW}}</textarea>
+                        <textarea name="css_mobile" rows="5">{{if isset($data['css_mobile'])}}{{$data['css_mobile'] | RAW}}{{/if}}</textarea>
                         <span class="am-form-group-label-tips">以上CSS只会在H5移动版（含微信公众号）生效</span>
                     </div>
                     <div class="am-form-group">

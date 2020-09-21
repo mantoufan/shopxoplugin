@@ -164,7 +164,12 @@ class Hook extends Controller
                 );
                 $conf['isHome'] = $module_name.$controller_name.$action_name === 'indexindexindex';
                 $conf['isMicroMessenger'] = strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== FALSE;
-                unset($ret['data']['css_pc'], $ret['data']['css_mobile']);
+                if (isset($ret['data']['css_pc'])) {
+                    unset($ret['data']['css_pc']);
+                }
+                if (isset($ret['data']['css_mobile'])) {
+                    unset($ret['data']['css_mobile']);
+                }
             }
             $this->assign('data', $ret['data']);
             $this->assign('conf', $conf);

@@ -243,13 +243,13 @@
                     <div class="items">
                         <label>自定义CSS：PC版</label>
                         <div class="am-form">
-                            <textarea name="css_pc" rows="5" disabled>{{$data['css_pc'] | RAW}}</textarea>
+                            <textarea name="css_pc" rows="5" disabled>{{if isset($data['css_pc'])}}{{$data['css_pc'] | RAW}}{{/if}}</textarea>
                         </div>
                     </div>
                     <div class="items">
                         <label>自定义CSS：H5移动版（含公众号）</label>
                         <div class="am-form">
-                            <textarea name="css_mobile" rows="5" disabled>{{$data['css_mobile'] | RAW}}</textarea>
+                            <textarea name="css_mobile" rows="5" disabled>{{if isset($data['css_mobile'])}}{{$data['css_mobile'] | RAW}}{{/if}}</textarea>
                         </div>
                     </div>
                 </div>
