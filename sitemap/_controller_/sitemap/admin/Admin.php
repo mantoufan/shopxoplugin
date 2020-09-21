@@ -67,7 +67,7 @@ class Admin extends Controller
      * @param type ajax|page 原页面提示/新页面提示
      */
     private function tip($ret, $type = 'ajax') {
-        if ($ret['code'] === -1) {
+        if (isset($ret['code']) && $ret['code'] === -1) {
             return $type === 'ajax' ? DataReturn($ret['msg'], -100) : $this -> error($ret['msg'], null, '', 1);
         } else {
             return $type === 'ajax' ? DataReturn('操作成功', 0) : $this -> success('操作成功', null, '', 1);

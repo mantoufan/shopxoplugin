@@ -70,7 +70,10 @@ class sitemap {
                 if ($type === 'all') {
                     $result = WGA::getGenerateWhereByTable($table, $key);
                     if (isset($result['msg'])) {
-                        return array('error' => $result['msg']);
+                        return array(
+                            'code' => -1,
+                            'msg' => $result['msg']
+                        );
                     }
                     foreach($result as $key => $row) {
                         $row['url'] = $this -> getUrl($table, $row['id']);
