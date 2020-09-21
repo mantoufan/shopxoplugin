@@ -59,7 +59,15 @@
     border: 0;
 }
 .servicepro .cn ul li span, .servicepro .cn ul li a {
+    display: inline-block;
     color: #777;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.servicepro .cn ul li span {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .servicepro .cn ul li img {
     vertical-align: middle;
