@@ -97,10 +97,7 @@ class Hook extends Controller
                     $setBgWithDominantColor = '(curIndex) {pluginPicviewer.setBgWithDominantColor(curIndex, \'' . (isset($ret['data']['background_color']) && !empty($ret['data']['background_color']) ? $ret['data']['background_color'] : '') . '\')}';
                     $opt.= ', onChange' . $setBgWithDominantColor . ', onOpen' . $setBgWithDominantColor;
                 }
-                if (isset($ret['data']['scroll_auto']) && !empty($ret['data']['scroll_auto'])) {
-                    $opt.= ', onClose(curIndex) {pluginPicviewer.scrollAuto(curIndex)}';
-                }
-
+                
                 $selectors = Array();
                 $script = Array();
                 if ($params['hook_name'] === 'plugins_admin_common_page_bottom') {
@@ -114,6 +111,8 @@ class Hook extends Controller
                     } elseif (stripos($q, '/goods/detail/id')) { // 商品详情
                         $selectors []= '.am-panel-bd';
                     }
+                } elseif (isset($ret['data']['scroll_auto']) && !empty($ret['data']['scroll_auto'])) {
+                    $opt.= ', onClose(curIndex) {pluginPicviewer.scrollAuto(curIndex)}';
                 }
                 
                 return "<script>$('.detail-content, .article-content, .customview-content, .plug-file-upload-view" . (!empty($selectors) ? ', ' . implode(', ', $selectors) : '') . "').mtfpicviewer(" . $opt . "});$('.goods-comment-content').mtfpicviewer(" . $opt . ", parentSelector: '.comment-images'});" . implode(';', $script) . "</script>";
