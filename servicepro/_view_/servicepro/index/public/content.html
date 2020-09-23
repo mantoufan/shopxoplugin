@@ -2,7 +2,7 @@
 {{if $conf['isMobile'] && isset($data['css_mobile'])}}<style>{{:htmlspecialchars_decode($data['css_mobile'])}}</style>{{elseif  isset($data['css_pc'])}}<style>{{:htmlspecialchars_decode($data['css_pc'])}}</style>{{/if}}
 {{elseif $conf['type'] eq 'title' }}
     {{if !$conf['isMobile'] && isset($data['available_fix']) && $data['available_fix']}}
-        <a class="servicepro-btn servicepro-fix" data-am-modal="{target: '#js_servicepro_modal'}">
+        <a class="servicepro-btn-fix servicepro-fix" data-am-modal="{target: '#js_servicepro_modal'}">
             <i class="am-icon-comments"></i>
             联系客服
         </a>

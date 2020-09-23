@@ -99,10 +99,15 @@
 .servicepro .am-icon-weixin {
     color: #1aad19;
 }
-.servicepro-btn {
-    float: right;
+.detail-title {
+    position: relative;
+}
+.servicepro-btn-fix {
+    position: absolute;
+    top: 0;
+    right: 0;
     font-size: 13px;
-    font-weight: normal;
+    font-weight: normal
 }
 .servicepro-modal .am-modal-dialog {
     border-radius: 5px;
