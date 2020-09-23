@@ -25,10 +25,11 @@ if (serviceproBox.length > 0)
     }
 }
 var serviceproAr = [
-    {k: 'float', j: __attachment_host__ + '/static/plugins/js/servicepro/index/float.js', cb: function() {
+    {k: 'float', j: __attachment_host__ + '/static/plugins/js/servicepro/index/float.js'},
+    {k: 'fix', j: __attachment_host__ + '/static/plugins/js/servicepro/index/fix.js', cb: function() {
         var click_fix = serviceproData['click_fix'] || '0';
         if (click_fix !== '0') {
-            $('.servicepro-btn, .nav-icon-comments').attr('data-am-modal','').clcik(function(e){
+            $('.servicepro-btn, .nav-icon-comments').attr('data-am-modal','').click(function(e){
                 e.preventDefault();
                 switch(click_fix) {
                     case '1':
@@ -44,7 +45,6 @@ var serviceproAr = [
             })
         }
     }},
-    {k: 'fix', j: __attachment_host__ + '/static/plugins/js/servicepro/index/fix.js'},
     {k: 'chat_daovoice', j: '//widget.daovoice.io/widget/e9333ef8.js', bb: function() {
         var e = window, n = 'daovoice';
         e.DaoVoiceObject = '';
