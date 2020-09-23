@@ -1,0 +1,157 @@
+.servicepro .float-left, .servicepro .content {
+    background:#bbb;
+}
+.servicepro .float-left {
+    border-radius: 5px 0 0 5px;
+}
+.servicepro {
+    position: fixed;
+    top: 30%;
+    right: 0px;
+    z-index: 1001;
+    height: 120px;
+    font-size: 12px;
+    opacity: .8;
+}
+.servicepro .float-left {
+    width: 35px;
+    float:left;
+    position: relative;
+    z-index:1;
+    margin-top: 0;
+    height: 120px;
+}
+.servicepro .float-left a {
+    font-size:0;
+    text-indent: -999em;
+}
+.servicepro .content {
+    float: left;
+    padding: 5px;
+    overflow:hidden;
+    width: 140px;
+    margin-right:-150px;
+}
+.servicepro .content .cn {
+    background:#F7F7F7;
+}
+.servicepro .cn .title {
+    font-size: 14px;
+    color: #333;
+    font-weight:600;
+    line-height:24px;
+    padding:5px;
+    text-align:center;
+    margin: 0;
+}
+.servicepro .cn ul {
+    padding:0px;
+    margin: 0;
+}
+.servicepro .cn ul li {
+    line-height: 38px;
+    height:38px;
+    border-bottom: solid 1px #E6E4E4;
+    overflow: hidden;
+    text-align:center;
+}
+.servicepro .cn ul li:last-child {
+    border: 0;
+}
+.servicepro .cn ul li span, .servicepro .cn ul li a {
+    display: inline-block;
+    color: #777;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.servicepro .cn ul li span {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.servicepro .cn ul li img {
+    vertical-align: middle;
+}
+.servicepro .btn-open, .servicepro .btn-ctn {
+    position: relative;
+    z-index:9;
+    top:0;
+    left: 0;
+    background-image: url(../../../images/servicepro/btn-ctn.png);
+    background-repeat: no-repeat;
+    display:block;
+    height: 120px;
+    background-size: 55px;
+}
+.servicepro .btn-open {
+    background-position: 3px 10px;
+}
+.servicepro .btn-ctn {
+    background-position: -24px 10px;
+    display: none;
+}
+.servicepro ul li.top {
+    border-bottom: solid #ACE5F9 1px;
+}
+.servicepro ul li.bot {
+    border-bottom: none;
+}
+.servicepro .am-icon-weixin {
+    color: #1aad19;
+}
+.servicepro-btn {
+    float: right;
+    font-size: 13px;
+    font-weight: normal;
+}
+.servicepro-modal .am-modal-dialog {
+    border-radius: 5px;
+    opacity: .8;
+}
+.servicepro-modal .am-modal-bd li {
+    float: left;
+    width: 50%;
+    padding: 0 5px;
+    line-height: 3;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.servicepro-modal .am-modal-bd::after {
+    display: block;
+    content: ' ';
+    clear: both;
+}
+.servicepro-qrcodes {
+    clear: both;
+    text-align: center;
+}
+.servicepro-qrcodes a {
+    display: inline-block;
+    margin: 2px;
+}
+.servicepro-qrcodes img {
+    max-width: 118px;
+}
+.servicepro, .servicepro-fix, .servicepro-box {
+    display: none;
+}
+.daodream-composer-action-button {
+    display: inline !important;
+}
+@media only screen and (max-width:640px) {
+    .buy-nav .buy-nav-opt {
+        display: flex;
+    }
+    .buy-nav .buy-nav-opt > * {
+        flex: 1;
+    }
+    .buy-nav .nav-icon {
+        width: 100% !important;
+    }
+    .buy-nav .am-icon-fw {
+        display: block;
+        width: auto;
+        height: .8em;
+        line-height: 1.5em;
+    }
+}
