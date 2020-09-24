@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="am-form-group express-items">
-                <label class="block">快递代码<span class="am-form-group-label-tips"> 选填，默认自动识别快递，填写有助于准确度，快递代码请参考 <a href='https://www.kuaidi100.com/download/chaxun(20140729).doc'>点击下载</a></span></label>
+                <label class="block">快递代码<span class="am-form-group-label-tips"> 选填，默认自动识别快递，填写有助于准确度，快递代码请参考 <a href='https://www.kuaidi100.com/download/chaxun(20140729).doc'>点击下载</a>。没有的快递公司请在 网站管理 的 快递管理 中添加。</span></label>
                 {{if !empty($express_list)}}
                     {{foreach $express_list as $express}}
                     	{{if $express.is_enable eq 1}}
