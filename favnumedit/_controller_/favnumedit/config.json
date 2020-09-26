@@ -1,0 +1,34 @@
+{
+    "base":{
+        "plugins":"favnumedit",
+        "name":"收藏数量修改",
+        "logo":"\/static\/upload\/images\/plugins_favnumedit\/icon.png",
+        "author":"小宇",
+        "author_url":"https:\/\/www.madfan.cn",
+        "version":"1.0.0",
+        "desc":"修改商品收藏数量，不影响真实收藏。",
+        "apply_terminal":[
+            "pc",
+            "h5",
+            "ios",
+            "android",
+            "weixin",
+            "alipay",
+            "baidu",
+            "toutiao",
+            "qq"
+        ],
+        "apply_version":[
+            "1.5.0",
+            "1.6.0",
+            "1.7.0",
+            "1.8.0",
+            "1.8.1",
+            "1.9.0"
+        ],
+        "is_home":false
+    },
+    "hook":{
+        
+    }
+}
