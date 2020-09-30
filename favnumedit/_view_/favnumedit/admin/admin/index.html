@@ -1,11 +1,28 @@
 {{include file="public/header" /}}
-
 <!-- right content start  -->
 <div class="content-right">
     <div class="content">
-        <h1>后台管理页面</h1>
-        {{:print_r($data)}}
-        <p class="msg">{{$msg}}</p>
+        <legend>
+            <span class="fs-16">收藏数量修改<sup>Y站</sup></span>
+            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+        </legend>
+        {{$wga_tip | RAW}}
+        <div class="favnumedit-content">
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">基础配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>开关</label>
+                        <div>
+                            {{if isset($data['available']) && !empty($data['available'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{:PluginsAdminUrl('favnumedit', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑及更多功能</a>
+        </div>
     </div>
 </div>
 <!-- right content end  -->

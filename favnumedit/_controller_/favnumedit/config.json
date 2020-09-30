@@ -6,7 +6,7 @@
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
         "version":"1.0.0",
-        "desc":"修改商品收藏数量，不影响真实收藏。",
+        "desc":"修改单个或按最大最小值随机、按销量、按访问次数等批量增加商品收藏数量，不影响真实收藏。",
         "apply_terminal":[
             "pc",
             "h5",
@@ -29,6 +29,11 @@
         "is_home":false
     },
     "hook":{
-        
+        "plugins_view_admin_goods_save":[
+            "app\\plugins\\favnumedit\\Hook"
+        ],
+        "plugins_service_goods_save_handle":[
+            "app\\plugins\\favnumedit\\Hook"
+        ]
     }
 }

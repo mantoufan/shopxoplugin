@@ -1,0 +1,107 @@
+{{include file="public/header" /}}
+<style>
+    input[type=number] {
+        display: inline-block !important;
+        width: 150px !important;
+    }
+</style>
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content">
+        <!-- form start -->
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('favnumedit', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('favnumedit', 'admin', 'saveinfo')}}" enctype="multipart/form-data">
+           <legend>
+                <span class="fs-16">收藏数量修改<sup>Y站</sup></span>
+                <a href="{{:PluginsAdminUrl('favnumedit', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+            </legend>
+            {{$wga_tip | RAW}}
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">基础配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>开关</label>
+                        <div>
+                            <input name="available" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 收藏 输入框。<br>
+                                　　　　要修改的收藏数量必须 > 商品真实收藏数量。<br>
+                                　　　　<b>使用本插件增减、批量增加收藏数量，不会影响真实收藏数据。仍建议您备份数据库，保证绝对安全。</b></span>
+                        </div>
+                    </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">批量增加收藏数量</span><span class="am-form-group-label-tips">以下选项同时设置，效果叠加，不改请留空。设置好，点保存开始增加</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>按最小值 ~ 最大值</label><span class="am-form-group-label-tips">单位：个</span>
+                        <div>
+                            <input type="number" name="fav_add_count_min" placeholder="最小增加量" class="am-radius favnumedit-min">
+                            <input type="number" name="fav_add_count_max" placeholder="最大增加量" class="am-radius favnumedit-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将在 最小增加量 和 最大增加量 之间，随机增加，尽量让每个商品的收藏数不同。<br>
+                                　　　　设置本选项，会限制后面选项的最小和最大增加量。</span>
+                        </div>
+                        <label>按销量</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="fav_add_sales_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius favnumedit-min">
+                            <input type="number" name="fav_add_sales_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius favnumedit-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将在 该商品销量 * 最小增加百分比 / 100 和 该商品销量 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的收藏数不同，并且与销量正相关。</span>
+                        </div>
+                        <label>按浏览次数</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="fav_add_access_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius favnumedit-min">
+                            <input type="number" name="fav_add_access_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius favnumedit-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将在 该商品浏览次数 * 最小增加百分比 / 100 和 该商品浏览次数 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的收藏数不同，并且与浏览次数正相关。</span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">批量重置收藏数量</span><span class="am-form-group-label-tips">设置好，点保存开始重置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>批量重置收藏数量</label>
+                        <div>
+                            <input type="text" name="fav_reset" placeholder="需要重置，请输入3个0，不需要留空即可" class="am-radius">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将重置为真实收藏数量，通过本插件增加的收藏数量都会被清空。</span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="am-form-group am-form-group-refreshing">
+                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
+            </div>
+        </form>
+        <!-- form end -->
+    </div>
+</div>
+<!-- right content end  --> 
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->
+<script>
+    $('.favnumedit-min').on('input', function() {
+        $(this).next().attr('min', $(this).val() || 0)
+    })
+    $('.favnumedit-max').on('input', function() {
+        $(this).prev().attr('max', $(this).val() || 0)
+    })
+</script>  
