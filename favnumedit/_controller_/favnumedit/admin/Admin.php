@@ -57,7 +57,14 @@ class Admin extends Controller
      */
     public function save($params = [])
     {
-        return WGA::save($params);
+        try {
+            return WGA::save($params);
+        } catch (\Exception $e) {
+            return array(
+                'code' => -1,
+                'msg' => $e->getMessage()
+            );
+        }
     }
 }
 ?>
