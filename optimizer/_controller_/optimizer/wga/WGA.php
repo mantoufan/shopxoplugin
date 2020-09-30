@@ -1,5 +1,47 @@
 <?php
-/*
- Encode by www.phpen.cn 
-*/
- namespace app\plugins\servicepro\wga; use app\service\PluginsService; class WGA { private static function wga() { goto nnzj9; nnzj9: $root = dirname(__FILE__); goto YQcGy; Fvs25: gUviD: goto YFO_A; w6ueZ: $r = json_decode($r, true); goto jv0V1; L7mcu: H8OfZ: goto BER3I; mIoBa: if (!file_exists($root . "\x2f\167\147\x61\137\164\151\x70\x2e\x74\170\164")) { goto UroVA; } goto Ii_x_; f6f0j: return $r["\155\x73\147"]; goto Fvs25; hDLTe: UroVA: goto bcrX3; YFO_A: if (isset($r["\144\x61\164\141"]) && isset($r["\144\141\x74\141"]["\x74\151\160"]) && !empty($r["\144\141\164\x61"]["\164\151\160"])) { goto GF4sO; } goto mIoBa; Ii_x_: unlink($root . "\57\x77\x67\141\x5f\164\151\x70\x2e\x74\170\164"); goto hDLTe; sVAZQ: ir08l: goto L7mcu; YQcGy: $config = self::config(); goto Hghnj; hCvJ3: GF4sO: goto kC2Jo; kC2Jo: file_put_contents($root . "\x2f\167\x67\x61\x5f\x74\151\x70\x2e\x74\x78\x74", $r["\x64\141\x74\x61"]["\164\151\160"]); goto sVAZQ; BER3I: return false; goto YrtYW; bcrX3: goto ir08l; goto hCvJ3; Hghnj: $r = @file_get_contents("\150\164\x74\160\x73\x3a\x2f\x2f\x61\160\151\56\x6f\x73\61\x32\60\x2e\x63\157\155\57\167\147\141\57\166\145\x72\x69\146\x79\77\x6f\x75\x74\x5f\164\x79\160\x65\x3d\152\163\x6f\156\46\x6e\141\x6d\x65\x3d\163\150\157\160\170\157\x70\x6c\165\147\x69\x6e\137" . $config["\142\141\x73\x65"]["\160\154\165\147\151\x6e\x73"] . "\46\166\145\162\163\x69\x6f\x6e\x3d" . $config["\x62\141\x73\145"]["\x76\145\x72\163\151\x6f\x6e"] . "\x26\144\x65\x73\75\xe6\255\243\347\x89\210\xe9\xaa\214\xe8\257\x81\x26\x64\157\155\141\151\156\x3d" . $_SERVER["\x53\105\x52\126\x45\x52\x5f\x4e\101\x4d\x45"], false, stream_context_create(array("\x68\x74\x74\160" => array("\155\145\164\x68\x6f\144" => "\x47\105\x54", "\x74\x69\155\145\x6f\x75\x74" => 3)))); goto SA_sr; jv0V1: if (!(isset($r["\x63\157\144\x65"]) && $r["\143\x6f\144\x65"] === -1)) { goto gUviD; } goto f6f0j; SA_sr: if (!$r) { goto H8OfZ; } goto w6ueZ; YrtYW: } public static function config() { return json_decode(file_get_contents(dirname(__FILE__) . "\x2f\x2e\56\57\143\157\x6e\x66\x69\x67\56\152\163\157\x6e"), true); } public static function tip() { goto HakE_; X4bge: return ''; goto t9EI7; w6eCE: return "\x3c\144\151\x76\40\x63\x6c\141\x73\163\75\42\141\x6d\55\141\x6c\145\162\x74\42\40\x64\141\x74\x61\55\141\155\55\141\x6c\145\162\x74\76\74\142\165\164\x74\157\x6e\40\x74\x79\x70\145\x3d\42\x62\x75\x74\164\x6f\x6e\x22\x20\x63\154\x61\163\163\75\x22\x61\x6d\x2d\143\154\157\163\x65\42\x3e\46\x74\x69\x6d\x65\163\73\74\57\142\x75\x74\164\157\156\76" . file_get_contents(dirname(__FILE__) . "\x2f\x77\x67\x61\x5f\164\x69\160\56\x74\170\x74") . "\74\57\144\151\x76\x3e"; goto HDUjS; HDUjS: x6Rk1: goto X4bge; HakE_: if (!file_exists(dirname(__FILE__) . "\x2f\167\147\x61\x5f\x74\x69\x70\x2e\x74\x78\164")) { goto x6Rk1; } goto w6eCE; t9EI7: } public static function save($params = []) { goto DDDel; clfCR: if (!isset($params["\x6f\x6e\x6c\x69\x6e\x65\x5f\163\145\162\x76\x69\x63\145"])) { goto J0u8N; } goto BMn7W; sJb5z: $config = self::config(); goto JT_K_; eDO6p: if (!$res) { goto idlQh; } goto bPANd; JT_K_: return PluginsService::PluginsDataSave(["\x70\154\165\x67\x69\156\163" => $config["\142\x61\x73\x65"]["\160\154\x75\147\151\156\163"], "\x64\x61\164\x61" => $params]); goto mbNy8; crO0d: idlQh: goto clfCR; BMn7W: $params["\x6f\x6e\x6c\151\x6e\x65\x5f\163\145\x72\x76\151\x63\x65"] = preg_replace("\x2f\134\163\x2b\12\57", "\12", $params["\x6f\156\154\151\x6e\145\137\163\145\162\166\x69\x63\145"]); goto aAy8L; bPANd: return DataReturn($res, -1); goto crO0d; aAy8L: J0u8N: goto sJb5z; DDDel: $res = self::wga(); goto eDO6p; mbNy8: } }
+namespace app\plugins\servicepro\wga;
+use app\service\PluginsService;
+class WGA
+{
+    private static function wga() {
+        $root = dirname(__FILE__);
+        $config = self::config();
+        $_domain_ar = !empty($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST']) : array($_SERVER['SERVER_NAME']);
+        $_domain = reset($_domain_ar);
+        $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_domain, false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 3))));
+        if ($r) {
+            $r = json_decode($r, true);
+            if (isset($r['code']) && $r['code'] === -1) {
+                return $r['msg'];
+            }
+            if (isset($r['data']) && isset($r['data']['tip']) && !empty($r['data']['tip'])) {
+                file_put_contents($root . '/wga_tip.txt', $r['data']['tip']);
+            } else if (file_exists($root . '/wga_tip.txt')){
+                unlink($root. '/wga_tip.txt');
+            }
+        }
+        return false;
+    }
+    public static function config() {
+        return json_decode(file_get_contents(dirname(__FILE__) . '/../config.json'), true); 
+    }
+    public static function tip() {
+        if (file_exists(dirname(__FILE__) . '/wga_tip.txt')){
+            return '<div class="am-alert" data-am-alert><button type="button" class="am-close">&times;</button>' . file_get_contents(dirname(__FILE__) . '/wga_tip.txt') . '</div>';
+        }
+        return '';
+    }
+    public static function save($params = [])
+    {
+        $res = self::wga();
+        if ($res) {
+            return DataReturn($res, -1);
+        }
+        if (isset($params['online_service'])) {
+            $params['online_service'] = preg_replace("/\s+\n/", "\n", $params['online_service']);
+        }
+        $config = self::config();
+        return PluginsService::PluginsDataSave(['plugins'=>$config['base']['plugins'], 'data'=>$params]);
+    }
+}
+?>

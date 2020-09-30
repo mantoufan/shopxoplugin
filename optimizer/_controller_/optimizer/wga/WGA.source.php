@@ -6,9 +6,9 @@ class WGA
     private static function wga() {
         $root = dirname(__FILE__);
         $config = self::config();
-        $_host_ar = !empty($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST']) : array($_SERVER['SERVER_NAME']);
-        $_host = reset($_host_ar);
-        $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_host, false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 3))));
+        $_domain_ar = !empty($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST']) : array($_SERVER['SERVER_NAME']);
+        $_domain = reset($_domain_ar);
+        $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_domain, false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 3))));
         if ($r) {
             $r = json_decode($r, true);
             if (isset($r['code']) && $r['code'] === -1) {
