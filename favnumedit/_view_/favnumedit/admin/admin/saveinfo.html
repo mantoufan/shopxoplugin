@@ -38,10 +38,10 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label>按最小值 ~ 最大值</label><span class="am-form-group-label-tips">单位：个</span>
+                        <label>按最小值 ~ 最大值</label><span class="am-form-group-label-tips">单位：个，必填，最多不超过 100，超过请分多次操作</span>
                         <div>
-                            <input type="number" name="fav_add_count_min" placeholder="最小增加量" class="am-radius favnumedit-min">
-                            <input type="number" name="fav_add_count_max" placeholder="最大增加量" class="am-radius favnumedit-max">
+                            <input type="number" name="fav_add_count_min" min="0" max="100" placeholder="最小增加量" class="am-radius favnumedit-min">
+                            <input type="number" name="fav_add_count_max" min="0" max="100" placeholder="最大增加量" class="am-radius favnumedit-max">
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将在 最小增加量 和 最大增加量 之间，随机增加，尽量让每个商品的收藏数不同。<br>

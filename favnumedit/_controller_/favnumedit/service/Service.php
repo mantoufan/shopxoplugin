@@ -27,19 +27,49 @@ class Service
         return false;
     }
 
+    /**
+     * 获取数据库配置
+    */
+    private static function getDbConfig()
+    {
+        if(!file_exists(ROOT.'config/database.php'))
+        {
+            return FALSE;
+        }
+        return $db_config = include ROOT.'config/database.php';
+    }
+
     public static function saveDataAll($fav_count_min, $fav_count_max, $fields = array()) {
         if (is_numeric($fav_count_min) && is_numeric($fav_count_max) && $fav_count_min <= $fav_count_max) {
+            $MAXCOUNT = 100;
             $a = array();
             $sum = array();
             $fields_str = '';
-            $fav_count_ar = array($fav_count_min, $fav_count_max);
+            $fav_count_ar = array(min($fav_count_min, $MAXCOUNT), min($fav_count_max, $MAXCOUNT));
+
+            // 读取数据库前缀
+            $db_config = self::getDbConfig();
+            if ($db_config) {
+                $prefix = $db_config['prefix'];
+            } else {
+                return false;
+            }
+
             if (count($fields) > 0) {
-                foreach($fields as $field) {
+                foreach($fields as $k => $field) {
+                    $res = Db::query('SELECT max(' . $field['field'] . ') as maxcount FROM ' . $prefix . 'goods');
+                    if ($res && !empty($res[0]) && $res[0]['maxcount'] > $MAXCOUNT) {
+                        $_tmp = $res[0]['maxcount'] / $MAXCOUNT;
+                        $fields[$k]['max'] = $field['max'] / $_tmp;
+                        $fields[$k]['min'] = $field['min'] / $_tmp;
+                    }
                     $fields_str .= ',' . $field['field'];
                 }
             }
-            $ret = Db::name('goods')->field('id' . $fields_str)->select();
+
+            $ret = Db::query('SELECT id' . $fields_str . ' FROM ' . $prefix . 'goods ORDER BY id ASC');
             if ($ret) {
+                $_insert_pre = 'INSERT INTO ' . $prefix . 'goods_favor (goods_id, user_id, add_time) VALUES ';
                 foreach ($ret as $k => $v) {
                     if (count($fields) > 0) {
                         $fav_count_min = 0;
@@ -51,17 +81,21 @@ class Service
                     }
                     array_push($sum, rand($fav_count_min, $fav_count_max));
                     for ($i = 0; $i < end($sum); $i++) {
-                        array_push($a, array(
-                            'goods_id' => $v['id'],
-                            'user_id' => '0',
-                            'add_time' => time()
-                        ));
-                    } 
+                        array_push($a, '\'' . $v['id'] . '\', 0, \'' . time() . '\'');
+                        if (($i + 1) % 500 === 0) {
+                            Db::execute($_insert_pre . '(' . implode('),(', $a) . ')');
+                            $a = array();
+                        }
+                    }
+                    if (count($a) > 1) {
+                        Db::execute($_insert_pre . '(' . implode('),(', $a) . ')');
+                        $a = array();
+                    }
                 }
-                return Db::name('goods_favor')->insertAll($a) ? array(
+                return array(
                     'goods_count' => count($ret),
                     'goods_fav_count_sum' => array_sum($sum) 
-                ) : false;
+                );
             }
         }
         return false;
