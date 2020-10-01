@@ -73,7 +73,7 @@ class WGA
 
         $data = array();
         foreach($params as $k => $v) {
-            if (in_array($k, array('available'))) {
+            if (in_array($k, array('available', 'available_auto', 'auto_sales_count_every', 'auto_access_count_every', 'auto_add_time_count_every'))) {
                 $data[$k] = $params[$k];
             }
         }

@@ -5,8 +5,8 @@
         "logo":"\/static\/upload\/images\/plugins_favnumedit\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.0",
-        "desc":"修改单个或按最大最小值随机、按销量、按访问次数等批量增加商品收藏数量，不影响真实收藏。",
+        "version":"1.0.1",
+        "desc":"收藏数随销量、浏览次数、上架天数自动增加。修改单个商品，批量按销量、浏览次数或随机增加全部商品收藏数。不影响真实收藏数据。",
         "apply_terminal":[
             "pc",
             "h5",
@@ -33,6 +33,9 @@
             "app\\plugins\\favnumedit\\Hook"
         ],
         "plugins_service_goods_save_handle":[
+            "app\\plugins\\favnumedit\\Hook"
+        ],
+        "plugins_view_goods_detail_tabs_bottom":[
             "app\\plugins\\favnumedit\\Hook"
         ]
     }

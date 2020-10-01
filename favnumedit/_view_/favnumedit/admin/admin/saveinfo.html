@@ -4,6 +4,12 @@
         display: inline-block !important;
         width: 150px !important;
     }
+    input[type=number].fav-auto {
+        width: 33% !important;
+    }
+    .am-switch {
+        margin: 5px 0 10px;
+    }
 </style>
 <!-- right content start  -->
 <div class="content-right">
@@ -31,6 +37,22 @@
                                 　　　　<b>使用本插件增减、批量增加收藏数量，不会影响真实收藏数据。仍建议您备份数据库，保证绝对安全。</b></span>
                         </div>
                     </div>
+                    <div class="am-form-group">
+                        <label>开关：自动增加</label>
+                        <div>
+                            <input name="available_auto" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_auto']) and $data['available_auto'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            <input type="number" name="auto_sales_count_every" min="0" max="10000" placeholder="销量每加多少收藏加1" class="am-radius fav-auto" value="{{if !empty($data['auto_sales_count_every'])}}{{$data['auto_sales_count_every']}}{{/if}}">
+                            <input type="number" name="auto_access_count_every" min="0" max="10000" placeholder="浏览次数每加多少收藏加1" class="am-radius fav-auto" value="{{if !empty($data['auto_access_count_every'])}}{{$data['auto_access_count_every']}}{{/if}}">
+                            <input type="number" name="auto_add_time_count_every" min="0" max="10000" placeholder="商品上架每多少天收藏加1" class="am-radius fav-auto" value="{{if !empty($data['auto_add_time_count_every'])}}{{$data['auto_add_time_count_every']}}{{/if}}">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，当商品被浏览时，计算收藏数 = 销量数 / 1项设置值 + 浏览次数 / 2项设置值 + 商品上架天数 / 3项设置值。<br>
+                                　　　　计算收藏数 > 商品已有收藏数，则自动更新 收藏数。不影响真实收藏数据。</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">

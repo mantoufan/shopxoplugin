@@ -24,6 +24,10 @@ class Hook extends Controller
                 case 'plugins_service_goods_save_handle' :                    
                     $ret = $this->save($params);
                 break;
+                // 商品底部
+                case 'plugins_view_goods_detail_tabs_bottom' :                    
+                    $ret = $this->auto($params);
+                break;
                 default :
                     $ret = '';
             }
@@ -56,6 +60,18 @@ class Hook extends Controller
     private function save($params) {
         if (!empty($params['params']['plugins_favnumedit_fav_count']) && isset($params['params']['plugins_favnumedit_fav_count_source']) && $params['params']['plugins_favnumedit_fav_count'] !== $params['params']['plugins_favnumedit_fav_count_source']) {
             $ret = Service::saveData($params['params']['id'], $params['params']['plugins_favnumedit_fav_count']);
+        }
+    }
+
+    private function auto($params) {
+        if (!empty($params['goods_id'])) {
+            $ret = PluginsService::PluginsData('favnumedit');
+            if($ret['code'] == 0)
+            {
+                if (!empty($ret['data']['available_auto'])) {
+                    return '<script src=\'' . Service::PluginsHomeUrl(PluginsHomeUrl('favnumedit', 'auto', 'add', array('goods_id' => $params['goods_id'])), $params['goods_id'], 'admin') . '\'></script>';
+                }
+            }
         }
     }
 }

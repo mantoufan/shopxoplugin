@@ -2,6 +2,8 @@
 namespace app\plugins\favnumedit\service;
 
 use think\Db;
+use app\service\PluginsService;
+use app\service\GoodsFavorService;
 
 class Service
 {
@@ -47,7 +49,6 @@ class Service
             $fields_str = '';
             $fav_count_ar = array(min($fav_count_min, $MAXCOUNT), min($fav_count_max, $MAXCOUNT));
 
-            // 读取数据库前缀
             $db_config = self::getDbConfig();
             if ($db_config) {
                 $prefix = $db_config['prefix'];
@@ -115,6 +116,57 @@ class Service
         }
         return false;
     }
+
+    public static function addDataAuto($goods_id)
+    {
+        if ($goods_id) {
+            $ret = PluginsService::PluginsData('favnumedit');
+            if($ret['code'] == 0)
+            {
+                if (!empty($ret['data']['available_auto'])) {
+
+                    $db_config = self::getDbConfig();
+                    if ($db_config) {
+                        $prefix = $db_config['prefix'];
+                    } else {
+                        return false;
+                    }
+                    
+                    $res = Db::query('SELECT sales_count, access_count, add_time  FROM ' . $prefix . 'goods WHERE id = \'' . $goods_id . '\'');
+        
+                    if ($res && $res[0]) {
+                        $sales_count = $res[0]['sales_count'];
+                        $access_count = $res[0]['access_count'];
+                        $add_time = $res[0]['add_time'];
+
+                        $count = 0;
+
+                        if (!empty($ret['data']['auto_sales_count_every'])) {
+                            $count += $sales_count / $ret['data']['auto_sales_count_every'];
+                        }
+
+                        if (!empty($ret['data']['auto_access_count_every'])) {
+                            $count += $access_count / $ret['data']['auto_access_count_every'];
+                        }
+                        
+                        if (!empty($ret['data']['auto_add_time_count_every'])) {
+                            $count += (time() - $add_time) / 86400 / $ret['data']['auto_add_time_count_every'];
+                        }
+
+                        if ($count) {
+                            $fav_count = GoodsFavorService::GoodsFavorTotal(array('goods_id' => $goods_id));
+
+                            if ($count > $fav_count) {
+                                return self::addData($goods_id, floor($count) - $fav_count);
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+        return false;
+    }
     
     public static function removeData($goods_id, $fav_count) {
         $a = array();
@@ -133,6 +185,15 @@ class Service
 
     public static function resetDataAll() {
         return Db::name('goods_favor')->where(['user_id'=>'0'])->delete();
+    }
+
+    public static function PluginsHomeUrl($url) {
+        if (stripos($url, '?') === FALSE) {
+            $url = str_replace('/index/plugins/index/pluginsname/', '/?s=/index/plugins/index/pluginsname/', $url);
+        } else {
+            $url = str_replace('index.php?s=', '?s=', $url);
+        }
+        return $url;
     }
 }
 ?>
