@@ -1,12 +1,12 @@
 {
     "base":{
-        "plugins":"favnumedit",
-        "name":"收藏数量修改",
-        "logo":"\/static\/upload\/images\/plugins_favnumedit\/icon.png",
+        "plugins":"dataprettify",
+        "name":"数据美化",
+        "logo":"\/static\/upload\/images\/plugins_dataprettify\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.1",
-        "desc":"收藏数随销量、浏览次数、上架天数自动增加。修改单个商品，批量按销量、浏览次数或随机增加全部商品收藏数。不影响真实收藏数据。",
+        "version":"1.0.2",
+        "desc":"收藏数、销量和人气等随销量、浏览次数、上架天数自动增加。单个或批量增加收藏数、销量、浏览次数。不影响真实收藏数据。",
         "apply_terminal":[
             "pc",
             "h5",
@@ -30,13 +30,13 @@
     },
     "hook":{
         "plugins_view_admin_goods_save":[
-            "app\\plugins\\favnumedit\\Hook"
+            "app\\plugins\\dataprettify\\Hook"
         ],
         "plugins_service_goods_save_handle":[
-            "app\\plugins\\favnumedit\\Hook"
+            "app\\plugins\\dataprettify\\Hook"
         ],
         "plugins_view_goods_detail_tabs_bottom":[
-            "app\\plugins\\favnumedit\\Hook"
+            "app\\plugins\\dataprettify\\Hook"
         ]
     }
 }

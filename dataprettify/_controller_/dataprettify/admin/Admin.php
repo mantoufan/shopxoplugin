@@ -1,8 +1,8 @@
 <?php
-namespace app\plugins\favnumedit\admin;
+namespace app\plugins\dataprettify\admin;
 use think\Controller;
 use app\service\PluginsService;
-use app\plugins\favnumedit\wga\WGA;
+use app\plugins\dataprettify\wga\WGA;
 /**
  * 后台管理
  * @author   小宇
@@ -15,12 +15,12 @@ class Admin extends Controller
     // 后台管理入口
     public function index($params = [])
     {
-        $ret = PluginsService::PluginsData('favnumedit');
+        $ret = PluginsService::PluginsData('dataprettify');
         if($ret['code'] == 0)
         {
             $this->assign('wga_tip', WGA::tip());
             $this->assign('data', $ret['data']);
-            return $this->fetch('../../../plugins/view/favnumedit/admin/admin/index');
+            return $this->fetch('../../../plugins/view/dataprettify/admin/admin/index');
         } else {
             return $ret['msg'];
         }
@@ -36,12 +36,12 @@ class Admin extends Controller
      */
     public function saveinfo($params = [])
     {
-        $ret = PluginsService::PluginsData('favnumedit');
+        $ret = PluginsService::PluginsData('dataprettify');
         if($ret['code'] == 0)
         {
             $this->assign('wga_tip', WGA::tip());
             $this->assign('data', $ret['data']);
-            return $this->fetch('../../../plugins/view/favnumedit/admin/admin/saveinfo');
+            return $this->fetch('../../../plugins/view/dataprettify/admin/admin/saveinfo');
         } else {
             return $ret['msg'];
         }

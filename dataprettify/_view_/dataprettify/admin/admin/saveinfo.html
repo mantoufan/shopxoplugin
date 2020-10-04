@@ -1,0 +1,255 @@
+{{include file="public/header" /}}
+<style>
+    input[type=number] {
+        display: inline-block !important;
+        width: 150px !important;
+    }
+    input[type=number].dataprettify-auto-input {
+        width: 25% !important;
+    }
+    .am-switch {
+        margin: 5px 0 10px;
+    }
+</style>
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content">
+        <!-- form start -->
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('dataprettify', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('dataprettify', 'admin', 'saveinfo')}}" enctype="multipart/form-data">
+           <legend>
+                <span class="fs-16">数据美化<sup>Y站</sup></span>
+                <a href="{{:PluginsAdminUrl('dataprettify', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+            </legend>
+            {{$wga_tip | RAW}}
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">基础配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>开关：收藏</label>
+                        <div>
+                            <input name="available_fav" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 收藏数量修改 输入框。<br>
+                                　　　　要修改的收藏数量必须 > 商品真实收藏数量。<br>
+                                　　　　<b>使用本插件增减、批量增加收藏数量，不会影响真实收藏数据。仍建议您备份数据库，保证绝对安全。</b></span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>开关：销量</label>
+                        <div>
+                            <input name="available_sales" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 销量修改 输入框。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>开关：浏览次数</label>
+                        <div>
+                            <input name="available_access" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 浏览次数修改 输入框。</b></span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>开关：自动增加收藏</label>
+                        <div>
+                            <input name="available_auto_fav" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_auto_fav']) and $data['available_auto_fav'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            <input type="number" name="auto_fav_sales_count_every" min="0" placeholder="销量每加多少收藏加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_fav_sales_count_every'])}}{{$data['auto_fav_sales_count_every']}}{{/if}}">
+                            <input type="number" name="auto_fav_access_count_every" min="0" placeholder="浏览次数每加多少收藏加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_fav_access_count_every'])}}{{$data['auto_fav_access_count_every']}}{{/if}}">
+                            <input type="number" name="auto_fav_add_time_count_every" min="0" placeholder="商品上架每多少天收藏加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_fav_add_time_count_every'])}}{{$data['auto_fav_add_time_count_every']}}{{/if}}">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，当商品被浏览时，计算收藏数 = 销量数 / 1项设置值 + 浏览次数 / 2项设置值 + 商品上架天数 / 3项设置值。<br>
+                                　　　　计算收藏数 > 商品已有收藏数，则自动更新 收藏数 为 计算收藏数。不影响真实收藏数据。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>开关：自动增加销量</label>
+                        <div>
+                            <input name="available_auto_sales" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_auto_sales']) and $data['available_auto_sales'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            <input type="number" name="auto_sales_sales_count_every" min="0" placeholder="销量每加多少销量加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_sales_sales_count_every'])}}{{$data['auto_sales_sales_count_every']}}{{/if}}">
+                            <input type="number" name="auto_sales_access_count_every" min="0" placeholder="浏览次数每加多少销量加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_sales_access_count_every'])}}{{$data['auto_sales_access_count_every']}}{{/if}}">
+                            <input type="number" name="auto_sales_add_time_count_every" min="0" placeholder="商品上架每多少天销量加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_sales_add_time_count_every'])}}{{$data['auto_sales_add_time_count_every']}}{{/if}}">
+                            <input type="number" name="auto_sales_rate" min="0" max="100" placeholder="百分之多少的可能更新销量" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_sales_rate'])}}{{$data['auto_sales_rate']}}{{/if}}">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，当商品被浏览时，计算销量 = 销量数 / 1项设置值 + 浏览次数 / 2项设置值 + 商品上架天数 / 3项设置值。<br>
+                                　　　　计算销量 > 商品已有销量，则根据 4项设置值(例如：0% 不更新。5% 商品被访问约20次更新一次。100% 一定更新) 自动更新 销量 为 计算销量。</span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>开关：自动增加浏览次数</label>
+                        <div>
+                            <input name="available_auto_access" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_auto_access']) and $data['available_auto_access'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                        <div>
+                            <input type="number" name="auto_access_sales_count_every" min="0" placeholder="销量每加多少浏览次数加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_access_sales_count_every'])}}{{$data['auto_access_sales_count_every']}}{{/if}}">
+                            <input type="number" name="auto_access_access_count_every" min="0" placeholder="浏览次数每加多少浏览次数加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_access_access_count_every'])}}{{$data['auto_access_access_count_every']}}{{/if}}">
+                            <input type="number" name="auto_access_add_time_count_every" min="0" placeholder="商品上架每多少天浏览次数加1" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_access_add_time_count_every'])}}{{$data['auto_access_add_time_count_every']}}{{/if}}">
+                            <input type="number" name="auto_access_rate" min="0" max="100" placeholder="百分之多少的可能更新浏览次数" class="am-radius dataprettify-auto-input" value="{{if !empty($data['auto_access_rate'])}}{{$data['auto_access_rate']}}{{/if}}">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">开启后，当商品被浏览时，计算浏览次数 = 销量数 / 1项设置值 + 浏览次数 / 2项设置值 + 商品上架天数 / 3项设置值。<br>
+                                　　　　计算浏览次数 > 商品已有浏览次数，则根据 4项设置值(例如：0% 不更新。5% 商品被访问约20次更新一次。100% 一定更新) 自动更新 浏览次数 为 计算浏览次数。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">批量增加收藏数量</span><span class="am-form-group-label-tips">以下选项同时设置，效果叠加，不改请留空。设置好，点保存开始增加</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>按最小值 ~ 最大值</label><span class="am-form-group-label-tips">单位：个 最多不超过 100，超过请分多次操作</span>
+                        <div>
+                            <input type="number" name="fav_add_count_min" min="0" max="100" placeholder="最小增加量" class="am-radius dataprettify-min">
+                            <input type="number" name="fav_add_count_max" min="0" max="100" placeholder="最大增加量" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将在 最小增加量 和 最大增加量 之间，随机增加，尽量让每个商品的收藏数不同。<br>
+                                　　　　设置本选项，会限制后面选项的最小和最大增加量。</span>
+                        </div>
+                        <label>按销量</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="fav_add_sales_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius dataprettify-min">
+                            <input type="number" name="fav_add_sales_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将在 该商品销量 * 最小增加百分比 / 100 和 该商品销量 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的收藏数不同，并且与销量正相关。</span>
+                        </div>
+                        <label>按浏览次数</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="fav_add_access_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius dataprettify-min">
+                            <input type="number" name="fav_add_access_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将在 该商品浏览次数 * 最小增加百分比 / 100 和 该商品浏览次数 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的收藏数不同，并且与浏览次数正相关。</span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">批量增加销量</span><span class="am-form-group-label-tips">以下选项同时设置，效果叠加，不改请留空。设置好，点保存开始增加</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>按最小值 ~ 最大值</label><span class="am-form-group-label-tips">单位：个</span>
+                        <div>
+                            <input type="number" name="sales_add_count_min" min="0" placeholder="最小增加量" class="am-radius dataprettify-min">
+                            <input type="number" name="sales_add_count_max" min="0" placeholder="最大增加量" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的销量，将在 最小增加量 和 最大增加量 之间，随机增加，尽量让每个商品的销量不同。<br>
+                                　　　　设置本选项，会限制后面选项的最小和最大增加量。</span>
+                        </div>
+                        <label>按销量</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="sales_add_sales_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius dataprettify-min">
+                            <input type="number" name="sales_add_sales_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的销量，将在 该商品销量 * 最小增加百分比 / 100 和 该商品销量 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的销量不同，并且与已有销量正相关。</span>
+                        </div>
+                        <label>按浏览次数</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="sales_add_access_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius dataprettify-min">
+                            <input type="number" name="sales_add_access_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的销量，将在 该商品浏览次数 * 最小增加百分比 / 100 和 该商品浏览次数 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的销量不同，并且与浏览次数正相关。</span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">批量增加浏览次数</span><span class="am-form-group-label-tips">以下选项同时设置，效果叠加，不改请留空。设置好，点保存开始增加</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>按最小值 ~ 最大值</label><span class="am-form-group-label-tips">单位：次</span>
+                        <div>
+                            <input type="number" name="access_add_count_min" min="0" placeholder="最小增加量" class="am-radius dataprettify-min">
+                            <input type="number" name="access_add_count_max" min="0" placeholder="最大增加量" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的浏览次数，将在 最小增加量 和 最大增加量 之间，随机增加，尽量让每个商品的销量不同。<br>
+                                　　　　设置本选项，会限制后面选项的最小和最大增加量。</span>
+                        </div>
+                        <label>按销量</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="access_add_sales_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius dataprettify-min">
+                            <input type="number" name="access_add_sales_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的浏览次数，将在 该商品销量 * 最小增加百分比 / 100 和 该商品销量 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的浏览次数不同，并且与已有销量正相关。</span>
+                        </div>
+                        <label>按浏览次数</label><span class="am-form-group-label-tips">单位：百分比 范围：0 到 100</span>
+                        <div>
+                            <input type="number" name="access_add_access_count_min" min="0" max="100" placeholder="最小增加百分比" class="am-radius dataprettify-min">
+                            <input type="number" name="access_add_access_count_max" min="0" max="100" placeholder="最大增加百分比" class="am-radius dataprettify-max">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的浏览次数，将在 该商品浏览次数 * 最小增加百分比 / 100 和 该商品浏览次数 * 最大增加百分比 / 100 之间，随机增加。<br>
+                                　　　　如果设置了最小增加量，最大增加量，随机增加量会在两者之间。<br>
+                                　　　　尽量让每个商品的浏览次数不同，并且与已有浏览次数正相关。</span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">批量重置收藏数量</span><span class="am-form-group-label-tips">设置好，点保存开始重置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>批量重置收藏数量</label>
+                        <div>
+                            <input type="text" name="fav_reset" placeholder="需要重置，请输入3个0，不需要留空即可" class="am-radius">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将重置为真实收藏数量，通过本插件增加的收藏数量都会被清空。</span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="am-form-group am-form-group-refreshing">
+                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
+            </div>
+        </form>
+        <!-- form end -->
+    </div>
+</div>
+<!-- right content end  --> 
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->
+<script>
+    $('.dataprettify-min').on('input', function() {
+        $(this).next().attr('min', $(this).val() || 0)
+    })
+    $('.dataprettify-max').on('input', function() {
+        $(this).prev().attr('max', $(this).val() || 0)
+    })
+</script>  

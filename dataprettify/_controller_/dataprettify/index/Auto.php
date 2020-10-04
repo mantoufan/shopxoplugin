@@ -1,8 +1,8 @@
 <?php
-namespace app\plugins\favnumedit\index;
+namespace app\plugins\dataprettify\index;
 
 use think\Controller;
-use app\plugins\favnumedit\service\Service;
+use app\plugins\dataprettify\service\Service;
 
 class Auto extends Controller
 {

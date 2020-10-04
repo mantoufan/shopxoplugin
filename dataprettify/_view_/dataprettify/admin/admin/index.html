@@ -1,0 +1,95 @@
+{{include file="public/header" /}}
+<!-- right content start  -->
+<div class="content-right">
+    <div class="content">
+        <legend>
+            <span class="fs-16">数据美化<sup>Y站</sup></span>
+            <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+        </legend>
+        {{$wga_tip | RAW}}
+        <div class="dataprettify-content">
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">基础配置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>开关：收藏</label>
+                        <div>
+                            {{if !empty($data['available_fav'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>开关：销量</label>
+                        <div>
+                            {{if !empty($data['available_sales'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>开关：浏览次数</label>
+                        <div>
+                            {{if !empty($data['available_access'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>开关：自动增加收藏</label>
+                        <div>
+                            {{if !empty($data['available_auto_fav'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_fav_sales_count_every'])}}销量每加<b>{{$data['auto_fav_sales_count_every']}}</b>收藏加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_fav_access_count_every'])}}浏览次数每加<b>{{$data['auto_fav_access_count_every']}}</b>收藏加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_fav_add_time_count_every'])}}商品上架每<b>{{$data['auto_fav_add_time_count_every']}}</b>天收藏加1{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>开关：自动增加销量</label>
+                        <div>
+                            {{if !empty($data['available_auto_sales'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_sales_sales_count_every'])}}销量每加<b>{{$data['auto_sales_sales_count_every']}}</b>销量加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_sales_access_count_every'])}}浏览次数每加<b>{{$data['auto_fav_access_count_every']}}</b>销量加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_sales_add_time_count_every'])}}商品上架每<b>{{$data['auto_fav_add_time_count_every']}}</b>天销量加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_sales_rate'])}}百分之<b>{{$data['auto_sales_rate']}}</b>的可能更新销量{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>开关：自动增加浏览次数</label>
+                        <div>
+                            {{if !empty($data['available_auto_access'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_access_sales_count_every'])}}销量每加<b>{{$data['auto_access_sales_count_every']}}</b>浏览次数加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_access_access_count_every'])}}商品浏览次数每加<b>{{$data['auto_access_access_count_every']}}</b>浏览次数加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_access_add_time_count_every'])}}商品上架每<b>{{$data['auto_access_add_time_count_every']}}</b>天浏览次数加1{{/if}}
+                        </div>
+                        <div>
+                            {{if !empty($data['auto_access_rate'])}}百分之<b>{{$data['auto_access_rate']}}</b>的可能更新浏览次数{{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{:PluginsAdminUrl('dataprettify', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑及更多功能</a>
+        </div>
+    </div>
+</div>
+<!-- right content end  -->
+        
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->
