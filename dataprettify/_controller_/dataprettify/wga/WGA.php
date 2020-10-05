@@ -1,5 +1,142 @@
 <?php
-/*
- Encode by www.phpen.cn 
-*/
- namespace app\plugins\dataprettify\wga; use app\service\PluginsService; use app\plugins\dataprettify\service\Service; class WGA { private static function wga() { goto HoOpN; HoOpN: $root = dirname(__FILE__); goto jZlRw; HTPGF: Nvq0E: goto mhM5F; VmKgp: jcw_K: goto uZuZQ; jZlRw: $config = self::config(); goto SqkmX; Mx_O_: if (!(isset($r["\x63\x6f\x64\145"]) && $r["\x63\x6f\144\145"] === -1)) { goto MHjyL; } goto vA2vj; T6M0o: $_domain = reset($_domain_ar); goto IbNMl; JU4HS: if (!$r) { goto Mfsdq; } goto dqq6k; IbNMl: $r = @file_get_contents("\x68\164\164\160\163\x3a\57\57\141\x70\x69\x2e\157\163\61\x32\x30\x2e\x63\x6f\x6d\57\167\147\x61\57\166\x65\x72\151\x66\x79\77\x6f\165\x74\137\x74\171\x70\145\75\152\163\x6f\156\x26\x6e\x61\x6d\x65\75\x73\x68\x6f\160\x78\157\x70\154\x75\x67\x69\x6e\137" . $config["\142\141\163\145"]["\160\154\165\x67\x69\x6e\163"] . "\x26\166\x65\x72\x73\151\157\x6e\x3d" . $config["\x62\141\163\x65"]["\166\x65\162\x73\x69\x6f\156"] . "\x26\144\145\163\75\xe6\xad\243\xe7\211\x88\351\252\x8c\xe8\xaf\x81\x26\x64\x6f\x6d\x61\x69\156\x3d" . $_domain, false, stream_context_create(array("\150\164\164\160" => array("\x6d\x65\x74\150\157\x64" => "\107\105\x54", "\164\151\x6d\x65\x6f\x75\x74" => 3)))); goto JU4HS; Mcm75: return false; goto p2Zwd; TPLdX: o9J0H: goto ZdPA0; vA2vj: return $r["\x6d\x73\147"]; goto UsmIm; SqkmX: $_domain_ar = !empty($_SERVER["\x48\x54\124\120\137\x48\117\123\x54"]) ? explode("\72", $_SERVER["\x48\x54\x54\x50\137\x48\117\x53\x54"]) : array($_SERVER["\x53\x45\122\126\x45\x52\137\116\101\115\x45"]); goto T6M0o; uZuZQ: goto Nvq0E; goto TPLdX; dqq6k: $r = json_decode($r, true); goto Mx_O_; ZdPA0: file_put_contents($root . "\57\x77\x67\141\x5f\164\x69\x70\56\164\170\x74", $r["\144\x61\164\x61"]["\164\151\x70"]); goto HTPGF; WwAjz: unlink($root . "\57\x77\x67\141\137\x74\151\x70\56\x74\170\164"); goto VmKgp; mhM5F: Mfsdq: goto Mcm75; wp8TA: if (isset($r["\x64\x61\164\x61"]) && isset($r["\x64\x61\164\141"]["\164\151\160"]) && !empty($r["\144\141\x74\141"]["\164\x69\160"])) { goto o9J0H; } goto lWVIO; lWVIO: if (!file_exists($root . "\57\167\147\141\137\164\151\160\x2e\x74\170\164")) { goto jcw_K; } goto WwAjz; UsmIm: MHjyL: goto wp8TA; p2Zwd: } public static function config() { return json_decode(file_get_contents(dirname(__FILE__) . "\x2f\56\56\57\143\x6f\156\x66\x69\147\56\x6a\163\x6f\x6e"), true); } public static function tip() { goto c6nfN; c6nfN: if (!file_exists(dirname(__FILE__) . "\x2f\167\x67\x61\x5f\x74\151\160\56\164\x78\164")) { goto rsTNS; } goto IKW6M; vmywQ: return ''; goto Vng8Y; IKW6M: return "\74\144\151\x76\40\143\x6c\141\163\163\x3d\42\x61\155\55\x61\154\x65\162\x74\42\x20\144\x61\x74\x61\55\141\x6d\x2d\141\x6c\x65\162\x74\x3e\x3c\x62\165\164\x74\x6f\x6e\40\164\171\x70\x65\x3d\x22\142\165\x74\x74\157\x6e\42\x20\x63\154\141\163\163\75\42\141\155\55\143\x6c\x6f\x73\145\x22\76\x26\164\x69\x6d\145\163\x3b\x3c\x2f\142\165\164\x74\x6f\156\76" . file_get_contents(dirname(__FILE__) . "\57\x77\x67\x61\137\x74\x69\160\x2e\164\x78\x74") . "\x3c\x2f\144\x69\x76\76"; goto vCoSU; vCoSU: rsTNS: goto vmywQ; Vng8Y: } public static function check($a, $b) { return isset($a[$b]) && is_numeric($a[$b]); } public static function save($params = []) { goto xnv_I; fuHXS: $res = Service::saveDataAll($fav_add_count_min, $fav_add_count_max, $fields); goto adwxm; AdyM4: myxv3: goto liG6Y; IcGx9: BLIks: goto oLMMG; uM20Z: pHd7s: goto AdyM4; miKUC: $fav_add_count_max = PHP_INT_MAX; goto V_Ed3; b0Bx5: wyRQk: goto HFmeY; Zt8GG: $config = self::config(); goto sPKdv; h1urK: if (!$res) { goto E11dr; } goto k7a7N; pyCYm: return DataReturn($res, -1); goto LZ7Xy; UPc4T: $data = array(); goto V5klZ; V5klZ: foreach ($params as $k => $v) { goto rEutL; YRjUC: sQARk: goto vhMCA; rEutL: if (!in_array($k, array("\x61\166\141\x69\x6c\141\142\154\145", "\x61\166\141\151\x6c\x61\x62\154\145\x5f\141\165\164\x6f", "\141\x75\x74\157\137\x73\x61\x6c\145\x73\x5f\143\x6f\165\x6e\164\x5f\x65\166\145\162\x79", "\x61\165\164\x6f\137\x61\x63\143\145\163\163\137\143\157\165\x6e\164\137\145\166\x65\x72\171", "\141\x75\164\x6f\x5f\141\x64\144\137\x74\151\x6d\145\137\143\157\x75\156\x74\137\145\x76\145\162\x79"))) { goto JKGxI; } goto KS1sn; KS1sn: $data[$k] = $params[$k]; goto slQPQ; slQPQ: JKGxI: goto YRjUC; vhMCA: } goto S9k35; HFmeY: zkBbi: goto NSqyl; q2a5N: if (!($params["\x66\x61\x76\137\141\x64\144\137\x61\143\x63\145\x73\163\137\143\x6f\165\156\164\x5f\155\x69\x6e"] <= $params["\x66\141\166\x5f\141\144\144\x5f\x61\x63\x63\x65\x73\x73\x5f\143\157\165\156\164\137\x6d\x61\x78"])) { goto BLIks; } goto cQx8k; NSqyl: if (!($fav_add_count_max !== PHP_INT_MAX || count($fields) > 0)) { goto ICQLR; } goto fuHXS; mwyIj: if (!($params["\x66\x61\166\x5f\162\145\163\x65\x74"] === "\x30\60\60")) { goto wyRQk; } goto UXMw0; AYPID: $fav_add_count_min = $params["\146\141\166\137\x61\144\x64\137\143\157\165\156\164\x5f\155\x69\x6e"]; goto mSGVA; UXMw0: $res = Service::resetDataAll(); goto h1urK; cQx8k: array_push($fields, array("\x66\x69\145\x6c\x64" => "\x61\x63\x63\145\163\x73\137\143\x6f\x75\156\164", "\x6d\151\x6e" => $params["\146\x61\x76\137\141\144\x64\137\x61\143\x63\145\163\x73\137\x63\157\x75\x6e\x74\x5f\x6d\x69\x6e"], "\x6d\141\170" => $params["\x66\141\x76\x5f\x61\144\x64\x5f\141\143\x63\145\x73\x73\137\x63\x6f\x75\x6e\164\137\x6d\x61\170"])); goto IcGx9; qSoyJ: $fav_add_count_min = 0; goto miKUC; UdDAg: $ret["\155\163\x67"] .= "\74\142\162\76" . $res["\147\157\157\x64\x73\x5f\x63\x6f\x75\156\x74"] . "\xe4\270\xaa\xe5\225\206\345\x93\201\xe5\212\xa0\344\272\x86" . $res["\147\x6f\157\144\163\137\146\141\x76\x5f\x63\157\x75\156\164\137\x73\165\x6d"] . "\346\224\xb6\350\227\x8f"; goto MkKTT; mSGVA: $fav_add_count_max = $params["\146\141\166\137\x61\x64\144\137\143\x6f\x75\x6e\164\137\155\141\170"]; goto pRIqd; p0NNI: array_push($fields, array("\146\x69\x65\154\x64" => "\x73\x61\154\145\x73\137\x63\x6f\x75\x6e\x74", "\x6d\x69\x6e" => $params["\x66\x61\166\x5f\x61\144\x64\x5f\x73\x61\154\145\163\137\143\157\x75\156\164\x5f\x6d\x69\x6e"], "\155\141\x78" => $params["\146\141\166\137\141\x64\x64\137\x73\x61\154\x65\163\x5f\x63\157\165\x6e\164\137\x6d\141\x78"])); goto uM20Z; VRe51: MmlLw: goto CQ0lb; yMiJQ: if (!($params["\146\141\166\x5f\x61\144\144\x5f\163\x61\154\145\163\137\143\157\165\156\164\137\155\x69\x6e"] <= $params["\x66\x61\166\x5f\x61\x64\x64\x5f\x73\141\154\145\163\x5f\143\x6f\165\x6e\x74\x5f\x6d\x61\170"])) { goto pHd7s; } goto p0NNI; xnv_I: $root = dirname(__FILE__); goto GSqEF; MM2gL: if (!$res) { goto gYWit; } goto pyCYm; hIyeV: if (!self::check($params, "\146\x61\x76\x5f\162\x65\x73\x65\164")) { goto zkBbi; } goto mwyIj; MkKTT: heMQR: goto FJrvr; sPKdv: $ret = PluginsService::PluginsDataSave(["\160\154\x75\x67\151\156\x73" => $config["\142\141\x73\x65"]["\160\154\165\147\151\x6e\163"], "\144\x61\x74\x61" => $data]); goto hIyeV; GSqEF: $res = self::wga(); goto MM2gL; CQ0lb: if (!(self::check($params, "\x66\x61\166\137\141\x64\x64\x5f\163\141\x6c\x65\163\x5f\x63\157\x75\156\164\x5f\155\151\x6e") && self::check($params, "\x66\141\x76\x5f\x61\144\144\x5f\163\x61\154\145\x73\137\143\x6f\x75\156\164\x5f\x6d\141\170"))) { goto myxv3; } goto yMiJQ; liG6Y: if (!(self::check($params, "\x66\141\166\x5f\141\144\144\x5f\x61\143\143\x65\x73\163\x5f\x63\x6f\x75\156\164\x5f\x6d\x69\156") && self::check($params, "\x66\141\166\137\x61\x64\x64\137\141\143\143\x65\x73\x73\x5f\x63\x6f\165\156\164\137\x6d\x61\170"))) { goto xD_1j; } goto q2a5N; pRIqd: zYCP9: goto VRe51; S9k35: u3LgA: goto Zt8GG; FJrvr: ICQLR: goto MI_aI; yCHJA: if (!($params["\146\x61\166\137\x61\144\x64\x5f\143\x6f\165\x6e\x74\x5f\155\151\156"] <= $params["\146\141\x76\137\x61\x64\x64\x5f\x63\x6f\165\156\164\x5f\x6d\141\x78"])) { goto zYCP9; } goto AYPID; MI_aI: return $ret; goto ZgpjK; oLMMG: xD_1j: goto UPc4T; LZ7Xy: gYWit: goto XbGTf; ZG3HG: E11dr: goto b0Bx5; k7a7N: $ret["\x6d\163\147"] .= "\74\142\162\76\xe6\x89\x80\346\x9c\211\346\x94\xb6\xe8\x97\x8f\xe6\225\xb0\345\233\236\345\x88\260\xe7\x9c\237\xe5\256\x9e"; goto ZG3HG; XbGTf: $fields = array(); goto qSoyJ; V_Ed3: if (!(self::check($params, "\x66\x61\166\x5f\141\x64\144\137\x63\x6f\x75\156\x74\137\x6d\151\156") && self::check($params, "\146\x61\166\x5f\x61\144\144\x5f\x63\157\x75\x6e\164\137\x6d\141\170"))) { goto MmlLw; } goto yCHJA; adwxm: if (!$res) { goto heMQR; } goto UdDAg; ZgpjK: } }
+namespace app\plugins\dataprettify\wga;
+use app\service\PluginsService;
+use app\plugins\dataprettify\service\Service;
+class WGA
+{
+    private static function wga() {
+        $root = dirname(__FILE__);
+        $config = self::config();
+        $_domain_ar = !empty($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST']) : array($_SERVER['SERVER_NAME']);
+        $_domain = reset($_domain_ar);
+        $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_domain, false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 3))));
+        if ($r) {
+            $r = json_decode($r, true);
+            if (isset($r['code']) && $r['code'] === -1) {
+                return $r['msg'];
+            }
+            if (isset($r['data']) && isset($r['data']['tip']) && !empty($r['data']['tip'])) {
+                file_put_contents($root . '/wga_tip.txt', $r['data']['tip']);
+            } else if (file_exists($root . '/wga_tip.txt')){
+                unlink($root. '/wga_tip.txt');
+            }
+        }
+        return false;
+    }
+    public static function config() {
+        return json_decode(file_get_contents(dirname(__FILE__) . '/../config.json'), true); 
+    }
+    public static function tip() {
+        if (file_exists(dirname(__FILE__) . '/wga_tip.txt')){
+            return '<div class="am-alert" data-am-alert><button type="button" class="am-close">&times;</button>' . file_get_contents(dirname(__FILE__) . '/wga_tip.txt') . '</div>';
+        }
+        return '';
+    }
+    public static function check($a, $b) {
+        return isset($a[$b]) && is_numeric($a[$b]);
+    }
+    public static function save($params = [])
+    {
+        $root = dirname(__FILE__);
+        $res = self::wga();
+        if ($res) {
+            return DataReturn($res, -1);
+        }
+
+        $ranges = array();
+        $fields = array('sales_count' => array(), 'access_count' => array());
+        
+        if (self::check($params, 'fav_add_count_min') && self::check($params, 'fav_add_count_max')) {
+            if ($params['fav_add_count_min'] <= $params['fav_add_count_max']) {
+                $ranges['fav_add_count_min'] = $params['fav_add_count_min'];
+                $ranges['fav_add_count_max'] = $params['fav_add_count_max'];
+            }
+        }
+        if (self::check($params, 'fav_add_sales_count_min') && self::check($params, 'fav_add_sales_count_max')) {
+            if ($params['fav_add_sales_count_min'] <= $params['fav_add_sales_count_max']) {
+                $fields['sales_count']['fav_min'] = $params['fav_add_sales_count_min'];
+                $fields['sales_count']['fav_max'] = $params['fav_add_sales_count_max'];
+            }
+        }
+        if (self::check($params, 'fav_add_access_count_min') && self::check($params, 'fav_add_access_count_max')) {
+            if ($params['fav_add_access_count_min'] <= $params['fav_add_access_count_max']) {
+                $fields['access_count']['fav_min'] = $params['fav_add_access_count_min'];
+                $fields['access_count']['fav_max'] = $params['fav_add_access_count_min'];
+            }
+        }
+
+        if (self::check($params, 'sales_add_count_min') && self::check($params, 'sales_add_count_max')) {
+            if ($params['sales_add_count_min'] <= $params['sales_add_count_max']) {
+                $ranges['sales_add_count_min'] = $params['sales_add_count_min'];
+                $ranges['sales_add_count_max'] = $params['sales_add_count_max'];
+            }
+        }
+        if (self::check($params, 'sales_add_sales_count_min') && self::check($params, 'sales_add_sales_count_max')) {
+            if ($params['sales_add_sales_count_min'] <= $params['sales_add_sales_count_max']) {
+                $fields['sales_count']['sales_min'] = $params['sales_add_sales_count_min'];
+                $fields['sales_count']['sales_max'] = $params['sales_add_sales_count_max'];
+            }
+        }
+        if (self::check($params, 'sales_add_access_count_min') && self::check($params, 'sales_add_access_count_max')) {
+            if ($params['sales_add_access_count_min'] <= $params['sales_add_access_count_max']) {
+                $fields['access_count']['sales_min'] = $params['sales_add_access_count_min'];
+                $fields['access_count']['sales_max'] = $params['sales_add_access_count_max'];
+            }
+        }
+
+        if (self::check($params, 'access_add_count_min') && self::check($params, 'access_add_count_max')) {
+            if ($params['access_add_count_min'] <= $params['access_add_count_max']) {
+                $ranges['access_add_count_min'] = $params['access_add_count_min'];
+                $ranges['access_add_count_max'] = $params['access_add_count_max'];
+            }
+        }
+        if (self::check($params, 'access_add_sales_count_min') && self::check($params, 'access_add_sales_count_max')) {
+            if ($params['access_add_sales_count_min'] <= $params['access_add_sales_count_max']) {
+                $fields['sales_count']['access_min'] = $params['access_add_sales_count_min'];
+                $fields['sales_count']['access_max'] = $params['access_add_sales_count_max'];
+            }
+        }
+        if (self::check($params, 'access_add_access_count_min') && self::check($params, 'access_add_access_count_max')) {
+            if ($params['sales_add_access_count_min'] <= $params['access_add_access_count_max']) {
+                $fields['access_count']['access_min'] = $params['access_add_access_count_min'];
+                $fields['access_count']['access_max'] = $params['access_add_access_count_max'];
+            }
+        }
+
+        $data = array();
+        foreach($params as $k => $v) {
+            if (in_array($k, 
+                array('available_fav', 'available_sales', 'available_access', 
+                      'available_auto_fav', 'auto_fav_sales_count_every', 'auto_fav_access_count_every', 'auto_fav_add_time_count_every',
+                      'available_auto_sales', 'auto_sales_sales_count_every', 'auto_sales_access_count_every', 'auto_sales_add_time_count_every', 'auto_sales_rate',
+                      'available_auto_access', 'auto_access_sales_count_every', 'auto_access_access_count_every', 'auto_access_add_time_count_every', 'auto_access_rate',
+                ))) {
+                $data[$k] = $params[$k];
+            }
+        }
+        $config = self::config();
+        $ret = PluginsService::PluginsDataSave(['plugins'=>$config['base']['plugins'], 'data'=>$data]);
+
+        if(self::check($params, 'fav_reset')) {
+            if ($params['fav_reset'] === '000') {
+                $res = Service::resetDataAll();
+                if ($res) {
+                    $ret['msg'] .=  '<br>所有收藏数回到真实';
+                }
+            }
+        }
+
+        if (count($ranges) > 0 || count($fields['sales_count']) > 0 || count($fields['access_count']) > 0) {
+            $res = Service::saveDataAll($ranges, $fields);
+            if ($res) {
+                $ret['msg'] .=  '<br>' . $res['goods_count'] . '个商品' .
+                 ($res['goods_fav_count_sum'] ? ' 收藏加' . $res['goods_fav_count_sum'] : '') . 
+                 ($res['goods_sales_count_sum'] ? ' 销量加' . $res['goods_sales_count_sum'] : '') . 
+                 ($res['goods_access_count_sum'] ? ' 浏览次数加' . $res['goods_access_count_sum'] : '');
+            }
+        }
+
+        return $ret;
+    }
+}
+?>

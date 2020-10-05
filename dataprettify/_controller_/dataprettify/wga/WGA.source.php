@@ -79,8 +79,8 @@ class WGA
         }
         if (self::check($params, 'sales_add_access_count_min') && self::check($params, 'sales_add_access_count_max')) {
             if ($params['sales_add_access_count_min'] <= $params['sales_add_access_count_max']) {
-                $fields['sales_count']['sales_min'] = $params['sales_add_access_count_min'];
-                $fields['sales_count']['sales_max'] = $params['sales_add_access_count_max'];
+                $fields['access_count']['sales_min'] = $params['sales_add_access_count_min'];
+                $fields['access_count']['sales_max'] = $params['sales_add_access_count_max'];
             }
         }
 
@@ -98,8 +98,8 @@ class WGA
         }
         if (self::check($params, 'access_add_access_count_min') && self::check($params, 'access_add_access_count_max')) {
             if ($params['sales_add_access_count_min'] <= $params['access_add_access_count_max']) {
-                $fields['sales_count']['access_min'] = $params['access_add_access_count_min'];
-                $fields['sales_count']['access_max'] = $params['access_add_access_count_max'];
+                $fields['access_count']['access_min'] = $params['access_add_access_count_min'];
+                $fields['access_count']['access_max'] = $params['access_add_access_count_max'];
             }
         }
 

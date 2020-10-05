@@ -29,7 +29,7 @@
                     <div class="am-form-group">
                         <label>开关：收藏</label>
                         <div>
-                            <input name="available_fav" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                            <input name="available_fav" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_fav']) and $data['available_fav'] eq 1}}checked="true"{{/if}} />
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 收藏数量修改 输入框。<br>
@@ -40,7 +40,7 @@
                     <div class="am-form-group">
                         <label>开关：销量</label>
                         <div>
-                            <input name="available_sales" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                            <input name="available_sales" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_sales']) and $data['available_sales'] eq 1}}checked="true"{{/if}} />
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 销量修改 输入框。</span>
@@ -49,7 +49,7 @@
                     <div class="am-form-group">
                         <label>开关：浏览次数</label>
                         <div>
-                            <input name="available_access" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available']) and $data['available'] eq 1}}checked="true"{{/if}} />
+                            <input name="available_access" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_access']) and $data['available_access'] eq 1}}checked="true"{{/if}} />
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 浏览次数修改 输入框。</b></span>
@@ -220,16 +220,27 @@
             </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
-                    <span class="am-panel-title">批量重置收藏数量</span><span class="am-form-group-label-tips">设置好，点保存开始重置</span>
+                    <span class="am-panel-title">恢复真实数据</span><span class="am-form-group-label-tips">设置好，点保存开始重置</span>
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label>批量重置收藏数量</label>
+                        <label>批量恢复真实收藏数量</label>
                         <div>
-                            <input type="text" name="fav_reset" placeholder="需要重置，请输入3个0，不需要留空即可" class="am-radius">
+                            <input type="text" name="fav_reset" placeholder="需要恢复，请输入3个0，不需要留空即可" class="am-radius">
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将重置为真实收藏数量，通过本插件增加的收藏数量都会被清空。</span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>批量恢复真实销量</label>
+                        <div>
+                            <input type="text" name="sales_reset" placeholder="需要恢复，请输入3个0，不需要留空即可" class="am-radius">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的销量，将重置为真实销量，通过本插件增加的销量都会被清空。</span>
                         </div>
                     </div>
                 </div> 
