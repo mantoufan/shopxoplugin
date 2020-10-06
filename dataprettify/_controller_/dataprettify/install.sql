@@ -1,0 +1,1 @@
+ALTER TABLE `{PREFIX}goods` ADD `plugins_dataprettify_sales_count` INT( 11 ) NULL DEFAULT '0' COMMENT '数据美化插件增加的销量' AFTER `access_count`, ADD `plugins_dataprettify_access_count` INT( 11 ) NULL DEFAULT '0' COMMENT '数据美化插件增加的浏览次数' AFTER `plugins_dataprettify_sales_count`;

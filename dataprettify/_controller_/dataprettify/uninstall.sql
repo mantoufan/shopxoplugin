@@ -1,0 +1,1 @@
+ALTER TABLE `{PREFIX}goods` DROP `plugins_dataprettify_sales_count`, DROP `plugins_dataprettify_access_count`;

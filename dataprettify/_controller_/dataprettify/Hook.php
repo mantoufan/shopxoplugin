@@ -98,15 +98,17 @@ class Hook extends Controller
         if (!empty($params['params']['plugins_dataprettify_fav_count']) && isset($params['params']['plugins_dataprettify_fav_count_source']) && $params['params']['plugins_dataprettify_fav_count'] !== $params['params']['plugins_dataprettify_fav_count_source']) {
             Service::saveData($goods_id, $params['params']['plugins_dataprettify_fav_count']);
         }
-        $datas = array();
+        $datas = array();$raws = array();
         if (!empty($params['params']['plugins_dataprettify_sales_count']) && $sales_count !== $params['params']['plugins_dataprettify_sales_count']) {
             $datas['sales_count'] = $params['params']['plugins_dataprettify_sales_count'];
+            $raws['plugins_dataprettify_sales_count'] = $datas['sales_count'] - $sales_count;
         }
         if (!empty($params['params']['plugins_dataprettify_access_count']) && $access_count !== $params['params']['plugins_dataprettify_access_count']) {
             $datas['access_count'] = $params['params']['plugins_dataprettify_access_count'];
+            $raws['plugins_dataprettify_access_count'] = $datas['access_count'] - $access_count;
         }
         if (count($datas) > 0) {
-            Service::saveDataGoods($goods_id, $datas);
+            Service::saveDataGoods($goods_id, $datas, $raws);
         }
     }
 

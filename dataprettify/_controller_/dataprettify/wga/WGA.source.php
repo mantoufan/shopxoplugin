@@ -117,12 +117,22 @@ class WGA
         $config = self::config();
         $ret = PluginsService::PluginsDataSave(['plugins'=>$config['base']['plugins'], 'data'=>$data]);
 
-        if(self::check($params, 'fav_reset')) {
-            if ($params['fav_reset'] === '000') {
-                $res = Service::resetDataAll();
-                if ($res) {
-                    $ret['msg'] .=  '<br>所有收藏数回到真实';
-                }
+        if (self::check($params, 'fav_reset') && $params['fav_reset'] === '000') {
+            $res = Service::resetDataAll();
+            if ($res) {
+                $ret['msg'] .=  '<br>所有收藏数回到真实';
+            }
+        }
+        if (self::check($params, 'sales_reset') && $params['sales_reset'] === '000') {
+            $res = Service::resetDataGoodsAll('sales_count');
+            if ($res) {
+                $ret['msg'] .=  '<br>所有销量回到真实';
+            }
+        }
+        if (self::check($params, 'access_reset') && $params['access_reset'] === '000') {
+            $res = Service::resetDataGoodsAll('access_count');
+            if ($res) {
+                $ret['msg'] .=  '<br>所有浏览次数回到真实';
             }
         }
 

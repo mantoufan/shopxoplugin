@@ -34,7 +34,7 @@
                         <div>
                             帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 收藏数量修改 输入框。<br>
                                 　　　　要修改的收藏数量必须 > 商品真实收藏数量。<br>
-                                　　　　<b>使用本插件增减、批量增加收藏数量，不会影响真实收藏数据。仍建议您备份数据库，保证绝对安全。</b></span>
+                                　　　　<b>使用本插件增减、自动或批量增加收藏数量，真实收藏数据不会被影响并保持真实更新。仍建议您备份数据库，保证绝对安全。</b></span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -43,7 +43,8 @@
                             <input name="available_sales" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_sales']) and $data['available_sales'] eq 1}}checked="true"{{/if}} />
                         </div>
                         <div>
-                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 销量修改 输入框。</span>
+                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 销量修改 输入框。<br>
+                                　　　　<b>使用本插件增减、自动或批量增加销量，真实销量将备份并保持真实更新，恢复规则在下方。</b></span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -52,7 +53,8 @@
                             <input name="available_access" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_access']) and $data['available_access'] eq 1}}checked="true"{{/if}} />
                         </div>
                         <div>
-                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 浏览次数修改 输入框。</b></span>
+                            帮助：<span class="am-form-group-label-tips">开启后，将在商品编辑页，拓展数据区域，增加 浏览次数修改 输入框。<br>
+                                　　　　<b>使用本插件增减、自动或批量增加浏览次数，真实浏览次数将备份并保持真实更新，恢复规则在下方。</b></span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -83,7 +85,8 @@
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">开启后，当商品被浏览时，计算销量 = 销量数 / 1项设置值 + 浏览次数 / 2项设置值 + 商品上架天数 / 3项设置值。<br>
-                                　　　　计算销量 > 商品已有销量，则根据 4项设置值(例如：0% 不更新。5% 商品被访问约20次更新一次。100% 一定更新) 自动更新 销量 为 计算销量。</span>
+                                　　　　计算销量 > 商品已有销量，则根据 4项设置值(例如：0% 不更新。5% 商品被访问约20次更新一次。100% 一定更新) 自动更新 销量 为 计算销量。<br>
+                                　　　　<b>填小数</b>时，建议 1项设置值（销量每加多少销量加1） 留空，避免连续放大</span>
                         </div>
                     </div>
                     <div class="am-form-group">
@@ -99,7 +102,8 @@
                         </div>
                         <div>
                             帮助：<span class="am-form-group-label-tips">开启后，当商品被浏览时，计算浏览次数 = 销量数 / 1项设置值 + 浏览次数 / 2项设置值 + 商品上架天数 / 3项设置值。<br>
-                                　　　　计算浏览次数 > 商品已有浏览次数，则根据 4项设置值(例如：0% 不更新。5% 商品被访问约20次更新一次。100% 一定更新) 自动更新 浏览次数 为 计算浏览次数。</span>
+                                　　　　计算浏览次数 > 商品已有浏览次数，则根据 4项设置值(例如：0% 不更新。5% 商品被访问约20次更新一次。100% 一定更新) 自动更新 浏览次数 为 计算浏览次数。<br>
+                                　　　　<b>填小数</b>时，建议 2项设置值（浏览次数每加多少浏览次数加1） 留空，避免连续放大</span>
                         </div>
                     </div>
                 </div>
@@ -232,15 +236,24 @@
                             帮助：<span class="am-form-group-label-tips">所有商品的收藏数量，将重置为真实收藏数量，通过本插件增加的收藏数量都会被清空。</span>
                         </div>
                     </div>
-                </div> 
-                <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label>批量恢复真实销量</label>
+                        <label>批量恢复真实销量　<b>删除插件，本功能失效</b></label>
                         <div>
                             <input type="text" name="sales_reset" placeholder="需要恢复，请输入3个0，不需要留空即可" class="am-radius">
                         </div>
                         <div>
-                            帮助：<span class="am-form-group-label-tips">所有商品的销量，将重置为真实销量，通过本插件增加的销量都会被清空。</span>
+                            帮助：<span class="am-form-group-label-tips">所有商品的销量，将重置为真实销量，通过本插件增加的销量都会被清空。<br>
+                                　　　　真实数据备份在商品表中，涉及商品表的操作，如删除插件（并勾选删除应用和数据），将删除真实数据备份。本功能失效。</span></span>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>批量恢复真实浏览次数　<b>删除插件，本功能失效</b></label>
+                        <div>
+                            <input type="text" name="access_reset" placeholder="需要恢复，请输入3个0，不需要留空即可" class="am-radius">
+                        </div>
+                        <div>
+                            帮助：<span class="am-form-group-label-tips">所有商品的浏览次数，将重置为真实浏览次数，通过本插件增加的浏览次数都会被清空。<br>
+                                　　　　真实数据备份在商品表中，涉及商品表的操作，如删除插件（并勾选删除应用和数据），将删除真实数据备份。本功能失效。</span>
                         </div>
                     </div>
                 </div> 

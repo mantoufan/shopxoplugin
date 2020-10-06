@@ -54,6 +54,9 @@ class Service
         }
         return false;
     }
+    private static function getRandNum($min, $max, $_min, $_max) {
+        return rand(min(max($min, $_min), $_max), max($max ? min($max, $_max) : $_max, $_min));
+    }
 
     public static function saveDataAll($ranges = array(), $fields = array('sales_count' => array(), 'access_count' => array())) {
         $db_config = self::getDbConfig();
@@ -117,20 +120,20 @@ class Service
                     }
                 }
                 if ($availables['fav']) {
-                    $num = rand(max($fav_add_count_min, $availables['fav'][0]), $fav_add_count_max ? min($fav_add_count_max, $availables['fav'][1]) : $availables['fav'][1]);
+                    $num = self::getRandNum($fav_add_count_min, $fav_add_count_max, $availables['fav'][0], $availables['fav'][1]);
                     $sum['fav'] += $num;
                     for ($i = 0; $i < $num; $i++) {
                         array_push($tmp, '\'' .  $goods_id . '\', 0, \'' . time() . '\'');
                     }
                 }
                 if ($availables['sales']) {
-                    $num = rand(max($sales_add_count_min, $availables['sales'][0]), $sales_add_count_max ? min($sales_add_count_max, $availables['sales'][1]) : $availables['sales'][1]);
+                    $num = self::getRandNum($sales_add_count_min, $sales_add_count_max, $availables['sales'][0], $availables['sales'][1]);
                     $sum['sales'] += $num;
                     if (!isset($datas[$goods_id])) {$datas[$goods_id] = array();}
                     $datas[$goods_id]['sales_count'] = $num;
                 }
                 if ($availables['access']) {
-                    $num = rand(max($access_add_count_min, $availables['access'][0]), $access_add_count_max ? min($access_add_count_max, $availables['access'][1]) : $availables['access'][1]);
+                    $num = self::getRandNum($access_add_count_min, $access_add_count_max, $availables['access'][0], $availables['access'][1]);
                     $sum['access'] += $num;
                     if (!isset($datas[$goods_id])) {$datas[$goods_id] = array();}
                     $datas[$goods_id]['access_count'] = $num;
@@ -152,7 +155,10 @@ class Service
         return false;
     }
 
-    public static function saveDataGoods($goods_id, $datas) {
+    public static function saveDataGoods($goods_id, $datas, $raws = array()) {
+        foreach ($raws as $field => $v) {
+            $datas[$field] = Db::raw($field . ' + ' . $v);
+        }
         return Db::name('Goods')->where('id', $goods_id)->update($datas);
     }
 
@@ -168,14 +174,19 @@ class Service
         foreach($datas as $goods_id => $data) {
             array_push($ids, $goods_id);
             foreach($data  as $field => $v) {
-                if (!isset($a[$field])) {
-                    $a[$field] = $field . ' = '. $field .' + CASE id';
+                for($i = 0; $i < 2; $i++) {
+                    if ($i === 1) {
+                        $field = 'plugins_dataprettify_' . $field;
+                    }
+                    if (!isset($a[$field])) {
+                        $a[$field] = $field . ' = '. $field .' + CASE id';
+                    }
+                    $a[$field] .= ' WHEN '. $goods_id . ' THEN '. $v;
                 }
-                $a[$field] .= ' WHEN '. $goods_id . ' THEN '. $v;
             }
         }
         if (count($a) > 0 && count($ids) > 0) {
-            return   Db::execute('UPDATE ' . $prefix . 'goods SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
+            return Db::execute('UPDATE ' . $prefix . 'goods SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
         }
         return false;
     }
@@ -241,7 +252,7 @@ class Service
                         }
                     }
                 }
-                $datas = array();
+                $datas = array();$raws = array();
                 if (!empty($ret['data']['available_auto_sales'])) {
                     if ($res && $res[0]) {
                         if (!empty($ret['data']['auto_sales_rate'])) {
@@ -267,6 +278,7 @@ class Service
                         if ($count) {
                             if ($count > $sales_count) {
                                 $datas['sales_count'] = $count;
+                                $raws['plugins_dataprettify_sales_count'] = $count - $sales_count;
                             }
                         }
                     }
@@ -296,12 +308,13 @@ class Service
                         if ($count) {
                             if ($count > $access_count) {
                                 $datas['access_count'] = $count;
+                                $raws['plugins_dataprettify_access_count'] = $count - $access_count;
                             }
                         }
                     }
                 }
                 if (count($datas) > 0) {
-                    $flag = Service::saveDataGoods($goods_id, $datas);
+                    $flag = Service::saveDataGoods($goods_id, $datas, $raws);
                 }
             }
         }
@@ -325,6 +338,10 @@ class Service
 
     public static function resetDataAll() {
         return Db::name('goods_favor')->where(['user_id'=>'0'])->delete();
+    }
+
+    public static function resetDataGoodsAll($field) {
+        return Db::name('goods')->where('id', '>', 0)->update([$field=>Db::raw($field . ' - plugins_dataprettify_' . $field), 'plugins_dataprettify_' . $field=>0]);
     }
 
     public static function PluginsHomeUrl($url) {
