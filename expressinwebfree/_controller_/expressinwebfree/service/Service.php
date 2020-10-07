@@ -17,13 +17,14 @@ class Service {
                 $express_number = trim($params['express_number']);
             }
             $apis = array(
-                    'kuaidi100' => array(
-                        'n' => '快递100',
-                        'u' => 'https://m.kuaidi100.com/app/query/?coname=' . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'),0,5) . '&com=' . $com . '&nu=' . $express_number . '&callbackurl=' . $_SERVER['HTTP_REFERER'],
-                    ),
                     'ickd' => array(
                         'n' => '爱查快递',
                         'u' => 'https://m.ickd.cn/result.html#no=' . $express_number . '&com=' . ($com ? $com : 'auto')
+                    ),
+                    'kuaidi100' => array(
+                        'n' => '快递100',
+                        'u' => 'https://m.kuaidi100.com/app/query/?coname=' . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'),0,5) . '&com=' . $com . '&nu=' . $express_number . '&callbackurl=' . $_SERVER['HTTP_REFERER'],
+                        'href' => true
                     ),
                     'baidu' => array(
                         'n' => '百度',
