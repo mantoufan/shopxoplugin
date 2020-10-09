@@ -8,93 +8,53 @@
 // +----------------------------------------------------------------------
 // | Author: Devil
 // +----------------------------------------------------------------------
-namespace app\plugins\servicepro\admin;
+namespace app\plugins\optimizer\admin;
 use think\Controller;
 use app\service\PluginsService;
-use app\plugins\servicepro\wga\WGA;
-/**
- * 在线客服 - 管理
- * @author   Devil
- * @blog     http://gong.gg/
- * @version  0.0.1
- * @datetime 2016-12-01T21:51:08+0800
- */
+use app\plugins\optimizer\wga\WGA;
+
 class Admin extends Controller
 {
     private static $conf = array(
-        'scope' =>  array(
-            0 => array('id' => 0, 'name' => '首页'),
-            1 => array('id' => 1, 'name' => '全局', 'checked' => true)
-        ),
-        'display' =>  array(
-            0 => array('value' => 'pc', 'name' => 'PC版', 'checked' => true),
-            1 => array('value' => 'mobile', 'name' => 'H5移动版', 'checked' => true)
-        ),
-        'rights' => array(
-            0 => array('id' => 0, 'name' => '全部用户（含匿名访客）', 'checked' => true),
-            1 => array('id' => 1, 'name' => '仅登录用户')
-        ),
-        'fix' => array(
-            0 => array('id' => 0, 'name' => '基础配置填写的客服', 'checked' => true),
-            1 => array('id' => 1, 'name' => '网页聊天：Daovoice'),
-            2 => array('id' => 2, 'name' => '网页聊天：Crisp'),
-            3 => array('id' => 3, 'name' => '网页聊天：腾讯云智服')
+        'pic_watermark_pos' =>  array(
+            array('id' => 0, 'name' => '无水印', 'checked' => true),
+            array('id' => 1, 'name' => '左上'),
+            array('id' => 2, 'name' => '左下'),
+            array('id' => 3, 'name' => '右上'),
+            array('id' => 4, 'name' => '右下')
         )
     );
 
-    /**
-     * 首页
-     * @author   Devil
-     * @blog     http://gong.gg/
-     * @version  1.0.0
-     * @datetime 2019-02-07T08:21:54+0800
-     * @param    [array]          $params [输入参数]
-     */
     public function index($params = [])
     {
-        $ret = PluginsService::PluginsData('servicepro');
+        $ret = PluginsService::PluginsData('optimizer');
         if($ret['code'] == 0)
         {
             // 数据处理
-            $ret['data']['online_service'] = str_replace("\n", '<br />', $ret['data']['online_service']);
             $this->assign('wga_tip', WGA::tip());
             $this->assign('conf', self::$conf);
             $this->assign('data', $ret['data']);
-            return $this->fetch('../../../plugins/view/servicepro/admin/admin/index');
+            return $this->fetch('../../../plugins/view/optimizer/admin/admin/index');
         } else {
             return $ret['msg'];
         }
     }
-    /**
-     * 编辑页面
-     * @author   Devil
-     * @blog     http://gong.gg/
-     * @version  1.0.0
-     * @datetime 2019-02-07T08:21:54+0800
-     * @param    [array]          $params [输入参数]
-     */
+
     public function saveinfo($params = [])
     {
         
-        $ret = PluginsService::PluginsData('servicepro');
+        $ret = PluginsService::PluginsData('optimizer');
         if($ret['code'] == 0)
         {
             $this->assign('wga_tip', WGA::tip());
             $this->assign('conf', self::$conf);
             $this->assign('data', $ret['data']);
-            return $this->fetch('../../../plugins/view/servicepro/admin/admin/saveinfo');
+            return $this->fetch('../../../plugins/view/optimizer/admin/admin/saveinfo');
         } else {
             return $ret['msg'];
         }
     }
-    /**
-     * 数据保存
-     * @author   Devil
-     * @blog     http://gong.gg/
-     * @version  1.0.0
-     * @datetime 2019-02-07T08:21:54+0800
-     * @param    [array]          $params [输入参数]
-     */
+
     public function save($params = [])
     {
         return WGA::save($params);

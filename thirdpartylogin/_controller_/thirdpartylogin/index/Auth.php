@@ -54,7 +54,7 @@ class Auth extends Controller
                 'app_secret' => isset($data[$party . '_secret']) ? $data[$party . '_secret'] : '',
                 'callback' => Service::PluginsHomeUrl(PluginsHomeUrl('thirdpartylogin', 'auth', 'callback', array('party' => $party)), $party),
                 'grant_type'    => 'authorization_code',
-                'withUnionid' => 'true'
+                'withUnionid' => true
             );
             if ($party === 'alipay') {
                 $this->config = array_merge($this->config, array(

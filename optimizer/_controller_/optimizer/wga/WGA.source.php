@@ -1,5 +1,5 @@
 <?php
-namespace app\plugins\servicepro\wga;
+namespace app\plugins\optimizer\wga;
 use app\service\PluginsService;
 class WGA
 {
@@ -36,9 +36,6 @@ class WGA
         $res = self::wga();
         if ($res) {
             return DataReturn($res, -1);
-        }
-        if (isset($params['online_service'])) {
-            $params['online_service'] = preg_replace("/\s+\n/", "\n", $params['online_service']);
         }
         $config = self::config();
         return PluginsService::PluginsDataSave(['plugins'=>$config['base']['plugins'], 'data'=>$params]);

@@ -3,320 +3,77 @@
 <div class="content-right">
     <div class="content">
         <!-- form start -->
-        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('servicepro', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" enctype="multipart/form-data">
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('optimizer', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('optimizer', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
-                <span class="fs-16">客服专业版</span>
-                <a href="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+                <span class="fs-16">加速优化<sup>M站 · Y站</sup></span>
+                <a href="{{:PluginsAdminUrl('optimizer', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
             {{$wga_tip | RAW}}
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
-                    <span class="am-panel-title">基础配置</span>
+                    <span class="am-panel-title">加速</span>
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label>标题</label>
-                        <input type="text" name="title" placeholder="标题" class="am-radius" value="{{if !empty($data)}}{{$data.title}}{{/if}}" />
+                        <label>静态资源加速</label>
+                        <div>
+                            <input name="available_static" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_static']) and $data['available_static'] eq 1}}checked="true"{{/if}} />
+                        </div>
                     </div>
                     <div class="am-form-group am-form-file">
-                        <label>客服<span class="am-form-group-label-tips">一行一个、以竖线 | 分割、如：客服一|123456|qq 客服二|旺旺昵称|wangwang 客服三|微信号|weixin 客服四|手机号（电话号）|tel</span></label>
-                        <textarea rows="5" name="online_service" class="am-radius am-field-valid" placeholder="在线客服">{{if !empty($data['online_service'])}}{{$data.online_service}}{{/if}}</textarea>
+                        <label>图片加速</label>
+                        <div>
+                            <input name="available_pic_wga" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_pic_wga']) and $data['available_pic_wga'] eq 1}}checked="true"{{/if}} />
+                        </div>
                     </div>
                     <div class="am-form-group am-form-file">
-                        <label>二维码图片（最多三张）</label>
-                        <ul class="plug-file-upload-view slide-qrcodes_url-images-view" data-form-name="qrcodes_url[]" data-max-number="3" data-delete="1" data-dialog-type="images">
-                            {{if !empty($data['qrcodes_url'])}}
-                                {{foreach $data['qrcodes_url'] as $qrcodes_url}}
+                        <label>DNS加速</label><span class="am-form-group-label-tips">该功能默认开启，不可关闭</span>
+                        <div>
+                            <input name="available_dns" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch readonly checked="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">优化</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>图片防盗链</label>
+                        <div>
+                            <input name="available_pic_safe" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_auto_fav']) and $data['available_auto_fav'] eq 1}}checked="true"{{/if}} />
+                        </div>
+                    </div>
+                    <div class="am-form-group am-form-file">
+                        <label>图片加水印</label>
+                        <ul class="plug-file-upload-view pic_watermark" data-form-name="pic_watermark[]" data-max-number="1" data-delete="1" data-dialog-type="images">
+                            {{if !empty($data['pic_watermark'])}}
+                                {{foreach $data['pic_watermark'] as $pic_watermark}}
                                 <li>
-                                    <input type="text" name="qrcodes_url[]" value="{{$qrcodes_url}}" data-validation-message="请上传图片" required />
-                                    <img src="{{$qrcodes_url}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/servicepro/default-images.jpg"' />
+                                    <input type="text" name="pic_watermark[]" value="{{$pic_watermark}}" data-validation-message="请上传图片" required />
+                                    <img src="{{$pic_watermark}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/optimizer/default-images.jpg"' />
                                     <i>×</i>
                                 </li>
                                 {{/foreach}}
                             {{/if}}
                         </ul>
-                        <div class="plug-file-upload-submit" data-view-tag="ul.slide-qrcodes_url-images-view">+上传图片</div>
-                    </div>
-                </div>
-            </div>
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">悬浮客服</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label>开关</label>
-                        <input name="available_float" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_float']) and $data['available_float'] eq 1}}checked="true"{{/if}} />
-                    </div>
-                    <div class="am-form-group">
-                        <label>悬浮范围</label>
-                        <div>
-                            {{foreach $conf['scope'] as $v}}
+                        <div class="plug-file-upload-submit" data-view-tag="ul.pic_watermark">+上传图片</div>
+                        <br>
+                        <br>
+                        <label>水印位置</label>
+                        <br>
+                        {{foreach $conf['pic_watermark_pos'] as $v}}
                             <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="scope_float" value="{{$v.id}}" {{if isset($data['scope_float']) and $data['scope_float'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_float']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="radio" name="pic_watermark_pos" value="{{$v.id}}" {{if isset($data['pic_watermark_pos']) and $data['pic_watermark_pos'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['pic_watermark_pos']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
-                            {{/foreach}}
-                        </div>
+                        {{/foreach}}
                     </div>
-                    <div class="am-form-group">
-                        <label>悬浮权限</label>
+                    <div class="am-form-group am-form-file">
+                        <label>百度主动投递</label><span class="am-form-group-label-tips">将用户浏览页面投递给百度，通知蜘蛛抓取</span>
                         <div>
-                            {{foreach $conf['rights'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="rights_float" value="{{$v.id}}" {{if isset($data['rights_float']) and $data['rights_float'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_float']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
+                            <input name="available_seo_baidu_push" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_seo_baidu_push']) and $data['available_seo_baidu_push'] eq 1}}checked="true"{{/if}} />
                         </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>悬浮显示</label>
-                        <div>
-                            {{foreach $conf['display'] as $v}}
-                            <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="display_float" value="{{$v.value}}" {{if isset($data['display_float']) and in_array($v['value'], explode(',', $data['display_float']))}}checked="checked"{{elseif !isset($data['display_float']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>悬浮背景色</label>
-                        <input type="hidden" name="bg_color_float" value="{{if !empty($data['bg_color_float'])}}{{$data.bg_color_float}}{{/if}}" />
-                        <button class="am-btn am-btn-default am-btn-xs colorpicker-submit bg-color-tag am-btn-block bk-cr-white t-r am-radius" type="button" data-input-tag="button.bg-color-tag" data-color-tag="input[name='bg_color_float']" data-color-style="background-color" {{if
-                            !empty($data[ 'bg_color_float'])}}style="background:{{$data.bg_color_float}}" {{/if}}>
-                            <img src="{{$attachment_host}}/static/common/images/colorpicker.png" />
-                        </button>
-                    </div>
-                    <div class="am-form-group">
-                        <label>悬浮距离顶部<span class="am-form-group-label-tips">默认距离顶部30%</span></label>
-                        <div class="am-input-group am-input-group-sm">
-                            <input type="number" name="distance_top_float" placeholder="距离顶部" min="-1" max="100" data-validation-message="距离顶部 0~100" class="am-form-field" value="{{if isset($data['distance_top_float'])}}{{$data.distance_top_float}}{{else /}}30{{/if}}" />
-                            <span class="am-input-group-btn">
-                                <button type="button" class="am-btn am-btn-default am-radius">%</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">网页聊天：Daovoice</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label>开关</label>
-                        <input name="available_chat_daovoice" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_daovoice']) and $data['available_chat_daovoice'] eq 1}}checked="true"{{/if}} />
-                    </div>
-                    <div class="am-form-group">
-                        <label>app_id <a href="https://dashboard.daovoice.io/get-started?invite_code=e9333ef8" target="_blank">免费申请</a> | <a href="https://account.daocloud.io/signin?from=daovoice&ret=aHR0cDovL2Rhc2hib2FyZC5kYW92b2ljZS5pby9yZWRpcmVjdC9leUp6ZEdGMFpTSTZJbVZ1ZEdWeUlpd2ljR0Z5WVcxeklqcDdmWDAlM0Q%3D" target="_blank">进入后台</a></label>
-                        <div>
-                            <input type="text" name="id_chat_daovoice" placeholder="申请后，进入 安装到网站，在代码中找app_id，填到此处" class="am-radius" value="{{if !empty($data['id_chat_daovoice'])}}{{$data.id_chat_daovoice}}{{/if}}" />
-                        </div>
-                        <div>
-                            特点：<span class="am-form-group-label-tips">适合大陆用户。5000会话用户以内免费，超过0.02元/用户。</span><br>
-                            样式：<span class="am-form-group-label-tips">DaoVoice后台，应用设置，聊天设置，可以修改 浮动按钮 位置和颜色。修改后，需等待一段时间生效。也可用本页下方的自定义CSS。</span>
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮范围</label>
-                        <div>
-                            {{foreach $conf['scope'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="scope_chat_daovoice" value="{{$v.id}}" {{if isset($data['scope_chat_daovoice']) and $data['scope_chat_daovoice'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_chat_daovoice']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮权限</label>
-                        <div>
-                            {{foreach $conf['rights'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="rights_chat_daovoice" value="{{$v.id}}" {{if isset($data['rights_chat_daovoice']) and $data['rights_chat_daovoice'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_chat_daovoice']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮显示</label>
-                        <div>
-                            {{foreach $conf['display'] as $v}}
-                            <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="display_chat_daovoice" value="{{$v.value}}" {{if isset($data['display_chat_daovoice']) and in_array($v['value'], explode(',', $data['display_chat_daovoice']))}}checked="checked"{{elseif !isset($data['display_chat_daovoice']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">网页聊天：Crisp</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label>开关</label>
-                        <input name="available_chat_crisp" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_crisp']) and $data['available_chat_crisp'] eq 1}}checked="true"{{/if}} />
-                    </div>
-                    <div class="am-form-group">
-                        <label>CRISP_WEBSITE_ID <a href="https://app.crisp.chat/initiate/signup/" target="_blank">免费申请</a> | <a href="https://app.crisp.chat/initiate/login/" target="_blank">进入后台</a></label>
-                        <div>
-                            <input type="text" name="id_chat_crisp" placeholder="申请后，进入 安装，选择 HTML，在代码中找CRISP_WEBSITE_ID，填到此处" class="am-radius" value="{{if !empty($data['id_chat_crisp'])}}{{$data.id_chat_crisp}}{{/if}}" />
-                        </div>
-                        <div>
-                            特点：<span class="am-form-group-label-tips">多语言，适合全球用户。申请后，请在设置→套餐，换为 Basic套餐，2坐席长期免费。<a href="https://wwa.lanzous.com/b04mpnu3i" target="_blank">无Google Play点此下载Crisp安卓客户端</a></span><br>
-                            样式：<span class="am-form-group-label-tips">Crisp后台，设置（齿轮图标），网站设置，聊天框与邮箱设置，可配置聊天框的外观。也可用本页下方的自定义CSS。</span>
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮范围</label>
-                        <div>
-                            {{foreach $conf['scope'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="scope_chat_crisp" value="{{$v.id}}" {{if isset($data['scope_chat_crisp']) and $data['scope_chat_crisp'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_chat_crisp']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮权限</label>
-                        <div>
-                            {{foreach $conf['rights'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="rights_chat_crisp" value="{{$v.id}}" {{if isset($data['rights_chat_crisp']) and $data['rights_chat_crisp'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_chat_crisp']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮显示</label>
-                        <div>
-                            {{foreach $conf['display'] as $v}}
-                            <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="display_chat_crisp" value="{{$v.value}}" {{if isset($data['display_chat_crisp']) and in_array($v['value'], explode(',', $data['display_chat_crisp']))}}checked="checked"{{elseif !isset($data['display_chat_crisp']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">网页聊天：腾讯云智服</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label>开关</label>
-                        <input name="available_chat_qqyzf" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_chat_qqyzf']) and $data['available_chat_qqyzf'] eq 1}}checked="true"{{/if}} />
-                    </div>
-                    <div class="am-form-group">
-                        <label>sign <a href="https://yzf.qq.com/xv/html/signUp" target="_blank">免费申请</a> | <a href="https://yzf.qq.com/xv/html/login" target="_blank">进入后台</a></label>
-                        <div>
-                            <input type="text" name="id_chat_qqyzf" placeholder="申请后，进入 设置，选择 网站渠道，新增网站，在方法二：链接地址，找sign=后面的代码，填到此处" class="am-radius" value="{{if !empty($data['id_chat_qqyzf'])}}{{$data.id_chat_qqyzf}}{{/if}}" />
-                        </div>
-                        <div>
-                            特点：<span class="am-form-group-label-tips">支持微信公众号、微信小程序、网站PC版和移动版，长期免费。关注微信公众号 腾讯云智服，随时收消息。</span><br>
-                            样式：<span class="am-form-group-label-tips">腾讯云智服后台，设置，渠道设置，网站渠道，编辑，可配置主题颜色，头像。也可用本页下方的自定义CSS。</span><br>
-                            帮助：<span class="am-form-group-label-tips">腾讯云智服后台，人工，人工会话，将 离线 改为 在线，方可正常使用 排队、机器人、自动回复、接收微信公众号和小程序消息 等功能。</span>
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮范围</label>
-                        <div>
-                            {{foreach $conf['scope'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="scope_chat_qqyzf" value="{{$v.id}}" {{if isset($data['scope_chat_qqyzf']) and $data['scope_chat_qqyzf'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['scope_chat_qqyzf']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮权限</label>
-                        <div>
-                            {{foreach $conf['rights'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="rights_chat_qqyzf" value="{{$v.id}}" {{if isset($data['rights_chat_qqyzf']) and $data['rights_chat_qqyzf'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_chat_qqyzf']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>浮动按钮显示</label>
-                        <div>
-                            {{foreach $conf['display'] as $v}}
-                            <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="display_chat_qqyzf" value="{{$v.value}}" {{if isset($data['display_chat_qqyzf']) and in_array($v['value'], explode(',', $data['display_chat_qqyzf']))}}checked="checked"{{elseif !isset($data['display_chat_qqyzf']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">固定客服</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label>开关</label>
-                        <input name="available_fix" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_fix']) and $data['available_fix'] eq 1}}checked="true"{{/if}} />
-                    </div>
-                    <div class="am-form-group">
-                        <label>固定客服权限</label>
-                        <div>
-                            {{foreach $conf['rights'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="rights_fix" value="{{$v.id}}" {{if isset($data['rights_fix']) and $data['rights_fix'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['rights_fix']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>固定客服显示</label>
-                        <div>
-                            {{foreach $conf['display'] as $v}}
-                            <label class="am-checkbox-inline m-r-10">
-                                <input type="checkbox" name="display_fix" value="{{$v.value}}" {{if isset($data['display_fix']) and in_array($v['value'], explode(',', $data['display_fix']))}}checked="checked"{{elseif !isset($data['display_fix']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                            <div>
-                                PC版：<span class="am-form-group-label-tips">商品页，商品名称，右侧 联系客服 按钮</span><br>
-                                H5移动版：<span class="am-form-group-label-tips">商品页，可视区域浮动底部，客服 按钮</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-form-group">
-                        <label>点固定客服弹出 <span class="am-form-group-label-tips">如果选网页聊天，请先 开启 相应网页聊天</span></label>
-                        <div>
-                            {{foreach $conf['fix'] as $v}}
-                            <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="click_fix" value="{{$v.id}}" {{if isset($data['click_fix']) and $data['click_fix'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['click_fix']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
-                            </label>
-                            {{/foreach}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="am-panel am-panel-secondary">
-                <div class="am-panel-hd">
-                    <span class="am-panel-title">高级设置</span>
-                </div>
-                <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label>自定义CSS：PC版</label>
-                        <textarea name="css_pc" rows="5">{{if isset($data['css_pc'])}}{{$data['css_pc'] | RAW}}{{/if}}</textarea>
-                        <span class="am-form-group-label-tips">以上CSS只会在PC网站生效</span>
-                    </div>
-                    <div class="am-form-group">
-                        <label>自定义CSS：H5移动版（含公众号）</label>
-                        <textarea name="css_mobile" rows="5">{{if isset($data['css_mobile'])}}{{$data['css_mobile'] | RAW}}{{/if}}</textarea>
-                        <span class="am-form-group-label-tips">以上CSS只会在H5移动版（含微信公众号）生效</span>
-                    </div>
-                    <div class="am-form-group">
-                        <label>示例</label>
-                        <pre>#crisp-chatbox .crisp-kquevr {bottom: 50px !important;}
-#crisp-chatbox .crisp-kquevr>span+span {background-color: pink !important;}</pre>
-                        <span class="am-form-group-label-tips">开启网页聊天：crisp，将上面代码粘贴到PC或H5的自定义CSS，您可在相应页面看到粉色的距离页面底部50像素的浮动按钮。</span><br>
-                        <span class="am-form-group-label-tips">样式定制对部分第三方是付费功能，CSS不容易写，由前端或具备相关经验的人来实现更丰富的样式和交互体验是更好选择。</span>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ class Service
         return array(
             'weixin' => array(
                 'n' => '微信',
-                'db' => array('weixin_unionid', 'weixin_web_openid'),
+                'db' => array('weixin_web_openid', 'weixin_unionid'),
                 'scope' => 'snsapi_userinfo',
                 'mua' => array('MicroMessenger'),
                 'form' => array(
@@ -30,7 +30,7 @@ class Service
             ),
             'qq' => array(
                 'n' => 'QQ',
-                'db' => array('qq_unionid', 'qq_openid'),
+                'db' => array('qq_openid', 'qq_unionid'),
                 'scope' => 'get_user_info',
                 'form' => array(
                     array('id' => 'enable_qq'),
@@ -177,17 +177,17 @@ class Service
         $n = false;
         switch ($arv['channel']) {
             case 'qq':
-                if ($arv['unionid']) {
-                    $n = $config[$arv['channel']]['db'][0];
-                } else {
+                if (!empty($arv['unionid'])) {
                     $n = $config[$arv['channel']]['db'][1];
+                } else {
+                    $n = $config[$arv['channel']]['db'][0];
                 }
             break;
             case 'weixin':
-                if ($arv['unionid']) {
-                    $n = $config[$arv['channel']]['db'][0];
-                } else {
+                if (!empty($arv['unionid'])) {
                     $n = $config[$arv['channel']]['db'][1];
+                } else {
+                    $n = $config[$arv['channel']]['db'][0];
                 }
             break;
             default:
@@ -197,6 +197,7 @@ class Service
     }
     // 绑定 解绑 查找
     public static function todo($action, $arv = array()) {
+        $config = self::config();
         $n = isset($arv['db']) ? $arv['db'] : self::channel2n($arv);
         $openid = (isset($arv['unionid']) && !empty($arv['unionid'])) ? $arv['unionid'] : (isset($arv['openid']) ? $arv['openid'] : '');
         if ($n) {
@@ -207,6 +208,12 @@ class Service
                         $n => $openid,
                         'upd_time' => time()
                     );
+
+                    // 有unionid时，也存openid
+                    if (!empty($arv['unionid']) && !empty($arv['openid'])) {
+                        $data[$config[$arv['channel']]['db'][0]] = $arv['openid'];
+                    }
+
                     if (empty($user['nickname']) || stripos($user['nickname'], '游客-') !== FALSE) {
                         $data['nickname'] = $arv['nick'];
                     }
@@ -226,10 +233,13 @@ class Service
                     return DataReturn('绑定成功', 0);
                 break;
                 case 'unbind':
-                    $data = array(
-                        $n => '',
-                        'upd_time' => time()
-                    );
+                    $data = array('upd_time' => time());
+
+                    // 删unionid，也删openid
+                    foreach ($config[$arv['channel']]['db'] as $db) {
+                        $data[$db] = '';
+                    }
+
                     Db::name('User')->where(['id'=>$arv['id']])->update($data);
                     if (!isset($arv['NoUserLoginHandle'])) {
                         UserService::UserLoginHandle($arv['id'], array());
@@ -237,19 +247,36 @@ class Service
                     return DataReturn('解绑成功', 0);
                 break;
                 case 'find':
-                    if (isset($arv['unionid']) && !empty($arv['unionid'])) {
+                    if (!empty($arv['unionid'])) {
                         $unionid = $arv['unionid'];
                         $user = UserService::UserInfo($n, $unionid);
                         if(!empty($user))
                         {
+                            // 只有unionid，存openid
+                            if (empty($user[$config[$arv['channel']]['db'][0]]) && !empty($arv['openid'])) {
+                                $data[$config[$arv['channel']]['db'][0]] = $arv['openid'];
+                                Db::name('User')->where(['id'=>$user['id']])->update($data);
+                            }
+
                             UserService::UserLoginHandle($user['id'], array());
                             return $user;
                         }
-                    } elseif (isset($arv['openid']) && !empty($arv['openid'])) {
+                    } 
+                    if (!empty($arv['openid'])) {
                         $openid = $arv['openid'];
+
+                        // 用openid
+                        $n = $config[$arv['channel']]['db'][0];
+
                         $user = UserService::UserInfo($n, $openid);
                         if(!empty($user))
                         {
+                            // 只有openid，存unionid
+                            if (!empty($arv['unionid']) && !empty($config[$arv['channel']]['db'][1]) && empty($user[$config[$arv['channel']]['db'][1]])) {
+                                $data[$config[$arv['channel']]['db'][1]] = $arv['unionid'];
+                                Db::name('User')->where(['id'=>$user['id']])->update($data);
+                            }
+
                             UserService::UserLoginHandle($user['id'], array());
                             return $user;
                         }

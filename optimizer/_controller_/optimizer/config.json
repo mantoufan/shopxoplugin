@@ -29,26 +29,8 @@
         "is_home":false
     },
     "hook":{
-        "plugins_css":[
-            "app\\plugins\\servicepro\\Hook"
-        ],
-        "plugins_js":[
-            "app\\plugins\\servicepro\\Hook"
-        ],
-        "plugins_common_header":[
-            "app\\plugins\\servicepro\\Hook"
-        ],
-        "plugins_view_common_bottom":[
-            "app\\plugins\\servicepro\\Hook"
-        ],
-        "plugins_view_goods_detail_title":[
-            "app\\plugins\\servicepro\\Hook"
-        ],
-        "plugins_view_goods_detail_base_buy_nav_min_inside":[
-            "app\\plugins\\servicepro\\Hook"
-        ],
-        "plugins_view_goods_detail_tabs_bottom":[
-            "app\\plugins\\servicepro\\Hook"
+        "plugins_common_page_bottom":[
+            "app\\plugins\\optimizer\\Hook"
         ]
     }
 }
