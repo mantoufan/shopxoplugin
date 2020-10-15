@@ -14,8 +14,13 @@ class WGA
             if (isset($r['code']) && $r['code'] === -1) {
                 return $r['msg'];
             }
-            if (isset($r['data']) && isset($r['data']['tip']) && !empty($r['data']['tip'])) {
-                file_put_contents($root . '/wga_tip.txt', $r['data']['tip']);
+            if (isset($r['data'])) {
+                if (!empty($r['data']['tip'])) {
+                    file_put_contents($root . '/wga_tip.txt', $r['data']['tip']);
+                }
+                if (!empty($r['data']['data'])) {
+                    file_put_contents($root . '/wga_data.php', '<?php $wga_data = ' . var_export($r['data']['data']) . '; ?>');
+                }
             } else if (file_exists($root . '/wga_tip.txt')){
                 unlink($root. '/wga_tip.txt');
             }

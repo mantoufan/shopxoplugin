@@ -29,6 +29,9 @@
         "is_home":false
     },
     "hook":{
+        "plugins_common_header":[
+            "app\\plugins\\optimizer\\Hook"
+        ],
         "plugins_common_page_bottom":[
             "app\\plugins\\optimizer\\Hook"
         ]
