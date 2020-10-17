@@ -59,5 +59,10 @@ class Admin extends Controller
     {
         return WGA::save($params);
     }
+
+    public function htcacess()
+    {
+        
+    }
 }
 ?>
