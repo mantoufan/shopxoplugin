@@ -57,12 +57,46 @@ class Admin extends Controller
 
     public function save($params = [])
     {
+        $this->htaccess($params);
         return WGA::save($params);
     }
 
-    public function htcacess()
+    public function htaccess($params)
     {
-        
+        $_root = dirname(__FILE__) . '/../../../../';
+        $_p = $_root . '.htaccess';
+        $_rules = array();
+        $_querys = array('');
+        if (isset($params['available_static'])) {
+            $_rules []= 'js|css';
+        }
+        if (isset($params['available_pic_wga']) || isset($params['available_pic_safe']) || isset($params['pic_watermark'])) {
+            $_rules []= 'jpg|jpeg|png';
+            if (isset($params['available_pic_safe'])) {
+                $_querys []= 'available_pic_safe=1';
+            }
+            if (!empty($params['pic_watermark'])) {
+                $_querys []= 'pic_watermark=' . $params['pic_watermark'];
+            }
+            if (!empty($params['pic_watermark_pos'])) {
+                $_querys []= 'pic_watermark_pos=' . $params['pic_watermark_pos'];
+            }
+        }
+        if (count($_rules)) {
+            $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ index.php?s=/index/plugins/index/pluginsname/optimizer/pluginscontrol/handler/pluginsaction/handler' . implode('&', $_querys) . '&p=\$1.\$2 [L]';
+        } else {
+            $_rule = '';
+        }
+        $_c = '<IfModule mod_rewrite.c>\n  RewriteEngine On' . "\n" . '  ' . $_rule . "\n" . '</IfModule>';
+        if (file_exists($_p)) {
+            $_c = file_get_contents($_p);
+            if (stripos($_c, '/optimizer/') === false) {
+                $_c = preg_replace('/(RewriteRule \^\(\.\*\)\$.*?\n)/', '$1'. $_rule ."\n", $_c);
+            } else {
+                $_c = preg_replace('/RewriteRule \^\(\.\*\)\.\(.*?\n/', $_rule ? $_rule ."\n" : '', $_c);
+            }
+        }
+        file_put_contents($_p, $_c);
     }
 }
 ?>
