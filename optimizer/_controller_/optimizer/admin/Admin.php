@@ -71,7 +71,7 @@ class Admin extends Controller
             $_rules []= 'js|css';
         }
         if (isset($params['available_pic_wga']) || isset($params['available_pic_safe']) || isset($params['pic_watermark'])) {
-            $_rules []= 'jpg|jpeg|png';
+            $_rules []= 'jpg|jpeg|pngj';
             if (isset($params['available_pic_safe'])) {
                 $_querys []= 'available_pic_safe=1';
             }
