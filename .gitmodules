@@ -1,3 +1,6 @@
 [submodule "picviewer/_controller_/picviewer/mod/mtfPicViewer"]
 	path = picviewer/_controller_/picviewer/mod/mtfPicViewer
 	url = git@github.com:mantoufan/mtfPicViewer.git
+[submodule "optimizer/_controller_/optimizer/index/mtfBetter"]
+	path = optimizer/_controller_/optimizer/index/mtfBetter
+	url = git@github.com:mantoufan/mtfBetter.git
