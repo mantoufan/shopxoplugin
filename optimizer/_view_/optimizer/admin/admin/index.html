@@ -11,6 +11,25 @@
         <div class="optimizer-content">
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
+                    <span class="am-panel-title">基础</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="items">
+                        <label>缓存时间</label>
+                        <div>
+                            {{if !empty($data['cache_time'])}}{{$data['cache_time']}}{{else /}}{{$conf['cache_time']}}{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>任务数</label>
+                        <div>
+                            {{if !empty($data['task_num'])}}{{$data['task_num']}}{{else /}}{{$conf['task_num']}}{{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
                     <span class="am-panel-title">加速</span>
                 </div>
                 <div class="am-panel-bd">
@@ -42,16 +61,16 @@
                     <div class="items">
                         <label>图片防盗链</label>
                         <div>
-                            {{if !empty($data['available_pic_safe'])}}已开启{{else /}}已关闭{{/if}}
+                            {{if !empty($data['anti_stealing_link'])}}已开启{{else /}}已关闭{{/if}}
                         </div>
                     </div>
                     <div class="items">
                         <label>图片加水印</label>
                         <div>
-                            {{if !empty($data['pic_watermark'])}}
-                                {{foreach $data['pic_watermark'] as $pic_watermark}}
-                                <a href="{{$pic_watermark}}" target="_blank">
-                                    <img src="{{$pic_watermark}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/optimizer/default-images.jpg"' class="am-radius" width="100" />
+                            {{if !empty($data['watermark_path'])}}
+                                {{foreach $data['watermark_path'] as $watermark_path}}
+                                <a href="{{$watermark_path}}" target="_blank">
+                                    <img src="{{$watermark_path}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/optimizer/default-images.jpg"' class="am-radius" width="100" />
                                 </a>
                                 {{/foreach}}
                             {{else /}}
@@ -61,7 +80,7 @@
                         <br>
                         <label>水印位置</label>
                         <div>
-                            {{if !empty($data['pic_watermark_pos']) && !empty($conf['pic_watermark_pos'][$data['pic_watermark_pos']]) }} {{$conf['pic_watermark_pos'][$data['pic_watermark_pos']]['name']}} {{else}} {{$conf['pic_watermark_pos'][0]['name']}} {{/if}}
+                            {{if !empty($data['watermark_pos']) && !empty($conf['watermark_pos'][$data['watermark_pos']]) }} {{$conf['watermark_pos'][$data['watermark_pos']]['name']}} {{else}} {{$conf['watermark_pos'][0]['name']}} {{/if}}
                         </div>
                     </div>
                     <div class="items">

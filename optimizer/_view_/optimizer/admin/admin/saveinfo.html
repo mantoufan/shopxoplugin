@@ -11,6 +11,25 @@
             {{$wga_tip | RAW}}
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
+                    <span class="am-panel-title">基础</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>缓存时间</label><span class="am-form-group-label-tips">仅影响插件缓存。手动更新：工具 → 更新缓存 → 站点缓存</span>
+                        <div>
+                            <input type="number" name="cache_time" value="{{if isset($data['cache_time'])}}{{$data['cache_time']}}{{else /}}{{$conf['cache_time']}}{{/if}}" min="60"/>
+                        </div>
+                    </div>
+                    <div class="am-form-group am-form-file">
+                        <label>任务数</label><span class="am-form-group-label-tips">服务器配置高，数值可调大。如出现`503`和`500`等错误，请减少任务数</span>
+                        <div>
+                            <input type="number" name="task_num" value="{{if isset($data['task_num'])}}{{$data['task_num']}}{{else /}}{{$conf['task_num']}}{{/if}}" min="1" max="50"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
                     <span class="am-panel-title">加速</span>
                 </div>
                 <div class="am-panel-bd">
@@ -40,19 +59,19 @@
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <label>图片防盗链</label>
+                        <label>防盗链</label>
                         <div>
-                            <input name="available_pic_safe" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_pic_safe']) and $data['available_pic_safe'] eq 1}}checked="true"{{/if}} />
+                            <input name="anti_stealing_link" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['anti_stealing_link']) and $data['anti_stealing_link'] eq 1}}checked="true"{{/if}} />
                         </div>
                     </div>
                     <div class="am-form-group am-form-file">
                         <label>图片加水印</label>
-                        <ul class="plug-file-upload-view pic_watermark" data-form-name="pic_watermark[]" data-max-number="1" data-delete="1" data-dialog-type="images">
-                            {{if !empty($data['pic_watermark'])}}
-                                {{foreach $data['pic_watermark'] as $pic_watermark}}
+                        <ul class="plug-file-upload-view watermark_path" data-form-name="watermark_path[]" data-max-number="1" data-delete="1" data-dialog-type="images">
+                            {{if !empty($data['watermark_path'])}}
+                                {{foreach $data['watermark_path'] as $watermark_path}}
                                 <li>
-                                    <input type="text" name="pic_watermark[]" value="{{$pic_watermark}}" data-validation-message="请上传图片" required />
-                                    <img src="{{$pic_watermark}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/optimizer/default-images.jpg"' />
+                                    <input type="text" name="watermark_path[]" value="{{$watermark_path}}" data-validation-message="请上传图片" required />
+                                    <img src="{{$watermark_path}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/optimizer/default-images.jpg"' />
                                     <i>×</i>
                                 </li>
                                 {{/foreach}}
@@ -63,9 +82,9 @@
                         <br>
                         <label>水印位置</label>
                         <br>
-                        {{foreach $conf['pic_watermark_pos'] as $v}}
+                        {{foreach $conf['watermark_pos'] as $v}}
                             <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="pic_watermark_pos" value="{{$v.id}}" {{if isset($data['pic_watermark_pos']) and $data['pic_watermark_pos'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['pic_watermark_pos']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="radio" name="watermark_pos" value="{{$v.id}}" {{if isset($data['watermark_pos']) and $data['watermark_pos'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['watermark_pos']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                         {{/foreach}}
                     </div>

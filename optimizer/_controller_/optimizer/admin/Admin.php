@@ -16,12 +16,15 @@ use app\plugins\optimizer\wga\WGA;
 class Admin extends Controller
 {
     private static $conf = array(
-        'pic_watermark_pos' =>  array(
-            array('id' => 0, 'name' => '无水印', 'checked' => true),
-            array('id' => 1, 'name' => '左上'),
-            array('id' => 2, 'name' => '左下'),
-            array('id' => 3, 'name' => '右上'),
-            array('id' => 4, 'name' => '右下')
+        'cache_dir' => 'runtime/cache/optimizer/',
+        'cache_time' => 60 * 60 * 6,
+        'task_num' => 8,
+        'watermark_pos' =>  array(
+            array('id' => '', 'name' => '无水印', 'checked' => true),
+            array('id' => 'left-top', 'name' => '左上'),
+            array('id' => 'left-bottom', 'name' => '左下'),
+            array('id' => 'right-top', 'name' => '右上'),
+            array('id' => 'right-bottom', 'name' => '右下')
         )
     );
 
@@ -63,27 +66,32 @@ class Admin extends Controller
 
     public function htaccess($params)
     {
-        $_root = dirname(__FILE__) . '/../../../../';
+        $_root = str_replace('\\', '/', dirname(__FILE__)) . '/../../../../';
         $_p = $_root . '.htaccess';
         $_rules = array();
-        $_querys = array('');
+        $_querys = array();
         if (isset($params['available_static'])) {
             $_rules []= 'js|css';
         }
-        if (isset($params['available_pic_wga']) || isset($params['available_pic_safe']) || isset($params['pic_watermark'])) {
-            $_rules []= 'jpg|jpeg|pngj';
-            if (isset($params['available_pic_safe'])) {
-                $_querys []= 'available_pic_safe=1';
+        if (isset($params['available_pic_wga']) || isset($params['anti_stealing_link']) || isset($params['watermark_path'])) {
+            $_rules []= 'jpg|jpeg|png';
+            if (isset($params['anti_stealing_link'])) {
+                $_querys []= 'anti_stealing_link=1';
             }
-            if (!empty($params['pic_watermark'])) {
-                $_querys []= 'pic_watermark=' . $params['pic_watermark'];
+            if (!empty($params['watermark_path'])) {
+                $_querys []= 'watermark_path=' . $params['watermark_path'];
             }
-            if (!empty($params['pic_watermark_pos'])) {
-                $_querys []= 'pic_watermark_pos=' . $params['pic_watermark_pos'];
+            if (!empty($params['watermark_pos'])) {
+                $_querys []= 'watermark_pos=' . $params['watermark_pos'];
             }
         }
+
+        $_querys []= 'cache_dir=' . $_root . self::$conf['cache_dir'];
+        $_querys []= 'cache_time=' . (!empty($params['cache_time']) ? $params['cache_time'] : self::$conf['cache_time']);
+        $_querys []= 'task_num=' . (!empty($params['task_num']) ? $params['task_num'] : self::$conf['task_num']);
+        
         if (count($_rules)) {
-            $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ index.php?s=/index/plugins/index/pluginsname/optimizer/pluginscontrol/handler/pluginsaction/handler' . implode('&', $_querys) . '&p=\$1.\$2 [L]';
+            $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ /application/plugins/optimizer/index/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . dirname(__FILE__) . '/../../../../' . '\$1.\$2 [L]';
         } else {
             $_rule = '';
         }
