@@ -73,10 +73,10 @@ class Admin extends Controller
         if (isset($params['available_static'])) {
             $_rules []= 'js|css';
         }
-        if (isset($params['available_pic_wga']) || isset($params['anti_stealing_link']) || isset($params['watermark_path'])) {
+        if (isset($params['available_pic_wga']) || isset($params['anti_stealing_link_pic']) || isset($params['watermark_path'])) {
             $_rules []= 'jpg|jpeg|png';
-            if (isset($params['anti_stealing_link'])) {
-                $_querys []= 'anti_stealing_link=1';
+            if (isset($params['anti_stealing_link_pic'])) {
+                $_querys []= 'anti_stealing_link_pic=1';
             }
             if (!empty($params['watermark_path'])) {
                 $_querys []= 'watermark_path=' . $params['watermark_path'];
@@ -91,7 +91,7 @@ class Admin extends Controller
         $_querys []= 'task_num=' . (!empty($params['task_num']) ? $params['task_num'] : self::$conf['task_num']);
         
         if (count($_rules)) {
-            $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ /application/plugins/optimizer/index/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . dirname(__FILE__) . '/../../../../' . '\$1.\$2 [L]';
+            $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ /application/plugins/optimizer/index/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . $_root . '\$1.\$2 [L]';
         } else {
             $_rule = '';
         }

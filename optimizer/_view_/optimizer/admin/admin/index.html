@@ -61,7 +61,7 @@
                     <div class="items">
                         <label>图片防盗链</label>
                         <div>
-                            {{if !empty($data['anti_stealing_link'])}}已开启{{else /}}已关闭{{/if}}
+                            {{if !empty($data['anti_stealing_link_pic'])}}已开启{{else /}}已关闭{{/if}}
                         </div>
                     </div>
                     <div class="items">
@@ -77,7 +77,6 @@
                                 <span>无水印</span>
                             {{/if}}
                         </div>
-                        <br>
                         <label>水印位置</label>
                         <div>
                             {{if !empty($data['watermark_pos']) && !empty($conf['watermark_pos'][$data['watermark_pos']]) }} {{$conf['watermark_pos'][$data['watermark_pos']]['name']}} {{else}} {{$conf['watermark_pos'][0]['name']}} {{/if}}
