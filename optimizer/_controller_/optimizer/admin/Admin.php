@@ -79,7 +79,7 @@ class Admin extends Controller
                 $_querys []= 'anti_stealing_link_pic=1';
             }
             if (!empty($params['watermark_path'])) {
-                $_querys []= 'watermark_path=' . $params['watermark_path'];
+                $_querys []= 'watermark_path=' . $params['watermark_path'][0];
             }
             if (!empty($params['watermark_pos'])) {
                 $_querys []= 'watermark_pos=' . $params['watermark_pos'];
