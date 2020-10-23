@@ -102,6 +102,12 @@ class WGA
                 $fields['access_count']['access_max'] = $params['access_add_access_count_max'];
             }
         }
+        if (self::check($params, 'inventory_add_count_min') && self::check($params, 'inventory_add_count_max')) {
+            if ($params['inventory_add_count_min'] <= $params['inventory_add_count_max']) {
+                $ranges['inventory_add_count_min'] = $params['inventory_add_count_min'];
+                $ranges['inventory_add_count_max'] = $params['inventory_add_count_max'];
+            }
+        }
 
         $data = array();
         foreach($params as $k => $v) {
@@ -139,10 +145,13 @@ class WGA
         if (count($ranges) > 0 || count($fields['sales_count']) > 0 || count($fields['access_count']) > 0) {
             $res = Service::saveDataAll($ranges, $fields);
             if ($res) {
-                $ret['msg'] .=  '<br>' . $res['goods_count'] . '个商品' .
-                 ($res['goods_fav_count_sum'] ? ' 收藏加' . $res['goods_fav_count_sum'] : '') . 
-                 ($res['goods_sales_count_sum'] ? ' 销量加' . $res['goods_sales_count_sum'] : '') . 
-                 ($res['goods_access_count_sum'] ? ' 浏览次数加' . $res['goods_access_count_sum'] : '');
+                $ret['msg'] .=  '<br>' . 
+                 ($res['goods_sum'] ? $res['goods_sum'] . '个商品 ' : '') .
+                 ($res['goods_spec_sum'] ? $res['goods_spec_sum'] . '个规格 ' : '') .
+                 ($res['goods_fav_count_sum'] ? '收藏加' . $res['goods_fav_count_sum'] . ' ' : '') . 
+                 ($res['goods_sales_count_sum'] ? '销量加' . $res['goods_sales_count_sum'] . ' ' : '') . 
+                 ($res['goods_access_count_sum'] ? '浏览次数加' . $res['goods_access_count_sum'] . ' ' : '') . 
+                 ($res['goods_inventory_count_sum'] ? '库存' . ($res['goods_inventory_count_sum'] > 0 ? '加' : '减') . abs($res['goods_inventory_count_sum']) . ' ' : '');
             }
         }
 

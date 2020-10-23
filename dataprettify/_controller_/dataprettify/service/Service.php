@@ -41,7 +41,7 @@ class Service
         return $db_config = include ROOT.'config/database.php';
     }
 
-    private static function isAvailable($type, $ranges, $fields, $MAXCOUNT = PHP_INT_MAX) {
+    private static function isAvailable($type, $ranges, $fields = array(), $MAXCOUNT = PHP_INT_MAX) {
         if (isset($ranges[$type . '_add_count_min']) && isset($ranges[$type . '_add_count_max'])) {
             $min = $ranges[$type . '_add_count_min'];
             $max = $ranges[$type . '_add_count_max'];
@@ -70,89 +70,112 @@ class Service
         $availables = array(
             'fav' => self::isAvailable('fav', $ranges, $fields, $MAXCOUNT),
             'sales' => self::isAvailable('sales', $ranges, $fields),
-            'access' => self::isAvailable('access', $ranges, $fields)
+            'access' => self::isAvailable('access', $ranges, $fields),
+            'inventory' => self::isAvailable('inventory', $ranges)
         );
+        
+        $sum = array('goods' => 0, 'spec' => 0, 'fav' => 0, 'sales' => 0, 'access' => 0, 'inventory' => 0);
+        if ($availables['fav'] || $availables['sales'] || $availables['access']) {
+            $datas = array();
+            $tmp = array();
+            $fields_str = '';
 
-        $tmp = array();
-        $datas = array();
-        $sum = array('fav' => 0, 'sales' => 0, 'access' => 0);
-        $fields_str = '';
-
-        foreach($fields as $field => $opt) {
-            if (count($opt) > 0) {
-                if (!empty($opt['fav_min']) && !empty($opt['fav_max'])) {
-                    $res = Db::query('SELECT max(' . $field . ') as maxcount FROM ' . $prefix . 'goods');
-                    if ($res && !empty($res[0]) && $res[0]['maxcount'] > $MAXCOUNT) {
-                        $_tmp = $res[0]['maxcount'] / $MAXCOUNT;
-                        $fields[$field]['fav_max'] = $opt['fav_max'] / $_tmp;
-                        $fields[$field]['fav_min'] = $opt['fav_min'] / $_tmp;
+            foreach($fields as $field => $opt) {
+                if (count($opt) > 0) {
+                    if (!empty($opt['fav_min']) && !empty($opt['fav_max'])) {
+                        $res = Db::query('SELECT max(' . $field . ') as maxcount FROM ' . $prefix . 'goods');
+                        if ($res && !empty($res[0]) && $res[0]['maxcount'] > $MAXCOUNT) {
+                            $_tmp = $res[0]['maxcount'] / $MAXCOUNT;
+                            $fields[$field]['fav_max'] = $opt['fav_max'] / $_tmp;
+                            $fields[$field]['fav_min'] = $opt['fav_min'] / $_tmp;
+                        }
                     }
                 }
+                $fields_str .= ',' . $field;
             }
-            $fields_str .= ',' . $field;
+            $ret = Db::query('SELECT id' . $fields_str . ' FROM ' . $prefix . 'goods ORDER BY id ASC');
+            $sum['goods'] = count($ret);
+            if ($ret) {
+                foreach ($ret as $k => $v) {
+                    $goods_id = $v['id'];
+                    $fav_add_count_min = 0;
+                    $fav_add_count_max = 0;
+                    $sales_add_count_min = 0;
+                    $sales_add_count_max = 0;
+                    $access_add_count_min = 0;
+                    $access_add_count_max = 0;
+
+                    foreach($fields as $field => $opt) {
+                        if (count($opt) > 0) {
+                            if ($availables['fav'] && isset($opt['fav_min']) && isset($opt['fav_max'])) {
+                                $fav_add_count_min += $opt['fav_min'] * $v[$field] / 100;
+                                $fav_add_count_max += $opt['fav_max'] * $v[$field] / 100;
+                            }
+                            if ($availables['sales'] && isset($opt['sales_min']) && isset($opt['sales_max'])) {
+                                $sales_add_count_min += $opt['sales_min'] * $v[$field] / 100;
+                                $sales_add_count_max += $opt['sales_max'] * $v[$field] / 100;
+                            }
+                            if ($availables['access'] && isset($opt['access_min']) && isset($opt['access_max'])) {
+                                $access_add_count_min += $opt['access_min'] * $v[$field] / 100;
+                                $access_add_count_max += $opt['access_max'] * $v[$field] / 100;
+                            }
+                        }
+                    }
+                    if ($availables['fav']) {
+                        $num = self::getRandNum($fav_add_count_min, $fav_add_count_max, $availables['fav'][0], $availables['fav'][1]);
+                        $sum['fav'] += $num;
+                        for ($i = 0; $i < $num; $i++) {
+                            array_push($tmp, '\'' .  $goods_id . '\', 0, \'' . time() . '\'');
+                        }
+                    }
+                    if ($availables['sales']) {
+                        $num = self::getRandNum($sales_add_count_min, $sales_add_count_max, $availables['sales'][0], $availables['sales'][1]);
+                        $sum['sales'] += $num;
+                        if (!isset($datas[$goods_id])) {$datas[$goods_id] = array();}
+                        $datas[$goods_id]['sales_count'] = $num;
+                    }
+                    if ($availables['access']) {
+                        $num = self::getRandNum($access_add_count_min, $access_add_count_max, $availables['access'][0], $availables['access'][1]);
+                        $sum['access'] += $num;
+                        if (!isset($datas[$goods_id])) {$datas[$goods_id] = array();}
+                        $datas[$goods_id]['access_count'] = $num;
+                    }
+                }
+                if (count($tmp) > 0) {
+                    Db::execute('INSERT INTO ' . $prefix . 'goods_favor (goods_id, user_id, add_time) VALUES ' . '(' . implode('),(', $tmp) . ')');
+                }
+                if (count($datas) > 0) {
+                    self::saveDataGoodsAll($datas);
+                }   
+            }
         }
-
-        $ret = Db::query('SELECT id' . $fields_str . ' FROM ' . $prefix . 'goods ORDER BY id ASC');
-        if ($ret) {
+        if ($availables['inventory']) {
+            $datas = array();
+            $ret = Db::query('SELECT id, inventory FROM ' . $prefix . 'goods_spec_base ORDER BY id ASC');
+            $sum['spec'] = count($ret);
             foreach ($ret as $k => $v) {
-                $goods_id = $v['id'];
-                $fav_add_count_min = 0;
-                $fav_add_count_max = 0;
-                $sales_add_count_min = 0;
-                $sales_add_count_max = 0;
-                $access_add_count_min = 0;
-                $access_add_count_max = 0;
-
-                foreach($fields as $field => $opt) {
-                    if (count($opt) > 0) {
-                        if ($availables['fav']) {
-                            $fav_add_count_min += $opt['fav_min'] * $v[$field] / 100;
-                            $fav_add_count_max += $opt['fav_max'] * $v[$field] / 100;
-                        }
-                        if ($availables['sales']) {
-                            $sales_add_count_min += $opt['sales_min'] * $v[$field] / 100;
-                            $sales_add_count_max += $opt['sales_max'] * $v[$field] / 100;
-                        }
-                        if ($availables['access']) {
-                            $access_add_count_min += $opt['access_min'] * $v[$field] / 100;
-                            $access_add_count_max += $opt['access_max'] * $v[$field] / 100;
-                        }
-                    }
+                $goods_spec_id = $v['id'];
+                $goods_spec_inventory = $v['inventory'];
+                $num = rand($availables['inventory'][0], $availables['inventory'][1]);
+                if ($num < 0 && $goods_spec_inventory + $num < 0) {
+                    $num = -$goods_spec_inventory;
                 }
-                if ($availables['fav']) {
-                    $num = self::getRandNum($fav_add_count_min, $fav_add_count_max, $availables['fav'][0], $availables['fav'][1]);
-                    $sum['fav'] += $num;
-                    for ($i = 0; $i < $num; $i++) {
-                        array_push($tmp, '\'' .  $goods_id . '\', 0, \'' . time() . '\'');
-                    }
-                }
-                if ($availables['sales']) {
-                    $num = self::getRandNum($sales_add_count_min, $sales_add_count_max, $availables['sales'][0], $availables['sales'][1]);
-                    $sum['sales'] += $num;
-                    if (!isset($datas[$goods_id])) {$datas[$goods_id] = array();}
-                    $datas[$goods_id]['sales_count'] = $num;
-                }
-                if ($availables['access']) {
-                    $num = self::getRandNum($access_add_count_min, $access_add_count_max, $availables['access'][0], $availables['access'][1]);
-                    $sum['access'] += $num;
-                    if (!isset($datas[$goods_id])) {$datas[$goods_id] = array();}
-                    $datas[$goods_id]['access_count'] = $num;
-                }
-            }
-            if (count($tmp) > 0) {
-                Db::execute('INSERT INTO ' . $prefix . 'goods_favor (goods_id, user_id, add_time) VALUES ' . '(' . implode('),(', $tmp) . ')');
+                $sum['inventory'] += $num;
+                if (!isset($datas[$goods_spec_id])) {$datas[$goods_spec_id] = array();}
+                $datas[$goods_spec_id]['inventory'] = $num;
             }
             if (count($datas) > 0) {
-                self::saveDataGoodsAll($datas);
+                self::saveDataGoodsSpecAll($datas);
             }
-            return array(
-                'goods_count' => count($ret),
-                'goods_fav_count_sum' => $sum['fav'],
-                'goods_sales_count_sum' => $sum['sales'],
-                'goods_access_count_sum' => $sum['access'],
-            );
         }
-        return false;
+        return array(
+            'goods_sum' => $sum['goods'],
+            'goods_fav_count_sum' => $sum['fav'],
+            'goods_sales_count_sum' => $sum['sales'],
+            'goods_access_count_sum' => $sum['access'],
+            'goods_spec_sum' => $sum['spec'],
+            'goods_inventory_count_sum' => $sum['inventory']
+        );
     }
 
     public static function saveDataGoods($goods_id, $datas, $raws = array()) {
@@ -189,6 +212,29 @@ class Service
             return Db::execute('UPDATE ' . $prefix . 'goods SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
         }
         return false;
+    }
+
+    public static function saveDataGoodsSpecAll($datas) {
+        $db_config = self::getDbConfig();
+        if ($db_config) {
+            $prefix = $db_config['prefix'];
+        } else {
+            return false;
+        }
+        $ids = array();
+        $a = array();
+        foreach($datas as $goods_spec_id => $data) {
+            array_push($ids, $goods_spec_id);
+            foreach($data  as $field => $v) {
+                if (!isset($a[$field])) {
+                    $a[$field] = $field . ' = '. $field .' + CASE id';
+                }
+                $a[$field] .= ' WHEN '. $goods_spec_id . ' THEN '. $v;
+            }
+        }
+        if (count($a) > 0 && count($ids) > 0) {
+            return Db::execute('UPDATE ' . $prefix . 'goods_spec_base SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
+        }
     }
 
     public static function addData($goods_id, $fav_count) {

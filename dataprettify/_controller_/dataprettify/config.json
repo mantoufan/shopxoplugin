@@ -5,8 +5,8 @@
         "logo":"\/static\/upload\/images\/plugins_dataprettify\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.2",
-        "desc":"收藏数、销量和人气等随销量、浏览次数、上架天数自动增加。单个或批量增加收藏数、销量、浏览次数。真实数据不被影响且保持更新，随时可恢复。",
+        "version":"1.0.3",
+        "desc":"随机或按销量、浏览次数、上架天数等自动增加、修改、批量改收藏数、销量、浏览次数、库存。真实数据不影响且保持更新，随时可恢复。",
         "apply_terminal":[
             "pc",
             "h5",
