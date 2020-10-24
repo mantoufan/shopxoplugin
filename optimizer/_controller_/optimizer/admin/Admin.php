@@ -79,45 +79,69 @@ class Admin extends Controller
 
     public function htaccess($params)
     {
-        $_root = str_replace('\\', '/', dirname(__FILE__)) . '/../../../../';
-        $_p = $_root . '.htaccess';
-        $_rules = array();
-        $_querys = array();
-        if (isset($params['available_static'])) {
-            $_rules []= 'js|css';
-        }
-        if (isset($params['available_pic_wga']) || isset($params['anti_stealing_link_pic']) || isset($params['watermark_path'])) {
-            $_rules []= 'jpg|jpeg|png';
-            if (isset($params['anti_stealing_link_pic'])) {
-                $_querys []= 'anti_stealing_link_pic=1';
+        $ret = PluginsService::PluginsData('optimizer');
+        if($ret['code'] == 0)
+        {
+            $_root = str_replace('\\', '/', dirname(__FILE__)) . '/../../../../';
+            $_p = $_root . '.htaccess';
+            $_rules = array();
+            $_querys = array();
+            $needClearCache = false;
+            if (isset($params['available_static'])) {
+                $_rules []= 'js|css';
             }
-            if (!empty($params['watermark_path'])) {
-                $_querys []= 'watermark_path=' . $params['watermark_path'][0];
+            if (isset($params['available_pic_wga']) || isset($params['anti_stealing_link_pic']) || isset($params['watermark_path'])) {
+                $_rules []= 'jpg|jpeg|png';
+                if (isset($params['anti_stealing_link_pic'])) {
+                    $_querys []= 'anti_stealing_link_pic=1';
+                }
+                if (!empty($params['watermark_path'])) {
+                    if (isset($ret['data']['watermark_path']) && $params['watermark_path'] !== $ret['data']['watermark_path']) {
+                        $needClearCache = true;
+                    }
+                    $_querys []= 'watermark_path=' . $_root . preg_replace('/http.*?\/\/.*?\//', '', $params['watermark_path'][0]);
+                    if (!isset($params['watermark_opacity'])) {
+                        $params['watermark_opacity'] = 30;
+                    }
+                }
+                if (!empty($params['watermark_pos'])) {
+                    if (isset($ret['data']['watermark_pos']) && $params['watermark_pos'] !== $ret['data']['watermark_pos']) {
+                        $needClearCache = true;
+                    }
+                    $_querys []= 'watermark_pos=' . $params['watermark_pos'];
+                }
+                if (!empty($params['watermark_opacity'])) {
+                    if (isset($ret['data']['watermark_opacity']) && $params['watermark_opacity'] !== $ret['data']['watermark_opacity']) {
+                        $needClearCache = true;
+                    }
+                    $_querys []= 'watermark_opacity=' . $params['watermark_opacity'];
+                }
             }
-            if (!empty($params['watermark_pos'])) {
-                $_querys []= 'watermark_pos=' . $params['watermark_pos'];
-            }
-        }
 
-        $_querys []= 'cache_dir=' . $_root . self::$conf['cache_dir'];
-        $_querys []= 'cache_time=' . (!empty($params['cache_time']) ? $params['cache_time'] : self::$conf['cache_time']);
-        $_querys []= 'task_num=' . (!empty($params['task_num']) ? $params['task_num'] : self::$conf['task_num']);
-        
-        if (count($_rules)) {
-            $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ /application/plugins/optimizer/index/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . $_root . '\$1.\$2 [L]';
-        } else {
-            $_rule = '';
-        }
-        $_c = '<IfModule mod_rewrite.c>\n  RewriteEngine On' . "\n" . '  ' . $_rule . "\n" . '</IfModule>';
-        if (file_exists($_p)) {
-            $_c = file_get_contents($_p);
-            if (stripos($_c, '/optimizer/') === false) {
-                $_c = preg_replace('/(RewriteRule \^\(\.\*\)\$.*?\n)/', '$1'. $_rule ."\n", $_c);
+            $_querys []= 'cache_dir=' . $_root . self::$conf['cache_dir'];
+            $_querys []= 'cache_time=' . (!empty($params['cache_time']) ? $params['cache_time'] : self::$conf['cache_time']);
+            $_querys []= 'task_num=' . (!empty($params['task_num']) ? $params['task_num'] : self::$conf['task_num']);
+            
+            if (count($_rules)) {
+                $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ /application/plugins/optimizer/index/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . $_root . '\$1.\$2 [L]';
             } else {
-                $_c = preg_replace('/RewriteRule \^\(\.\*\)\.\(.*?\n/', $_rule ? $_rule ."\n" : '', $_c);
+                $_rule = '';
+            }
+            $_c = '<IfModule mod_rewrite.c>\n  RewriteEngine On' . "\n" . '  ' . $_rule . "\n" . '</IfModule>';
+            if (file_exists($_p)) {
+                $_c = file_get_contents($_p);
+                if (stripos($_c, '/optimizer/') === false) {
+                    $_c = preg_replace('/(RewriteRule \^\(\.\*\)\$.*?\n)/', '$1'. $_rule ."\n", $_c);
+                } else {
+                    $_c = preg_replace('/RewriteRule \^\(\.\*\)\.\(.*?\n/', $_rule ? $_rule ."\n" : '', $_c);
+                }
+            }
+            file_put_contents($_p, $_c);
+
+            if ($needClearCache) {
+                $this->clearCache();
             }
         }
-        file_put_contents($_p, $_c);
     }
 }
 ?>
