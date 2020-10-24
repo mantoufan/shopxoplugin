@@ -4,6 +4,7 @@ namespace app\plugins\dataprettify\service;
 use think\Db;
 use app\service\PluginsService;
 use app\service\GoodsFavorService;
+use app\service\WarehouseGoodsService;
 
 class Service
 {
@@ -151,10 +152,14 @@ class Service
         }
         if ($availables['inventory']) {
             $datas = array();
-            
-            $ret = Db::query('SELECT id, inventory FROM ' . self::getGoodsSpecDbname($prefix) . ' ORDER BY id ASC');
+            $goods_ids = array();
+            $is_warehouse = Db::query('show tables like "' . $prefix . 'warehouse_goods_spec' . '"');
+            $warehouse = array();
+            $ret = Db::query('SELECT id, goods_id, inventory '. ($is_warehouse ? ',warehouse_id' : '') .' FROM ' . self::getGoodsSpecDbname($prefix) . ' ORDER BY id ASC');
             $sum['spec'] = count($ret);
             foreach ($ret as $k => $v) {
+                $goods_id = $v['goods_id'];
+
                 $goods_spec_id = $v['id'];
                 $goods_spec_inventory = $v['inventory'];
                 $num = rand($availables['inventory'][0], $availables['inventory'][1]);
@@ -164,9 +169,39 @@ class Service
                 $sum['inventory'] += $num;
                 if (!isset($datas[$goods_spec_id])) {$datas[$goods_spec_id] = array();}
                 $datas[$goods_spec_id]['inventory'] = $num;
+
+                if ($is_warehouse) {
+                    $warehouse_id = $v['warehouse_id'];
+                    if (!isset($warehouse[$goods_id])) {
+                        $warehouse[$goods_id] = array();
+                    }
+                    if (isset($warehouse[$goods_id][$warehouse_id])) {
+                        $warehouse[$goods_id][$warehouse_id] = $warehouse[$goods_id][$warehouse_id] + $goods_spec_inventory + $num;
+                    } else {
+                        $warehouse[$goods_id][$warehouse_id] = $goods_spec_inventory + $num;
+                    }
+                }
+                
             }
             if (count($datas) > 0) {
                 self::saveDataGoodsSpecAll($datas);
+            }
+            if ($is_warehouse) {
+                if (count($warehouse) > 0) {
+                    $sql_warehouse = 'UPDATE ' . $prefix . 'warehouse_goods SET inventory = CASE';
+                    $sql_goods = 'UPDATE ' . $prefix . 'goods SET inventory = CASE id';
+                    foreach ($warehouse as $goods_id => $_v) {
+                        $inventory_sum = 0;
+                        foreach ($_v as  $warehouse_id => $inventory) {
+                            $inventory_sum += $inventory;
+                            $sql_warehouse .=' WHEN warehouse_id = ' . $warehouse_id . ' AND goods_id = '. $goods_id .' THEN ' . $inventory; 
+                        }
+                        $sql_goods .= ' WHEN ' . $goods_id . ' THEN ' . $inventory_sum;
+                    }
+                    $sql_goods .= ' END';
+                    $sql_warehouse .= ' END';
+                    Db::execute($sql_goods . ';' . $sql_warehouse);
+                }
             }
         }
         return array(
@@ -214,7 +249,7 @@ class Service
             }
         }
         if (count($a) > 0 && count($ids) > 0) {
-            return Db::execute('UPDATE ' . $prefix . 'goods SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
+            return Db::execute('UPDATE ' . $prefix . 'goods SET ' . implode(' END, ', $a) . ' END;');
         }
         return false;
     }
