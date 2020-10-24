@@ -79,7 +79,11 @@
                         </div>
                         <label>水印位置</label>
                         <div>
-                            {{if !empty($data['watermark_pos']) && !empty($conf['watermark_pos'][$data['watermark_pos']]) }} {{$conf['watermark_pos'][$data['watermark_pos']]['name']}} {{else}} {{$conf['watermark_pos'][0]['name']}} {{/if}}
+                            {{if !empty($data['watermark_pos']) && !empty($conf['watermark_pos'][$data['watermark_pos']])}} {{$conf['watermark_pos'][$data['watermark_pos']]['name']}} {{else}} {{$conf['watermark_pos'][0]['name']}} {{/if}}
+                        </div>
+                        <label>水印不透明度</label>
+                        <div>
+                            {{if !empty($data['watermark_opacity'])}}{{$data['watermark_opacity']}}{{else}}0{{/if}}
                         </div>
                     </div>
                     <div class="items">

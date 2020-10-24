@@ -26,6 +26,12 @@
                             <input type="number" name="task_num" value="{{if isset($data['task_num'])}}{{$data['task_num']}}{{else /}}{{$conf['task_num']}}{{/if}}" min="1" max="50"/>
                         </div>
                     </div>
+                    <div class="am-form-group am-form-file">
+                        <label>强制刷新缓存</label><span class="am-form-group-label-tips">不刷新不填。刷新请输入000，点保存</span>
+                        <div>
+                            <input type="text" name="cache_reset" value=""/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -82,11 +88,16 @@
                         <br>
                         <label>水印位置</label>
                         <br>
-                        {{foreach $conf['watermark_pos'] as $v}}
+                        {{foreach $conf['watermark_pos'] as $id => $v}}
                             <label class="am-radio-inline m-r-10">
-                                <input type="radio" name="watermark_pos" value="{{$v.id}}" {{if isset($data['watermark_pos']) and $data['watermark_pos'] eq $v['id']}}checked="checked"{{else /}}{{if !isset($data['watermark_pos']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
+                                <input type="radio" name="watermark_pos" value="{{$id}}" {{if isset($data['watermark_pos']) and $data['watermark_pos'] eq $id}}checked="checked"{{else /}}{{if !isset($data['watermark_pos']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}}{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
                         {{/foreach}}
+                        <br>
+                        <br>
+                        <label>水印不透明度</label><span class="am-form-group-label-tips">范围：0-100 越小越透明</span>
+                        <br>
+                        <input type="number" name="watermark_opacity" value="{{if !empty($data['watermark_opacity'])}}{{$data['watermark_opacity']}}{{/if}}" min="0" max="100"/>
                     </div>
                     <div class="am-form-group am-form-file">
                         <label>百度主动投递</label><span class="am-form-group-label-tips">将用户浏览页面投递给百度，通知蜘蛛抓取</span>

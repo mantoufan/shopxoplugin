@@ -20,11 +20,11 @@ class Admin extends Controller
         'cache_time' => 60 * 60 * 6,
         'task_num' => 8,
         'watermark_pos' =>  array(
-            array('id' => '', 'name' => '无水印', 'checked' => true),
-            array('id' => 'left-top', 'name' => '左上'),
-            array('id' => 'left-bottom', 'name' => '左下'),
-            array('id' => 'right-top', 'name' => '右上'),
-            array('id' => 'right-bottom', 'name' => '右下')
+            0 => array('name' => '无水印', 'checked' => true),
+            'left-top' => array('name' => '左上'),
+            'left-bottom' => array('name' => '左下'),
+            'right-top' => array('name' => '右上'),
+            'right-bottom' => array('name' => '右下')
         )
     );
 
@@ -61,7 +61,20 @@ class Admin extends Controller
     public function save($params = [])
     {
         $this->htaccess($params);
+        if (!empty($params['cache_reset'])) {
+            if ($params['cache_reset'] === '000') {
+                $this->clearCache();
+            }
+            unset($params['cache_reset']);
+        }
         return WGA::save($params);
+    }
+
+    public function clearCache()
+    {
+        forEach(glob(self::$conf['cache_dir']. '*.*') as $file) {
+            unlink($file);
+        }
     }
 
     public function htaccess($params)

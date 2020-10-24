@@ -151,7 +151,8 @@ class Service
         }
         if ($availables['inventory']) {
             $datas = array();
-            $ret = Db::query('SELECT id, inventory FROM ' . $prefix . 'goods_spec_base ORDER BY id ASC');
+            
+            $ret = Db::query('SELECT id, inventory FROM ' . self::getGoodsSpecDbname($prefix) . ' ORDER BY id ASC');
             $sum['spec'] = count($ret);
             foreach ($ret as $k => $v) {
                 $goods_spec_id = $v['id'];
@@ -176,6 +177,10 @@ class Service
             'goods_spec_sum' => $sum['spec'],
             'goods_inventory_count_sum' => $sum['inventory']
         );
+    }
+
+    private static function getGoodsSpecDbname($prefix) {
+        return  $prefix . (Db::query('show tables like "' . $prefix . 'warehouse_goods_spec' . '"') ? 'warehouse_goods_spec' : 'goods_spec_base');
     }
 
     public static function saveDataGoods($goods_id, $datas, $raws = array()) {
@@ -233,7 +238,7 @@ class Service
             }
         }
         if (count($a) > 0 && count($ids) > 0) {
-            return Db::execute('UPDATE ' . $prefix . 'goods_spec_base SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
+            return Db::execute('UPDATE ' . self::getGoodsSpecDbname($prefix) . ' SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
         }
     }
 
