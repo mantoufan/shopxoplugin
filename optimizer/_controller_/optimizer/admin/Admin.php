@@ -124,7 +124,7 @@ class Admin extends Controller
             $_querys []= 'cache_time=' . (!empty($params['cache_time']) ? $params['cache_time'] : self::$conf['cache_time']);
             $_querys []= 'task_num=' . (!empty($params['task_num']) ? $params['task_num'] : self::$conf['task_num']);
             if (count($_rules)) {
-                $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ /application/plugins/optimizer/index/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . $_root . '\$1.\$2 [L]';
+                $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ static/plugins/images/optimizer/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . $_root . 'public/\$1.\$2 [L]';
             } else {
                 $_rule = '';
             }
@@ -132,7 +132,7 @@ class Admin extends Controller
             if (file_exists($_p)) {
                 $_c = file_get_contents($_p);
                 if (stripos($_c, '/optimizer/') === false) {
-                    $_c = preg_replace('/(RewriteRule \^\(\.\*\)\$.*?\n)/', '$1'. $_rule ."\n", $_c);
+                    $_c = preg_replace('/(RewriteRule \^\(\.\*\)\$.*?\n)/', '$1'. ($_rule ? $_rule ."\n" : ''), $_c);
                 } else {
                     $_c = preg_replace('/RewriteRule \^\(\.\*\)\.\(.*?\n/', $_rule ? $_rule ."\n" : '', $_c);
                 }
