@@ -1,4 +1,4 @@
-<?php $wga_data = array (
+<?php return array (
   'domains' => 
   array (
     0 => 'shop.yocoo.cn',

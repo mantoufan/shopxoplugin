@@ -18,7 +18,7 @@ class Admin extends Controller
     private static $conf = array(
         'cache_dir' => 'runtime/cache/optimizer/',
         'cache_time' => 60 * 60 * 6,
-        'task_num' => 8,
+        'task_num' => 3,
         'watermark_pos' =>  array(
             0 => array('name' => '无水印', 'checked' => true),
             'left-top' => array('name' => '左上'),
@@ -100,21 +100,12 @@ class Admin extends Controller
                         $needClearCache = true;
                     }
                     $_querys []= 'watermark_path=' . $_root . preg_replace('/http.*?\/\/.*?\//', '', $params['watermark_path'][0]);
-                    if (!isset($params['watermark_opacity'])) {
-                        $params['watermark_opacity'] = 30;
-                    }
                 }
                 if (!empty($params['watermark_pos'])) {
                     if (isset($ret['data']['watermark_pos']) && $params['watermark_pos'] !== $ret['data']['watermark_pos']) {
                         $needClearCache = true;
                     }
                     $_querys []= 'watermark_pos=' . $params['watermark_pos'];
-                }
-                if (!empty($params['watermark_opacity'])) {
-                    if (isset($ret['data']['watermark_opacity']) && $params['watermark_opacity'] !== $ret['data']['watermark_opacity']) {
-                        $needClearCache = true;
-                    }
-                    $_querys []= 'watermark_opacity=' . $params['watermark_opacity'];
                 }
             }
 

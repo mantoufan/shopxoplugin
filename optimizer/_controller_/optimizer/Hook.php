@@ -43,7 +43,7 @@ class Hook extends Controller
             if ($ret['data']['available_dns']) {
                 $ret = '';$wga_data = array();$wga_path = dirname(__FILE__) . '/wga/wga_data.php';
                 if(file_exists($wga_path)) {
-                    include($wga_path);
+                    $wga_data = include($wga_path);
                     if (!empty($wga_data['domains'])) {
                         foreach($wga_data['domains'] as $v) {
                             $ret .= '<link rel="dns-prefetch" href="//' . $v . '">';

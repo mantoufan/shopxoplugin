@@ -8,7 +8,7 @@ class WGA
         $config = self::config();
         $_domain_ar = !empty($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST']) : array($_SERVER['SERVER_NAME']);
         $_domain = reset($_domain_ar);
-        $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_domain, false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 3))));
+        $r = @file_get_contents('https://api.os120.com/wga/verify?out_type=json&name=shopxoplugin_' . $config['base']['plugins'] . '&version=' . $config['base']['version'] . '&des=正版验证&domain=' . $_domain, false, stream_context_create(array('http' => array('method' => "GET",'timeout' => 5))));
         if ($r) {
             $r = json_decode($r, true);
             if (isset($r['code']) && $r['code'] === -1) {
@@ -19,7 +19,7 @@ class WGA
                     file_put_contents($root . '/wga_tip.txt', $r['data']['tip']);
                 }
                 if (!empty($r['data']['data'])) {
-                    file_put_contents($root . '/wga_data.php', '<?php $wga_data = ' . var_export($r['data']['data']) . '; ?>');
+                    file_put_contents($root . '/wga_data.php', '<?php return ' . var_export($r['data']['data'], true) . '; ?>');
                 }
             } else if (file_exists($root . '/wga_tip.txt')){
                 unlink($root. '/wga_tip.txt');
