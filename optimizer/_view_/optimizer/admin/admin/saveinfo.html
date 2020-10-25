@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="am-form-group am-form-file">
-                        <label>任务数</label><span class="am-form-group-label-tips">服务器配置高，数值可调大。如出现`503`和`500`等错误，请减少任务数</span>
+                        <label>任务数</label><span class="am-form-group-label-tips">服务器配置高，数值可调大。如果大量出现503和500等错误，请减少任务数</span>
                         <div>
                             <input type="number" name="task_num" value="{{if isset($data['task_num'])}}{{$data['task_num']}}{{else /}}{{$conf['task_num']}}{{/if}}" min="1" max="50"/>
                         </div>
@@ -48,7 +48,7 @@
                     <div class="am-form-group am-form-file">
                         <label>图片加速</label>
                         <div>
-                            <input name="available_pic_wga" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_pic_wga']) and $data['available_pic_wga'] eq 1}}checked="true"{{/if}} />
+                            <input name="available_pic" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_pic']) and $data['available_pic'] eq 1}}checked="true"{{/if}} />
                         </div>
                     </div>
                     <div class="am-form-group am-form-file">

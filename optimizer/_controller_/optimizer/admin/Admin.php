@@ -61,12 +61,6 @@ class Admin extends Controller
     public function save($params = [])
     {
         $this->htaccess($params);
-        if (!empty($params['cache_reset'])) {
-            if ($params['cache_reset'] === '000') {
-                $this->clearCache();
-            }
-            unset($params['cache_reset']);
-        }
         return WGA::save($params);
     }
 
@@ -75,6 +69,15 @@ class Admin extends Controller
         forEach(glob(self::$conf['cache_dir']. '*.*') as $file) {
             unlink($file);
         }
+    }
+
+    private function checkNeedClearCache($data, $params, $key) {
+        if (isset($data[$key]) && !isset($params[$key]) || !isset($data[$key]) && isset($params[$key])) {
+            return true;
+        } else if (isset($data[$key]) && isset($params[$key]) && $data[$key] !== $params[$key]) {
+            return true;
+        }
+        return false;
     }
 
     public function htaccess($params)
@@ -87,32 +90,39 @@ class Admin extends Controller
             $_rules = array();
             $_querys = array();
             $needClearCache = false;
+            if (!empty($params['cache_reset'])) {
+                if ($params['cache_reset'] === '000') {
+                    $needClearCache = true;
+                }
+                unset($params['cache_reset']);
+            }
             if (isset($params['available_static'])) {
                 $_rules []= 'js|css';
+                $_querys []= 'available_static=1';
             }
-            if (isset($params['available_pic_wga']) || isset($params['anti_stealing_link_pic']) || isset($params['watermark_path'])) {
+            if (isset($params['available_pic']) || isset($params['anti_stealing_link_pic']) || isset($params['watermark_path'])) {
                 $_rules []= 'jpg|jpeg|png';
+                if (isset($params['available_pic'])) {
+                    $_querys []= 'available_pic=1';
+                }
                 if (isset($params['anti_stealing_link_pic'])) {
                     $_querys []= 'anti_stealing_link_pic=1';
                 }
                 if (!empty($params['watermark_path'])) {
-                    if (isset($ret['data']['watermark_path']) && $params['watermark_path'] !== $ret['data']['watermark_path']) {
-                        $needClearCache = true;
-                    }
                     $_querys []= 'watermark_path=' . $_root . preg_replace('/http.*?\/\/.*?\//', '', $params['watermark_path'][0]);
                 }
                 if (!empty($params['watermark_pos'])) {
-                    if (isset($ret['data']['watermark_pos']) && $params['watermark_pos'] !== $ret['data']['watermark_pos']) {
-                        $needClearCache = true;
-                    }
                     $_querys []= 'watermark_pos=' . $params['watermark_pos'];
                 }
             }
-
+            if ($this->checkNeedClearCache($ret['data'], $params, 'available_pic') || 
+                $this->checkNeedClearCache($ret['data'], $params, 'watermark_path') ||
+                $this->checkNeedClearCache($ret['data'], $params, 'watermark_pos')) {
+                $needClearCache = true;
+            }
             $_querys []= 'cache_dir=' . $_root . self::$conf['cache_dir'];
             $_querys []= 'cache_time=' . (!empty($params['cache_time']) ? $params['cache_time'] : self::$conf['cache_time']);
             $_querys []= 'task_num=' . (!empty($params['task_num']) ? $params['task_num'] : self::$conf['task_num']);
-            
             if (count($_rules)) {
                 $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ /application/plugins/optimizer/index/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . $_root . '\$1.\$2 [L]';
             } else {
@@ -128,7 +138,6 @@ class Admin extends Controller
                 }
             }
             file_put_contents($_p, $_c);
-
             if ($needClearCache) {
                 $this->clearCache();
             }
