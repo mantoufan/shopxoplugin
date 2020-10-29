@@ -17,14 +17,22 @@ class Admin extends Controller
 {
     private static $conf = array(
         'cache_dir' => 'runtime/cache/optimizer/',
-        'cache_time' => 60 * 60 * 6,
-        'task_num' => 3,
         'watermark_pos' =>  array(
             0 => array('name' => '无水印', 'checked' => true),
             'left-top' => array('name' => '左上'),
             'left-bottom' => array('name' => '左下'),
             'right-top' => array('name' => '右上'),
             'right-bottom' => array('name' => '右下')
+        ),
+        'rewrite' => array(
+            'Apache / Kangle' => '',
+            'Nginx' => 'location / {' . "\n" .
+                       '    if (!-e $request_filename){' . "\n" .
+                       '        rewrite  ^(.*)$  /index.php?s=$1  last;   break;#shopXO及thinkphp伪静态规则' . "\n" .
+                       '    }' . "\n" .
+                       '    rewrite ^(.*.[js|css|jpg|jpeg|png])$ /index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&path=$1;#shopXO加速优化插件伪静态规则' . "\n" .
+                       '}',
+            'IIS' => ''
         )
     );
 
@@ -60,13 +68,32 @@ class Admin extends Controller
 
     public function save($params = [])
     {
-        $this->htaccess($params);
+        $ret = PluginsService::PluginsData('optimizer');
+        if($ret['code'] == 0)
+        {
+            $needClearCache = false;
+            if (!empty($params['cache_reset'])) {
+                if ($params['cache_reset'] === '000') {
+                    $needClearCache = true;
+                }
+                unset($params['cache_reset']);
+            }
+            if ($this->checkNeedClearCache($ret['data'], $params, 'available_pic') || 
+                $this->checkNeedClearCache($ret['data'], $params, 'watermark_path') ||
+                $this->checkNeedClearCache($ret['data'], $params, 'watermark_pos')) {
+                $needClearCache = true;
+            }
+            if ($needClearCache) {
+                $this->clearCache();
+            }
+        }
         return WGA::save($params);
     }
 
     public function clearCache()
     {
-        forEach(glob(self::$conf['cache_dir']. '*.*') as $file) {
+        $_root = str_replace('\\', '/', dirname(__FILE__)) . '/../../../../';
+        forEach(glob($_root . self::$conf['cache_dir']. '*.*') as $file) {
             unlink($file);
         }
     }
@@ -78,70 +105,6 @@ class Admin extends Controller
             return true;
         }
         return false;
-    }
-
-    public function htaccess($params)
-    {
-        $ret = PluginsService::PluginsData('optimizer');
-        if($ret['code'] == 0)
-        {
-            $_root = str_replace('\\', '/', dirname(__FILE__)) . '/../../../../';
-            $_p = $_root . '.htaccess';
-            $_rules = array();
-            $_querys = array();
-            $needClearCache = false;
-            if (!empty($params['cache_reset'])) {
-                if ($params['cache_reset'] === '000') {
-                    $needClearCache = true;
-                }
-                unset($params['cache_reset']);
-            }
-            if (isset($params['available_static'])) {
-                $_rules []= 'js|css';
-                $_querys []= 'available_static=1';
-            }
-            if (isset($params['available_pic']) || isset($params['anti_stealing_link_pic']) || isset($params['watermark_path'])) {
-                $_rules []= 'jpg|jpeg|png';
-                if (isset($params['available_pic'])) {
-                    $_querys []= 'available_pic=1';
-                }
-                if (isset($params['anti_stealing_link_pic'])) {
-                    $_querys []= 'anti_stealing_link_pic=1';
-                }
-                if (!empty($params['watermark_path'])) {
-                    $_querys []= 'watermark_path=' . $_root . preg_replace('/http.*?\/\/.*?\//', '', $params['watermark_path'][0]);
-                }
-                if (!empty($params['watermark_pos'])) {
-                    $_querys []= 'watermark_pos=' . $params['watermark_pos'];
-                }
-            }
-            if ($this->checkNeedClearCache($ret['data'], $params, 'available_pic') || 
-                $this->checkNeedClearCache($ret['data'], $params, 'watermark_path') ||
-                $this->checkNeedClearCache($ret['data'], $params, 'watermark_pos')) {
-                $needClearCache = true;
-            }
-            $_querys []= 'cache_dir=' . $_root . self::$conf['cache_dir'];
-            $_querys []= 'cache_time=' . (!empty($params['cache_time']) ? $params['cache_time'] : self::$conf['cache_time']);
-            $_querys []= 'task_num=' . (!empty($params['task_num']) ? $params['task_num'] : self::$conf['task_num']);
-            if (count($_rules)) {
-                $_rule = 'RewriteRule ^(.*).(' . implode('|', $_rules) . ')$ static/plugins/images/optimizer/mtfBetter/mtfBetter.php?' . implode('&', $_querys) . '&path=' . $_root . 'public/\$1.\$2 [L]';
-            } else {
-                $_rule = '';
-            }
-            $_c = '<IfModule mod_rewrite.c>\n  RewriteEngine On' . "\n" . '  ' . $_rule . "\n" . '</IfModule>';
-            if (file_exists($_p)) {
-                $_c = file_get_contents($_p);
-                if (stripos($_c, '/optimizer/') === false) {
-                    $_c = preg_replace('/(RewriteRule \^\(\.\*\)\$.*?\n)/', '$1'. ($_rule ? $_rule ."\n" : ''), $_c);
-                } else {
-                    $_c = preg_replace('/RewriteRule \^\(\.\*\)\.\(.*?\n/', $_rule ? $_rule ."\n" : '', $_c);
-                }
-            }
-            file_put_contents($_p, $_c);
-            if ($needClearCache) {
-                $this->clearCache();
-            }
-        }
     }
 }
 ?>
