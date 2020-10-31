@@ -40,7 +40,7 @@ class Hook extends Controller
         $ret = PluginsService::PluginsData('optimizer');
         if($ret['code'] == 0)
         {
-            if ($ret['data']['available_dns']) {
+            if (!empty($ret['data']['available_dns'])) {
                 $ret = '';$wga_data = array();$wga_path = dirname(__FILE__) . '/wga/wga_data.php';
                 if(file_exists($wga_path)) {
                     $wga_data = include($wga_path);
