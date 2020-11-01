@@ -17,6 +17,8 @@ class Admin extends Controller
 {
     private static $conf = array(
         'cache_dir' => 'runtime/cache/optimizer/',
+        'cache_time' => 60 * 60 * 6,
+        'task_num' => 3,
         'watermark_pos' =>  array(
             0 => array('name' => '无水印', 'checked' => true),
             'left-top' => array('name' => '左上'),
@@ -25,14 +27,40 @@ class Admin extends Controller
             'right-bottom' => array('name' => '右下')
         ),
         'rewrite' => array(
-            'Apache / Kangle' => '',
+            'Apache / Kangle' => '<IfModule mod_rewrite.c>' . "\n" .
+                                 '  RewriteEngine on' . "\n" .
+                                 '  RewriteBase /' . "\n" .
+                                 '  # ShopXO及ThinkPHP伪静态规则' . "\n" .
+                                 '  RewriteCond %{REQUEST_FILENAME} !-d' . "\n" .
+                                 '  RewriteCond %{REQUEST_FILENAME} !-f' . "\n" .
+                                 '  RewriteRule ^(.*)$ index.php?s=/$1 [QSA,PT,L]' . "\n" .
+                                 '  # 加速优化插件伪静态规则' . "\n" .
+                                 '  RewriteRule ^(.*.(js|css|jpg|jpeg|png))$ /index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&path=$1' . "\n" .
+                                 '</IfModule>',
             'Nginx' => 'location / {' . "\n" .
                        '    if (!-e $request_filename){' . "\n" .
-                       '        rewrite  ^(.*)$  /index.php?s=$1  last;   break;#shopXO及thinkphp伪静态规则' . "\n" .
+                       '        rewrite  ^(.*)$  /index.php?s=$1  last;   break; # ShopXO及ThinkPHP伪静态规则' . "\n" .
                        '    }' . "\n" .
-                       '    rewrite ^(.*.[js|css|jpg|jpeg|png])$ /index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&path=$1;#shopXO加速优化插件伪静态规则' . "\n" .
+                       '    rewrite ^(.*.(js|css|jpg|jpeg|png))$ /index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&path=$1; # 加速优化插件伪静态规则' . "\n" .
                        '}',
-            'IIS' => ''
+            'IIS' =>   '<?xml version="1.0" ?>' . "\n" .
+                       '<rules>' . "\n" .
+                       '<!-- ShopXO及ThinkPHP伪静态规则 -->' . "\n" .
+                       '    <rule name="OrgPage_rewrite" stopProcessing="true">' . "\n" .
+                       '       <match url="^(.*)$"/>' . "\n" .
+                       '       <conditions logicalGrouping="MatchAll">' . "\n" .
+                       '		<add input="{HTTP_HOST}" pattern="^(.*)$"/>' . "\n" .
+                       '		<add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true"/>' . "\n" .
+                       '		<add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true"/>' . "\n" .
+                       '        </conditions>' . "\n" .
+                       '        <action type="Rewrite" url="index.php/{R:1}"/>' . "\n" .
+                       '    </rule>' . "\n" .
+                       '<!-- 加速优化插件伪静态规则 -->' . "\n" .
+                       '    <rule name="Optimizer_rewrite" stopProcessing="true">' . "\n" .
+                       '		<match url="^(.*.(js|css|jpg|jpeg|png))$"/>' . "\n" .
+                       '        <action type="Rewrite" url="/index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&amp;path={R:1}"/>' . "\n" .
+                       '    </rule>' . "\n" .
+                       '</rules>'
         )
     );
 
