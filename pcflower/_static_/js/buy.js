@@ -73,7 +73,7 @@ $(function()
     // 弹出地址选择
     $('.address-submit-save').on('click', function(e)
     {
-        ModalLoad($(this).data('url'), $(this).data('popup-title'), 'popup-modal-address', 'common-address-modal');
+        ModalLoad($(this).data('url'), $(this).data('popup-title'), 'common-address-modal');
 
         // 阻止事件冒泡
         e.stopPropagation();
@@ -117,7 +117,7 @@ $(function()
         }
 
         // 备注
-        $('form.nav-buy input[name=user_note]').val($('.order-user-info input.memo-input').val());
+        $('form.nav-buy input[name="user_note"]').val($('.buy-message input.memo-input').val());
     });
 
     // 自提点地址
@@ -147,9 +147,9 @@ $(function()
         }
 
         $extraction_map_container.show();
-        MapInit(lng, lat, null, null, false);
+        MapInit(lng, lat, null, null, false, 'extraction-map');
     });
-    $extraction_map_container.find('.map-inner .am-close').on('click', function()
+    $extraction_map_container.find('.am-close').on('click', function()
     {
         $extraction_map_container.hide();
     });

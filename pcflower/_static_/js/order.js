@@ -1,11 +1,18 @@
 $(function()
 {
+    // 支付窗口
+    var $pay_popup = $('#order-pay-popup');
+
     // 支付窗口参数初始化
-    function PayPopupParamsInit(e)
+    function PayPopupParamsInit(ids, payment_id)
     {
-        $('form.pay-form input[name=id]').val(e.data('id'));
-        var payment_id = e.data('payment-id') || 0;
-        if($('.payment-items-'+payment_id).length > 0)
+        // 数组则转成字符串
+        if(IsArray(ids))
+        {
+            ids = ids.join(',');
+        }
+        $('form.pay-form input[name=ids]').val(ids);
+        if((payment_id || null) != null && $('.payment-items-'+payment_id).length > 0)
         {
             $('form.pay-form input[name=payment_id]').val(payment_id);
             $('.payment-items-'+payment_id).addClass('selected').siblings('li').removeClass('selected');
@@ -17,7 +24,8 @@ $(function()
     // 支付操作
     $('.submit-pay').on('click', function()
     {
-        PayPopupParamsInit($(this));
+        PayPopupParamsInit($(this).data('id'), $(this).data('payment-id'));
+        $pay_popup.modal();
     });
 
     // 混合列表选择
@@ -36,16 +44,16 @@ $(function()
     // 支付表单
     $('form.pay-form button[type=submit]').on('click', function()
     {
-        var id = $('form.pay-form input[name=id]').val() || 0;
-        if(id == 0)
+        var ids = $('form.pay-form input[name=ids]').val() || null;
+        if(ids == null)
         {
-            PromptCenter('订单id有误');
+            Prompt('订单id有误');
             return false;
         }
         var payment_id = $('form.pay-form input[name=payment_id]').val() || 0;
         if(payment_id == 0)
         {
-            PromptCenter('请选择支付方式');
+            Prompt('请选择支付方式');
             return false;
         }
     });
@@ -68,27 +76,45 @@ $(function()
     });
 
     // 自动支付处理
-    if($('.submit-pay').length > 0)
+    if($pay_popup.length > 0)
     {
-        // 是否自动提交支付表单
-        if($('.submit-pay').data('is-pay') == 1)
+        // 是否自动打开支付窗口
+        if($pay_popup.data('is-auto') == 1)
         {
-            PayPopupParamsInit($('.submit-pay'));
-            $('#order-pay-popup button[type="submit"]').trigger('click');
-        } else {
-            // 是否自动打开支付窗口
-            if($('.submit-pay').data('is-auto') == 1)
-            {
-                $('.submit-pay').trigger('click');
-            }
+            $pay_popup.modal();
+        }
+
+        // 是否自动提交支付表单
+        if($pay_popup.data('is-pay') == 1)
+        {
+            $pay_popup.find('button[type="submit"]').trigger('click');
         }
     }
 
-    // 订单详情自提点地图查看
-    $('.extraction-receive-map-submit').on('click', function()
+    // 批量支付
+    $('.batch-pay-submit').on('click', function()
     {
-        $('#popup-extraction-receive-map').modal();
-        MapInit($(this).data('lng'), $(this).data('lat'), null, null, false);
-    });
+        // 是否有选择的数据
+        var values = FromTableCheckedValues('order_form_checkbox_value', '.am-table-scrollable-horizontal');
+        if(values.length <= 0)
+        {
+            Prompt('请先选中数据');
+            return false;
+        }
 
+        // 支付url支付地址
+        var url = $(this).data('url') || null;
+        if(url == null)
+        {
+            Prompt('支付url地址有误');
+            return false;
+        }
+
+        // 获取第一个订单支付方式
+        var payment_id = $('#data-list-'+values[0]).find('.submit-pay').data('payment-id') || null;
+
+        // 支付弹窗
+        PayPopupParamsInit(values, payment_id);
+        $pay_popup.modal();
+    });
 });

@@ -1,6 +1,13 @@
 $(function()
 {
-    // 计算选择的商品总数和总价
+    /**
+     * 计算选择的商品总数和总价
+     * @author  Devil
+     * @blog    http://gong.gg/
+     * @version 1.0.0
+     * @date    2020-03-21
+     * @desc    description
+     */
     function CartBaseTotal()
     {
         var total_stock = 0;
@@ -17,9 +24,11 @@ $(function()
                 ids.push($(this).val());
             }
         });
+        ids = ids.toString() || 0;
         $('.cart-nav .selected-tips strong').text(total_stock);
-        $('.cart-nav .nav-total-price').text(__price_symbol__+FomatFloat(total_price));
+        $('.cart-nav .nav-total-price').text(__currency_symbol__+FomatFloat(total_price));
         $('.cart-nav input[name="ids"]').val(ids.toString() || 0);
+        $('.cart-nav .nav-delete-submit').attr('data-id', ids);
     }
 
     /**
@@ -48,8 +57,6 @@ $(function()
         {
             stock = 1;
         }
-        self.parents('.stock-tag').find('input').val(stock);
-        self.parents('tr').find('.total-price-content').text(__price_symbol__+FomatFloat(stock*price, 2));
 
         // 开启进度条
         $.AMUI.progress.start();
@@ -66,7 +73,10 @@ $(function()
                 $.AMUI.progress.done();
                 if(result.code == 0)
                 {
-                    PromptCenter(result.msg, 'success');
+                    self.parents('.stock-tag').find('input').val(stock);
+                    self.parents('tr').find('.total-price-content').text(__currency_symbol__+FomatFloat(stock*price, 2));
+                    
+                    Prompt(result.msg, 'success');
 
                     // 数量更新
                     self.parents('tr').find('.wap-number').text('x'+stock);
@@ -74,13 +84,13 @@ $(function()
                     // 计算选择的商品总数和总价
                     CartBaseTotal();
                 } else {
-                    PromptCenter(result.msg);
+                    Prompt(result.msg);
                 }
             },
             error: function(xhr, type)
             {
                 $.AMUI.progress.done();
-                PromptCenter('服务器错误');
+                Prompt('服务器错误');
             }
         });
     }
@@ -94,6 +104,7 @@ $(function()
         CardNumberUpdate($(this), temp_stock);
     });
 
+    // 输入事件
     $('.stock-tag input[type="number"]').on('blur', function()
     {
         var stock = $(this).val() || null;
@@ -167,7 +178,7 @@ $(function()
         var ids = $(this).parents('form').find('input[name="ids"]').val() || 0;
         if(ids == 0)
         {
-            PromptCenter('请选择商品');
+            Prompt('请选择商品');
             return false;
         }
     });

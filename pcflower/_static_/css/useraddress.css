@@ -100,17 +100,24 @@ ul.address-list li .user-base {
 .my-content {
     padding: 15px 10px;
 }
-
-.region-linkage .chosen-select {
-    display: -webkit-inline-box;
-    width: calc(33.3% - 3px) !important;
+.user-address-idcard-images ul li {
+    margin: 0;
 }
-
-.region-linkage .chosen-select .chosen-single {
-    width: 100%;
+@media only screen and (min-width: 641px) {
+    .user-address-idcard-images ul li,
+    .user-address-idcard-images .plug-file-upload-submit {
+        width: 200px;
+    }
+    .user-address-idcard-images ul li {
+        height: 132px;
+    }
 }
-
-#map {
-    width: 100%;
-    height: 250px;
+@media only screen and (max-width: 641px) {
+    .user-address-idcard-images ul li,
+    .user-address-idcard-images .plug-file-upload-submit {
+        width: 128px;
+    }
+    .user-address-idcard-images ul li {
+        height: 85px;
+    }
 }
