@@ -16,7 +16,8 @@ class Admin extends Controller
 {
     private static $sms_bys =  array(
         array('value' => 'sms', 'name' => '手机'),
-        array('value' => 'mail', 'name' => '邮箱')
+        array('value' => 'mail', 'name' => '邮箱'),
+        array('value' => 'wxpub', 'name' => '微信公众号')
     );
     // 后台管理入口
     public function index($params = [])

@@ -5,9 +5,26 @@
         <!-- form start -->
         <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
-                <span class="fs-16">订单和发货通知</span>
+                <span class="fs-16">订单和发货通知<sup>M站 · Y站</sup></span>
                 <a href="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">通用设置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label>微信公众平台AppID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填 <a href="https://mp.weixin.qq.com" target="_blank">点此申请</a> </span></label>
+                        <input type="text" name="wxpub_appid" placeholder="微信公众平台，开发，基本配置，复制AppID，粘贴到此处" class="am-radius orderdeliverynotice_phone" value="{{if !empty($data['neworder_sms_phone'])}}{{$data.neworder_sms_phone}}{{/if}}" />
+                        <label>微信公众平台AppSecret<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
+                        <input type="text" name="wxpub_appsecret" placeholder="微信公众平台，开发，基本配置，复制AppSecret，粘贴到此处" class="am-radius" value="{{if !empty($data['neworder_sms_tpl'])}}{{$data.neworder_sms_tpl}}{{/if}}" />
+                    </div>
+                    <div class="am-alert-secondary">
+                        <label>短信和邮箱模版支持的标签变量</label>
+                        <div>站点名称 ${sitename} 商品名称 ${goodsname} 快递公司名称 ${expname} 快递单号 ${expnum}<br>用户昵称/用户名 ${account} 收货人/用户手机号 ${phone} 用户邮箱 ${mail} 订单号  ${ordernum}</div>
+                    </div>
+                </div>
+            </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
                     <span class="am-panel-title">新订单提醒</span>
@@ -50,6 +67,16 @@
                         <input type="text" name="neworder_mail_tpl_content" placeholder="请输入邮箱通知的内容模版" class="am-radius" value="{{if !empty($data['neworder_mail_tpl_content'])}}{{$data.neworder_mail_tpl_content}}{{/if}}" />
                         <span class="am-form-group-label-tips">示例：您有来自账号${account}的新订单${ordernum}，请及时处理！</span>
                     </div>
+                    <div class="am-form-group">
+                        <label>接收提醒的微信的OpenID（非微信号）<span class="am-form-group-label-tips">通知方式为微信公众号时，必填，多个请用 半角逗号, 隔开</span></label>
+                        <input type="text" name="neworder_wxpub_openid" placeholder="请输入您接收提醒的微信的OpenID" class="am-radius" value="{{if !empty($data['neworder_wxpub_openid'])}}{{$data.neworder_wxpub_openid}}{{/if}}" />
+                        <span class="am-form-group-label-tips">请您或运营者用微信扫描下方二维码，OpenID将自动填入</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>微信公众号模版消息的模版ID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
+                        <input type="text" name="neworder_wxpub_tpl" placeholder="请输入您在微信公众平台模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['neworder_wxpub_tpl'])}}{{$data.neworder_wxpub_tpl}}{{/if}}" />
+                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在公共模版库搜 <b>新订单通知</b> 模版，关键词从 <b>商品名称，顾客档案和订单号</b> 中选。排序自定。复制模版ID</span>
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -86,14 +113,15 @@
                         <input type="text" name="asn_mail_tpl_content" placeholder="请输入邮箱通知的内容模版" class="am-radius" value="{{if !empty($data['asn_mail_tpl_content'])}}{{$data.asn_mail_tpl_content}}{{/if}}" />
                         <span class="am-form-group-label-tips">示例：您购买的${goodsname}已发货，快递公司：${expname}，单号：${expnum}，请注意查收！</span>
                     </div>
+                    <div class="am-form-group">
+                        <label>微信公众号模版消息的模版ID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
+                        <input type="text" name="asn_wxpub_tpl" placeholder="请输入您在微信公众平台模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['asn_wxpub_tpl'])}}{{$data.asn_wxpub_tpl}}{{/if}}" />
+                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在公共模版库搜 <b>发货通知</b> 模版，关键词从 <b>商品名称，快递公司，快递单号，收货人和订单号</b> 中选，排序自定。复制模版ID</span>
+                    </div>
                 </div>
             </div>
             <div class="am-form-group am-form-group-refreshing">
                 <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
-            </div>
-            <div class="am-alert-secondary">
-                <b>短信和邮箱模版支持的标签变量</b>
-                <div>${sitename} 站点名称 ${goodsname} 商品名称 ${expname} 快递公司名称 ${expnum} 快递单号 ${account} 用户昵称/用户名 ${phone} 收货人/用户手机号 ${mail} 用户邮箱 ${ordernum} 订单号</div>
             </div>
         </form>
         <!-- form end -->

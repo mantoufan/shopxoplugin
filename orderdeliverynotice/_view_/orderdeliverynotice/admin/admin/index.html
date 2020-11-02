@@ -3,10 +3,25 @@
 <div class="content-right">
     <div class="content">
         <legend>
-            <span class="fs-16">订单和发货通知</span>
+            <span class="fs-16">订单和发货通知<sup>M站 · Y站</sup></span>
             <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
         </legend>
         <div class="orderdeliverynotice-content">
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">通用设置</span>
+                </div>
+                <div class="am-panel-bd">
+                    <label>微信公众平台AppID</label>
+                    <div>
+                        {{if !empty($data['wxpub_appid'])}} {{$data.wxpub_appid}} {{else /}} 未填写 {{/if}}
+                    </div>
+                    <label>微信公众平台AppSecret</label>
+                    <div>
+                        {{if !empty($data['wxpub_appsecret'])}} {{$data.wxpub_appsecret}} {{else /}} 未填写 {{/if}}
+                    </div>
+                </div>
+            </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
                     <span class="am-panel-title">新订单提醒</span>
@@ -56,6 +71,18 @@
                             {{if !empty($data['neworder_mail_tpl_content'])}} {{$data.neworder_mail_tpl_content}} {{else /}} 未填写 {{/if}}
                         </div>
                     </div>
+                    <div class="items">
+                        <label>接收提醒的微信的OpenID</label>
+                        <div>
+                            {{if !empty($data['neworder_wxpub_openid'])}} {{$data.neworder_wxpub_openid}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>微信公众号模版消息的模版ID</label>
+                        <div>
+                            {{if !empty($data['neworder_wxpub_tpl'])}} {{$data.neworder_wxpub_tpl}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -93,6 +120,12 @@
                         <label>邮箱通知模版：内容</label>
                         <div>
                             {{if !empty($data['asn_mail_tpl_content'])}} {{$data.asn_mail_tpl_content}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>微信公众号模版消息的模版ID</label>
+                        <div>
+                            {{if !empty($data['asn_wxpub_tpl'])}} {{$data.asn_wxpub_tpl}} {{else /}} 未填写 {{/if}}
                         </div>
                     </div>
                 </div>
