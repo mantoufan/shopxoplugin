@@ -1082,3 +1082,18 @@ div>a>[class*="am-icon-"], li>a>[class*="am-icon-"] {
 .user-base {
     background-color: #9ec6bd !important;
 }
+.floor .goods-list .goods-items .am-block, .search-container .am-block {
+    position: relative;
+    height: 200px;
+}
+.floor .goods-list .goods-items .goods-images, .search-container .items img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.search-container .items img {
+    padding: 0 0 40px 0;
+}
