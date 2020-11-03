@@ -1096,4 +1096,9 @@ div>a>[class*="am-icon-"], li>a>[class*="am-icon-"] {
 }
 .search-container .items img {
     padding: 0 0 40px 0;
+    width: calc(100% - 40px);
+}
+.search-container .items img+div {
+    position: absolute;
+    top: 160px;
 }
