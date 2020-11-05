@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_thirdpartylogin\/icon\/icon.jpg",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.8",
+        "version":"1.0.9",
         "desc":"支持微信、QQ、微博、支付宝、Line、Google登录、绑定和解绑，自动获取昵称、头像和性别。",
         "apply_terminal":[
             "pc",
@@ -20,7 +20,8 @@
             "1.7.0",
             "1.8.0",
             "1.8.1",
-            "1.9.0"
+            "1.9.0",
+            "1.9.1"
         ],
         "is_home":false
     },

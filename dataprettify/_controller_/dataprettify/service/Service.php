@@ -201,6 +201,11 @@ class Service
                     $sql_goods .= ' END';
                     $sql_warehouse .= ' END';
                     Db::execute($sql_goods . ';' . $sql_warehouse);
+
+                    // 同步库存规格 → 商品规格
+                    foreach ($warehouse as $goods_id => $_v) {
+                        WarehouseGoodsService::GoodsSpecInventorySync($goods_id);
+                    }
                 }
             }
         }
@@ -273,6 +278,7 @@ class Service
             }
         }
         if (count($a) > 0 && count($ids) > 0) {
+            echo 'UPDATE ' . self::getGoodsSpecDbname($prefix) . ' SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');';
             return Db::execute('UPDATE ' . self::getGoodsSpecDbname($prefix) . ' SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
         }
     }

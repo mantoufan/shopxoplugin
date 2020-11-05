@@ -2,7 +2,7 @@
 namespace app\plugins\thirdpartylogin\index;
 use anerg\OAuth2\OAuth;
 use think\Controller;
-// use think\facade\Config;
+
 use app\service\UserService;
 use app\service\PluginsService;
 use app\plugins\thirdpartylogin\service\Service;

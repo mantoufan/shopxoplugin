@@ -12,7 +12,7 @@ namespace app\plugins\orderremarks\admin;
 
 use think\Controller;
 use app\plugins\orderremarks\service\BaseService;
-use app\plugins\optimizer\wga\WGA;
+use app\plugins\orderremarks\wga\WGA;
 
 /**
  * 订单改价 - 管理
