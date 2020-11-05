@@ -55,11 +55,11 @@ class Hook extends Controller
                 switch($params['hook_name'])
                 {
                     case 'plugins_css' :
-                        $ret = __MY_ROOT_PUBLIC__.'static/plugins/css/servicepro/index/style.css';
+                        $ret = 'static/plugins/css/servicepro/index/style.css';
                         break;
 
                     case 'plugins_js' :
-                        $ret = __MY_ROOT_PUBLIC__.'static/plugins/js/servicepro/index/style.js';
+                        $ret = 'static/plugins/js/servicepro/index/style.js';
                         break;
 
                     case 'plugins_common_header' :

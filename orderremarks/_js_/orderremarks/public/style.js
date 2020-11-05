@@ -3,7 +3,7 @@ $(function()
     // 表单初始化
     FromInit('form.form-validation-plugins-orderremarks-popup');
 
-    // 订单改价事件
+    // 订单备注事件
     $('.plugins-orderremarks-order-submit').on('click', function()
     {
         // 参数

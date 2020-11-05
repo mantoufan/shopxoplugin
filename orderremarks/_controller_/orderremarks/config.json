@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_orderremarks\/icon\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.yzhan.co",
-        "version":"1.0.3",
+        "version":"1.0.4",
         "desc":"在后台备注订单，可在订单列表显示备注，将备注信息通知下单客户",
         "apply_terminal":[
             "pc",
@@ -24,7 +24,8 @@
             "1.7.0",
             "1.8.0",
             "1.8.1",
-            "1.9.0"
+            "1.9.0",
+            "1.9.1"
         ],
         "is_home":false
     },

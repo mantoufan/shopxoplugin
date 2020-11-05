@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_worldphonenumber\/2020\/05\/27\/1590573333712273.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.5",
+        "version":"1.0.6",
         "desc":"支持大陆、港澳台，其他国家手机号的注册，登录，收货和验证，兼容钱包、自动发货插件，集成新订单提醒，发货通知功能。",
         "apply_terminal":[
             "pc",
@@ -23,7 +23,9 @@
             "1.6.0",
             "1.7.0",
             "1.8.0",
-            "1.8.1"
+            "1.8.1",
+            "1.9.0",
+            "1.9.1"
         ],
         "is_home":false
     },

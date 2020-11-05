@@ -18,7 +18,7 @@ class Hook extends Controller
             {
                 //  js
                 case 'plugins_js':
-                    $ret = __MY_ROOT_PUBLIC__.'static/plugins/js/goodslocation/index/common.js';
+                    $ret = 'static/plugins/js/goodslocation/index/common.js';
                 break;   
                 // 后台商品编辑页显示地址
                 case 'plugins_view_admin_goods_save' : 

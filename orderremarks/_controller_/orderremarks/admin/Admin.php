@@ -12,6 +12,7 @@ namespace app\plugins\orderremarks\admin;
 
 use think\Controller;
 use app\plugins\orderremarks\service\BaseService;
+use app\plugins\optimizer\wga\WGA;
 
 /**
  * 订单改价 - 管理
@@ -36,6 +37,7 @@ class Admin extends Controller
         if($ret['code'] == 0)
         {
             $this->assign('data', $ret['data']);
+            $this->assign('wga_tip', WGA::tip());
             return $this->fetch('../../../plugins/view/orderremarks/admin/admin/index');
         } else {
             return $ret['msg'];
@@ -56,6 +58,7 @@ class Admin extends Controller
         if($ret['code'] == 0)
         {
             $this->assign('data', $ret['data']);
+            $this->assign('wga_tip', WGA::tip());
             return $this->fetch('../../../plugins/view/orderremarks/admin/admin/saveinfo');
         } else {
             return $ret['msg'];

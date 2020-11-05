@@ -37,12 +37,10 @@ class Admin extends Controller
                                  '  # 加速优化插件伪静态规则' . "\n" .
                                  '  RewriteRule ^(.*.(js|css|jpg|jpeg|png))$ /index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&path=$1' . "\n" .
                                  '</IfModule>',
-            'Nginx' => 'location / {' . "\n" .
-                       '    if (!-e $request_filename){' . "\n" .
-                       '        rewrite  ^(.*)$  /index.php?s=$1  last;   break; # ShopXO及ThinkPHP伪静态规则' . "\n" .
-                       '    }' . "\n" .
-                       '    rewrite ^(.*.(js|css|jpg|jpeg|png))$ /index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&path=$1; # 加速优化插件伪静态规则' . "\n" .
-                       '}',
+            'Nginx' => 'if (!-e $request_filename){' . "\n" .
+                       '    rewrite  ^(.*)$  /index.php?s=$1  last;   break; # ShopXO及ThinkPHP伪静态规则' . "\n" .
+                       '}' . "\n" .
+                       'rewrite ^(.*.(js|css|jpg|jpeg|png))$ /index.php?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better&path=$1; # 加速优化插件伪静态规则',
             'IIS' =>   '<?xml version="1.0" ?>' . "\n" .
                        '<rules>' . "\n" .
                        '<!-- ShopXO及ThinkPHP伪静态规则 -->' . "\n" .

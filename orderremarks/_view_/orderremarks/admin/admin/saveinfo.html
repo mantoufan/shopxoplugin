@@ -6,10 +6,10 @@
         <!-- form start -->
         <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('orderremarks', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('orderremarks', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
-                <span class="fs-16">订单备注<sup>Y站</sup></span>
+                <span class="fs-16">订单备注<sup>Y站 · M站</sup></span>
                 <a href="{{:PluginsAdminUrl('orderremarks', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
-
+            {{$wga_tip | RAW}}
             <div class="am-form-group">
                 <label class="block">开启站内信通知<span class="am-form-group-label-tips">默认否</span></label>
                 <input name="is_site_inside_notice" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['is_site_inside_notice']) and $data['is_site_inside_notice'] eq 1}}checked="true"{{/if}} />

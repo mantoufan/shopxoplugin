@@ -160,7 +160,7 @@ class BaseService
     
             return DataReturn('备注成功', 0);
         }
-        return DataReturn('备注失败', -100);
+        return DataReturn('备注未修改或备注失败', -100);
     }
     /**
      * 消息通知

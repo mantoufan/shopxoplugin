@@ -41,13 +41,13 @@ class Hook extends Controller
                 // 样式
                 case 'plugins_css' :
                     $ret = array(
-                        __MY_ROOT_PUBLIC__.'static/plugins/css/thirdpartylogin/index/style.css',
-                        __MY_ROOT_PUBLIC__.'static/plugins/css/thirdpartylogin/index/error.css'
+                        'static/plugins/css/thirdpartylogin/index/style.css',
+                        'static/plugins/css/thirdpartylogin/index/error.css'
                     );
                     break;
                 // 脚本
                 case 'plugins_js' :
-                    $ret = __MY_ROOT_PUBLIC__.'static/plugins/js/thirdpartylogin/index/style.js';
+                    $ret = 'static/plugins/js/thirdpartylogin/index/style.js';
                     break;
                 // 用户登录前
                 case 'plugins_service_user_login_begin':

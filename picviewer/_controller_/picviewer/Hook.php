@@ -42,7 +42,7 @@ class Hook extends Controller
     }
     private function getCSS($type = 'array')
     {
-        $ar = array(__MY_ROOT_PUBLIC__.'static/plugins/css/picviewer/index/jquery.mtfpicviewer.css');
+        $ar = array('static/plugins/css/picviewer/index/jquery.mtfpicviewer.css');
         if ($type === 'html') {
             $html = '';
             foreach($ar as $k => $v) {
@@ -55,9 +55,9 @@ class Hook extends Controller
     private function getJS($type = 'array')
     {
         $ar = array(
-            __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/jquery.mtfpicviewer.js',
-            __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/rgbaster.min.js',
-            __MY_ROOT_PUBLIC__.'static/plugins/js/picviewer/index/style.js',
+            'static/plugins/js/picviewer/index/jquery.mtfpicviewer.js',
+            'static/plugins/js/picviewer/index/rgbaster.min.js',
+            'static/plugins/js/picviewer/index/style.js',
         );
         if ($type === 'html') {
             $html = '';

@@ -47,11 +47,11 @@ class Hook extends Controller
                 switch($params['hook_name'])
                 {
                     case 'plugins_admin_css' :
-                        $ret = __MY_ROOT_PUBLIC__.'static/plugins/css/orderremarks/public/style.css?v=' . MyC('home_static_cache_version');
+                        $ret = 'static/plugins/css/orderremarks/public/style.css?v=' . MyC('home_static_cache_version');
                         break;
 
                     case 'plugins_admin_js' :
-                        $ret = __MY_ROOT_PUBLIC__ . 'static/plugins/js/orderremarks/public/style.js?v=' . MyC('home_static_cache_version');
+                        $ret = 'static/plugins/js/orderremarks/public/style.js?v=' . MyC('home_static_cache_version');
                         break;
 
                     // 弹窗
