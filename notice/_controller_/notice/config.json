@@ -1,12 +1,12 @@
 {
     "base":{
-        "plugins":"orderdeliverynotice",
-        "name":"订单和发货通知",
-        "logo":"\/static\/upload\/images\/plugins_orderdeliverynotice\/2020\/05\/27\/1590543169881577.png",
+        "plugins":"notice",
+        "name":"通知",
+        "logo":"\/static\/upload\/images\/plugins_notice\/icon\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.3",
-        "desc":"通过手机和邮箱，新订单提醒指定人，发货时通知收件人或下单用户。提供丰富标签，可自定义短信和邮件模板。",
+        "version":"1.0.4",
+        "desc":"通过手机、邮箱、微信公众号、微信服务消息，新订单提醒指定人，发货时通知收件人或下单用户。提供丰富标签，可自定义短信和邮件模板。",
         "apply_terminal":[
             "pc",
             "h5",
@@ -24,16 +24,17 @@
             "1.7.0",
             "1.8.0",
             "1.8.1",
-            "1.9.0"
+            "1.9.0",
+            "1.9.1"
         ],
         "is_home":false
     },
     "hook":{
         "plugins_service_buy_order_insert_success":[
-            "app\\plugins\\orderdeliverynotice\\Hook"
+            "app\\plugins\\notice\\Hook"
         ],
         "plugins_service_order_status_change_history_success_handle":[
-            "app\\plugins\\orderdeliverynotice\\Hook"
+            "app\\plugins\\notice\\Hook"
         ]
     }
 }

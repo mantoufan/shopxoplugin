@@ -3,11 +3,12 @@
 <div class="content-right">
     <div class="content">
         <!-- form start -->
-        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'index')}}" enctype="multipart/form-data">
+        <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('notice', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('notice', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
                 <span class="fs-16">订单和发货通知<sup>M站 · Y站</sup></span>
-                <a href="{{:PluginsAdminUrl('orderdeliverynotice', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+                <a href="{{:PluginsAdminUrl('notice', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
+            {{$wga_tip | RAW}}
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
                     <span class="am-panel-title">通用设置</span>
@@ -15,9 +16,13 @@
                 <div class="am-panel-bd">
                     <div class="am-form-group">
                         <label>微信公众平台AppID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填 <a href="https://mp.weixin.qq.com" target="_blank">点此申请</a> </span></label>
-                        <input type="text" name="wxpub_appid" placeholder="微信公众平台，开发，基本配置，复制AppID，粘贴到此处" class="am-radius orderdeliverynotice_phone" value="{{if !empty($data['neworder_sms_phone'])}}{{$data.neworder_sms_phone}}{{/if}}" />
+                        <input type="text" name="wxpub_appid" placeholder="微信公众平台，开发，基本配置，复制AppID，粘贴到此处" class="am-radius notice_phone" value="{{if !empty($data['wxpub_appid'])}}{{$data.wxpub_appid}}{{/if}}" />
                         <label>微信公众平台AppSecret<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
-                        <input type="text" name="wxpub_appsecret" placeholder="微信公众平台，开发，基本配置，复制AppSecret，粘贴到此处" class="am-radius" value="{{if !empty($data['neworder_sms_tpl'])}}{{$data.neworder_sms_tpl}}{{/if}}" />
+                        <input type="text" name="wxpub_appsecret" placeholder="微信公众平台，开发，基本配置，复制AppSecret，粘贴到此处" class="am-radius" value="{{if !empty($data['wxpub_appid'])}}{{$data.wxpub_appid}}{{/if}}" />
+                        <label>微信小程序AppID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填 <a href="https://mp.weixin.qq.com" target="_blank">点此申请</a> </span></label>
+                        <input type="text" name="wxamp_appid" placeholder="微信小程序，开发设置，复制AppID，粘贴到此处" class="am-radius notice_phone" value="{{if !empty($data['wxamp_appid'])}}{{$data.wxamp_appid}}{{/if}}" />
+                        <label>微信小程序AppSecret<span class="am-form-group-label-tips">通知方式为微信小程序时，必填</span></label>
+                        <input type="text" name="wxamp_appsecret" placeholder="微信小程序，开发设置，复制AppSecret，粘贴到此处" class="am-radius" value="{{if !empty($data['wxamp_appsecret'])}}{{$data.wxamp_appsecret}}{{/if}}" />
                     </div>
                     <div class="am-alert-secondary">
                         <label>短信和邮箱模版支持的标签变量</label>
@@ -42,7 +47,7 @@
                     </div>
                     <div class="am-form-group">
                         <label>接收提醒的手机号<span class="am-form-group-label-tips">通知方式为手机时，必填，多个请用 半角逗号, 隔开</span></label>
-                        <input type="text" name="neworder_sms_phone" placeholder="请先选择国家再输入手机号" class="am-radius orderdeliverynotice_phone" value="{{if !empty($data['neworder_sms_phone'])}}{{$data.neworder_sms_phone}}{{/if}}" />
+                        <input type="text" name="neworder_sms_phone" placeholder="请先选择国家再输入手机号" class="am-radius notice_phone" value="{{if !empty($data['neworder_sms_phone'])}}{{$data.neworder_sms_phone}}{{/if}}" />
                     </div>
                     <div class="am-form-group">
                         <label>手机通知模版ID<span class="am-form-group-label-tips">通知方式为手机时，必填 <a href="https://www.aliyun.com/acts/alicomcloud/new-discount?userCode=79tttihe" target="_blank">点此申请</a> 格式：国内消息模版ID</span></label>
@@ -132,6 +137,6 @@
 {{include file="public/footer" /}}
 <!-- footer end -->
 <script>
-    $('head').append('<link href="/static/plugins/css/orderdeliverynotice/index/style.css?v=' + Math.floor(Math.random()*100000000) + '" rel="stylesheet" type="text/css" />')
-    $.getScript('/static/plugins/js/orderdeliverynotice/index/style.js?v=' + Math.floor(Math.random()*100000000));
+    $('head').append('<link href="/static/plugins/css/notice/index/style.css?v=' + Math.floor(Math.random()*100000000) + '" rel="stylesheet" type="text/css" />')
+    $.getScript('/static/plugins/js/notice/index/style.js?v=' + Math.floor(Math.random()*100000000));
 </script>

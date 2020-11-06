@@ -1,9 +1,9 @@
 <?php
-namespace app\plugins\orderdeliverynotice;
+namespace app\plugins\notice;
 use think\Db;
 use think\Controller;
 use app\service\PluginsService;
-use app\plugins\orderdeliverynotice\wga\WGA;
+use app\plugins\notice\wga\WGA;
 /**
  * 国际手机号 - 钩子入口
  * @author   小宇
@@ -76,7 +76,7 @@ class Hook extends Controller
         );
     }
     public function notify_neworder($params) {
-        $ret = PluginsService::PluginsData('orderdeliverynotice');
+        $ret = PluginsService::PluginsData('notice');
         if($ret['code'] == 0) {
             if (isset($params['order_ids'])) {
                 $params['order_id'] = $params['order_ids'][0];
@@ -118,7 +118,7 @@ class Hook extends Controller
         return '';
     }
     public function notify_asn($params) {
-        $ret = PluginsService::PluginsData('orderdeliverynotice');
+        $ret = PluginsService::PluginsData('notice');
         if($ret['code'] == 0) {
             $asn_by_sms = FALSE;
             $asn_by_mail = FALSE;
