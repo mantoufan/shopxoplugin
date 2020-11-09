@@ -64,12 +64,6 @@
                     <span class="am-panel-title">优化</span>
                 </div>
                 <div class="am-panel-bd">
-                    <div class="am-form-group">
-                        <label>防盗链</label>
-                        <div>
-                            <input name="anti_stealing_link_pic" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['anti_stealing_link_pic']) and $data['anti_stealing_link_pic'] eq 1}}checked="true"{{/if}} />
-                        </div>
-                    </div>
                     <div class="am-form-group am-form-file">
                         <label>图片加水印</label><span class="am-form-group-label-tips">水印尺寸尽量小，30-120像素为宜。图片尺寸除水印尺寸小于5，会被当作小图不加水印。推荐24位+PNG格式水印，可完美保留透明度</span>
                         <ul class="plug-file-upload-view watermark_path" data-form-name="watermark_path[]" data-max-number="1" data-delete="1" data-dialog-type="images">

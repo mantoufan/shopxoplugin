@@ -11,4 +11,9 @@ if (pluginOptimizerConf) {
                 }
         })
     })
+    if (pluginOptimizerRes.length) {
+        $.post(location.host + '?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better', {
+            paths: pluginOptimizerRes.join(',')
+        })
+    }
 }
