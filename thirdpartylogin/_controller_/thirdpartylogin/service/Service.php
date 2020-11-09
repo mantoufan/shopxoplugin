@@ -297,7 +297,7 @@ class Service
             }
         }
         if (stripos($url, '?') === FALSE) {
-            $url = str_replace('/index/plugins/index/pluginsname/', '/?s=/index/plugins/index/pluginsname/', $url);
+            $url = str_replace('index/plugins/index/pluginsname/', '?s=/index/plugins/index/pluginsname/', $url);
         } else {
             $url = str_replace('index.php?s=', '?s=', $url);
         }
