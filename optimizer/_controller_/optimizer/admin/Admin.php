@@ -14,7 +14,7 @@ class Admin extends Controller
         {
             // 数据处理
             $this->assign('wga_tip', WGA::tip());
-            $this->assign('conf', Service::$conf);
+            $this->assign('conf', Service::config());
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/optimizer/admin/admin/index');
         } else {
@@ -29,7 +29,7 @@ class Admin extends Controller
         if($ret['code'] == 0)
         {
             $this->assign('wga_tip', WGA::tip());
-            $this->assign('conf', Service::$conf);
+            $this->assign('conf', Service::config());
             $this->assign('data', $ret['data']);
             return $this->fetch('../../../plugins/view/optimizer/admin/admin/saveinfo');
         } else {
@@ -53,10 +53,10 @@ class Admin extends Controller
                 $this->checkNeedClearCache($ret['data'], $params, 'watermark_pos')) {
                 $needClearCache = true;
             }
-            if ($needClearCache) {
-                $metBetter->cacheClear(100);
-            }
             $conf = Service::config();
+            if ($needClearCache) {
+                $metBetter->removeDir(Service::root() . $conf['cache_dir']);
+            }
             if (isset($conf['rules'])) {
                 $rules = $conf['rules'];
                 foreach ($rules as $path => $rule) {
@@ -65,9 +65,9 @@ class Admin extends Controller
                 }
             }
             if (!empty($params['available_static'])) {
-                //$metBetter->replace($rules);
+                $metBetter->replace($rules);
             } else {
-                //$metBetter->restroe($rules);
+                $metBetter->restore($rules);
             }
            
         }

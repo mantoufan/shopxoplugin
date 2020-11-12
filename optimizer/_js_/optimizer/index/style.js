@@ -7,12 +7,12 @@ if (pluginOptimizerConf) {
         $(c.t).each(function(_, o) {
             var s = $(o).attr(c.a)
                 if (s && s.indexOf(c.s) > -1) {
-                    pluginOptimizerRes.push(s.replace(/http[s]:\/\/.*?\//g,'').split('?')[0])
+                    pluginOptimizerRes.push(s.replace(/http[s]*:\/\/.*?\//g,'').split('?')[0])
                 }
         })
     })
     if (pluginOptimizerRes.length) {
-        $.post(location.host + '?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better', {
+        $.post('?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better', {
             paths: pluginOptimizerRes.join(',')
         })
     }

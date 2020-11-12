@@ -100,15 +100,16 @@
                             {{/foreach}}
                         </div>
                         <span class="am-form-group-label-tips">
-                            1 加速功能需要根据<b>运行环境</b>，配置<b>伪静态规则</b>生效<br>
+                            1 加速前需根据<b>运行环境</b>，配置<b>伪静态规则</b>。卸载前，建议先关闭 静态文件加速<br>
                             2 宝塔面板 → 软件管理 → 运行环境，可知当前<b>运行环境</b><br>
-                            3 ShopXO及ThinkPHP用户，请绑定域名到 public 或 在宝塔面板 → 网站 → 设置 → 网站目录，设置运行目录为 /public<br>
-                            4 第3步不是必须的，但是符合ThinkPHP标准，能够保障执行标准的插件和程序准确运行，避免很多不必要问题<br>
-                            5 宝塔面板用户，宝塔面板 → 网站 → 设置 → 伪静态，复制当前<b>运行环境</b>对应规则，保存即可<br>
+                            3 ShopXO及ThinkPHP用户，请绑定域名到 public 或 在宝塔 → 网站 → 设置 → 网站目录，设置运行目录为 /public<br>
+                            4 防跨站攻击 需关闭 或 开启open_basedir。宝塔面板 → 网站 → 设置 → 网站目录，关闭 防跨站攻击，然后再重复第5步<br>
+                            5 宝塔用户，宝塔面板 → 网站 → 设置 → 伪静态，复制当前<b>运行环境</b>对应规则，保存即可<br>
                             6 Apache / Kangle等大多数PHP虚拟主机用户，请复制 Apache/Kangle 规则到 public/.htaccess 文件，没有请新建<br>
                             7 IIS等ASP/ASPX/全能虚拟主机用户，请复制 IIS 规则到 public/web.config文件，没有请新建<br>
                             8 Nginx用户，请复制 Nginx 规则到 nginx.conf 中<br>
-                            9 <a href="https://yu.mantoufan.com/202009291530371649" target="_blank">图文教程</a>
+                            9 <a href="https://yu.mantoufan.com/202009291530371649" target="_blank">图文教程</a><br>
+                            10 我们提供付费技术支持，您只需提供权限，远程帮您完成所有配置。人力成本远远大于商品，望理解！
                         </span>
                     </div>
                 </div>
