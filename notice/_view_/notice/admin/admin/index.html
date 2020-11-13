@@ -40,7 +40,7 @@
                         <label>通知方式</label>
                         <div>
                             {{foreach $sms_bys as $v}}
-                                {{if !isset($data['neworder_by']) or isset($data['neworder_by']) and in_array($v['value'], explode(',', $data['neworder_by']))}}{{$v['name']}}{{/if}} 
+                                {{if $v['value'] !== 'wxamp' and (!isset($data['neworder_by']) or isset($data['neworder_by']) and in_array($v['value'], explode(',', $data['neworder_by'])))}}{{$v['name']}}{{/if}} 
                             {{/foreach}}
                         </div>
                     </div>
@@ -135,6 +135,12 @@
                         <label>微信公众号模版消息的模版ID</label>
                         <div>
                             {{if !empty($data['asn_wxpub_tpl'])}} {{$data.asn_wxpub_tpl}} {{else /}} 未填写 {{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>微信小程序订阅消息的模版ID</label>
+                        <div>
+                            {{if !empty($data['asn_wxamp_tpl'])}} {{$data.asn_wxamp_tpl}} {{else /}} 未填写 {{/if}}
                         </div>
                     </div>
                 </div>

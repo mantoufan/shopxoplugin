@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeiXin - OpenId</title>
+    <style>
+        body {margin: 0;}
+        .none {display: none;}
+        .tip {text-align: center;color: #333;position: absolute;width: 100%;top: 50%;transform: translateY(-50%);}
+        .tip p {margin: 10px 0;}
+        .tip img {width: 90%; max-width: 360px;}
+        .tip .en {font-size: 12px;color: #666;}
+    </style>
+</head>
+<body>
+    {{if !empty($data['wxpub_appid']) && !empty($data['wxpub_appsecret'])}}
+    <div id="tip" class="tip none">
+        <p>请长按识别二维码</p>
+        <p class="en">Please long press to identify the QR code</p>
+        <p>关注公众号，接收发货通知</p>
+        <p class="en">Subscribe to official account, receive shipping notice</p>
+        {{if !empty($data['wxpub_qrcode'])}}
+        <p><img src="{{$data["wxpub_qrcode"][0]}}" alt="微信二维码"></p>
+        {{/if}}
+    </div>
+    <script type='text/javascript' src="{{$public_host}}static/common/lib/jquery/jquery-2.1.0.js?v={{:MyC(\'home_static_cache_version\')}}"></script>
+    <script>
+        var wxpub = {
+            urlParam: function (key) {
+                var h = {}
+                location.search.substring(1).replace(/(.*?)=(.*?)&/g, function(_, b, c) {h[b] = c})
+                return h[key]
+            },
+            getCode: function () {
+                var code = this.urlParam('code'), local = location.href
+                if (code == null || code === '') {
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid={{$data["wxpub_appid"]}}&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1#wechat_redirect'
+                } else {
+                    this.getOpenId(code)
+                }
+            },
+            getOpenId: function (code) {
+                let _this = this
+                $.post('{{:PluginsHomeUrl("notice", "auth", "wxpub")}}', {code: code})
+                $('#tip').fadeIn();
+            }
+        }
+        wxpub.getCode();
+    </script>
+    {{/if}}
+</body>
+</html>

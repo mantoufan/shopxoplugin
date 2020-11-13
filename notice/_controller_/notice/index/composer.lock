@@ -1,0 +1,108 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "79fba36a8d946f01dc78255309737345",
+    "content-hash": "be384d813599f09717b884bcd4548048",
+    "packages": [
+        {
+            "name": "tinymeng/code",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/majiameng/phpQrCode.git",
+                "reference": "a5a6ba189f18a8e1f826dfa4994e26da5714d8ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/majiameng/phpQrCode/zipball/a5a6ba189f18a8e1f826dfa4994e26da5714d8ad",
+                "reference": "a5a6ba189f18a8e1f826dfa4994e26da5714d8ad",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "tinymeng/tools": "^1.0.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tinymeng\\code\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TinyMeng",
+                    "email": "666@majiameng.com",
+                    "homepage": "https://majiameng.com"
+                }
+            ],
+            "description": "php生成条形码或者二维码QRcode",
+            "keywords": [
+                "code",
+                "qrcode",
+                "tinymeng"
+            ],
+            "time": "2020-03-28 10:11:51"
+        },
+        {
+            "name": "tinymeng/tools",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/majiameng/tools.git",
+                "reference": "c7c8cd9b2b516b1662cb37cba222eadf8abc06fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/majiameng/tools/zipball/c7c8cd9b2b516b1662cb37cba222eadf8abc06fe",
+                "reference": "c7c8cd9b2b516b1662cb37cba222eadf8abc06fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tinymeng\\tools\\": "src"
+                },
+                "files": []
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JiaMeng Ma",
+                    "email": "666@majiameng.com",
+                    "homepage": "http://majiameng.com"
+                }
+            ],
+            "description": "Integrate third-party logins",
+            "keywords": [
+                "php",
+                "php-tools",
+                "tinymeng",
+                "tools"
+            ],
+            "time": "2020-11-12 03:51:37"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "tinymeng/code": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

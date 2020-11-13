@@ -19,6 +19,19 @@
                         <input type="text" name="wxpub_appid" placeholder="微信公众平台，开发，基本配置，复制AppID，粘贴到此处" class="am-radius notice_phone" value="{{if !empty($data['wxpub_appid'])}}{{$data.wxpub_appid}}{{/if}}" />
                         <label>微信公众平台AppSecret<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
                         <input type="text" name="wxpub_appsecret" placeholder="微信公众平台，开发，基本配置，复制AppSecret，粘贴到此处" class="am-radius" value="{{if !empty($data['wxpub_appid'])}}{{$data.wxpub_appid}}{{/if}}" />
+                        <label>微信公众号二维码</label><span class="am-form-group-label-tips">接收通知前，用户需关注公众号并授权。流程：下单后 → 已授权（未授权，扫码授权） → 提示关注公众号</span>
+                        <ul class="plug-file-upload-view wxpub_qrcode" data-form-name="wxpub_qrcode[]" data-max-number="1" data-delete="1" data-dialog-type="images">
+                            {{if !empty($data['wxpub_qrcode'])}}
+                                {{foreach $data['wxpub_qrcode'] as $wxpub_qrcode}}
+                                <li>
+                                    <input type="text" name="wxpub_qrcode[]" value="{{$wxpub_qrcode}}" data-validation-message="请上传图片" required />
+                                    <img src="{{$wxpub_qrcode}}" onerror='this.src="{{$attachment_host}}/static/plugins/images/optimizer/default-images.jpg"' />
+                                    <i>×</i>
+                                </li>
+                                {{/foreach}}
+                            {{/if}}
+                            <div class="plug-file-upload-submit" data-view-tag="ul.wxpub_qrcode">+上传图片</div>
+                        </ul>
                         <label>微信小程序AppID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填 <a href="https://mp.weixin.qq.com" target="_blank">点此申请</a> </span></label>
                         <input type="text" name="wxamp_appid" placeholder="微信小程序，开发设置，复制AppID，粘贴到此处" class="am-radius notice_phone" value="{{if !empty($data['wxamp_appid'])}}{{$data.wxamp_appid}}{{/if}}" />
                         <label>微信小程序AppSecret<span class="am-form-group-label-tips">通知方式为微信小程序时，必填</span></label>
@@ -39,9 +52,11 @@
                         <label>通知方式</label>
                         <div>
                             {{foreach $sms_bys as $v}}
+                            {{if($v['value'] !== 'wxamp')}}
                             <label class="am-checkbox-inline m-r-10">
                                 <input type="checkbox" name="neworder_by" value="{{$v.value}}" {{if isset($data['neworder_by']) and in_array($v['value'], explode(',', $data['neworder_by']))}}checked="checked"{{elseif !isset($data['neworder_by']) and isset($v['checked']) and $v['checked'] eq true}}checked="checked"{{/if}} data-am-ucheck /> {{$v.name}}
                             </label>
+                            {{/if}}
                             {{/foreach}}
                         </div>
                     </div>
@@ -76,11 +91,14 @@
                         <label>接收提醒的微信的OpenID（非微信号）<span class="am-form-group-label-tips">通知方式为微信公众号时，必填，多个请用 半角逗号, 隔开</span></label>
                         <input type="text" name="neworder_wxpub_openid" placeholder="请输入您接收提醒的微信的OpenID" class="am-radius" value="{{if !empty($data['neworder_wxpub_openid'])}}{{$data.neworder_wxpub_openid}}{{/if}}" />
                         <span class="am-form-group-label-tips">请您或运营者用微信扫描下方二维码，OpenID将自动填入</span>
+                        <div>
+                            <img src="{{:PluginsHomeUrl('notice', 'auth', 'qrcode')}}" width="120px" />
+                        </div>
                     </div>
                     <div class="am-form-group">
                         <label>微信公众号模版消息的模版ID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
                         <input type="text" name="neworder_wxpub_tpl" placeholder="请输入您在微信公众平台模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['neworder_wxpub_tpl'])}}{{$data.neworder_wxpub_tpl}}{{/if}}" />
-                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在公共模版库搜 <b>新订单通知</b> 模版，关键词从 <b>商品名称，顾客档案和订单号</b> 中选。排序自定。复制模版ID</span>
+                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在行业模版库搜 <b>新订单提醒</b> 模版，找编号为 <b>OPENTM416739152</b> 的模版。添加后，进入 我的模版，复制模版ID</span>
                     </div>
                 </div>
             </div>
@@ -121,7 +139,12 @@
                     <div class="am-form-group">
                         <label>微信公众号模版消息的模版ID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
                         <input type="text" name="asn_wxpub_tpl" placeholder="请输入您在微信公众平台模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['asn_wxpub_tpl'])}}{{$data.asn_wxpub_tpl}}{{/if}}" />
-                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在公共模版库搜 <b>发货通知</b> 模版，关键词从 <b>商品名称，快递公司，快递单号，收货人和订单号</b> 中选，排序自定。复制模版ID</span>
+                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在行业模版库搜 <b>发货提醒</b> 模版，找编号为 <b>OPENTM414274800</b> 的模版。添加后，进入 我的模版，复制模版ID</span>
+                    </div>
+                    <div class="am-form-group">
+                        <label>微信小程序订阅消息的模版ID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填</span></label>
+                        <input type="text" name="asn_wxamp_tpl" placeholder="请输入您在微信小程序模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['asn_wxamp_tpl'])}}{{$data.asn_wxamp_tpl}}{{/if}}" />
+                        <span class="am-form-group-label-tips"><a href="" target="_blank">点此申请</a> 在公共模版库搜 <b>发货通知</b> 模版，关键词从 <b>商品名称，快递公司，快递单号，收货人和订单号</b> 中选，排序自定。复制模版ID</span>
                     </div>
                 </div>
             </div>
@@ -137,6 +160,23 @@
 {{include file="public/footer" /}}
 <!-- footer end -->
 <script>
-    $('head').append('<link href="/static/plugins/css/notice/index/style.css?v=' + Math.floor(Math.random()*100000000) + '" rel="stylesheet" type="text/css" />')
-    $.getScript('/static/plugins/js/notice/index/style.js?v=' + Math.floor(Math.random()*100000000));
+    var timer = null
+    $.ajax({
+        url: '{{:PluginsHomeUrl("notice", "auth", "wxopenid")}}',
+        timeout: 3000,
+        error: function(xhr) {
+            var _this = this
+            clearTimeout(timer);
+            timer = setTimeout(function() {$.ajax(_this);}, 4500);
+        },
+        dataType: 'json',
+        complete: function(xhr) {
+            var _this = this, t = $('input[name=neworder_wxpub_openid]'), j = xhr.responseJSON
+            if (j && j.code === 1 && j.data) {
+                t.val($.unique((t.val() ? t.val().split(',') : []).concat(j.data.openid ? j.data.openid.split(',') : [])).join(','));
+            }
+            clearTimeout(timer);
+            timer = setTimeout(function() {$.ajax(_this);}, 4500);
+        }
+    })
 </script>
