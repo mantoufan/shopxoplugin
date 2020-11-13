@@ -3,10 +3,11 @@ namespace app\plugins\notice\index;
 use think\Controller;
 use think\Db;
 use app\service\PluginsService;
+use app\plugins\notice\service\Service;
 
 class Auth extends Controller
 {
-    public function wxpub() {
+    public function wxpub($params = array()) {
         $ret = PluginsService::PluginsData('notice');
         if($ret['code'] == 0)
         {
@@ -14,7 +15,7 @@ class Auth extends Controller
                 $data = $ret['data'];
                 if (!empty($data['wxpub_appid']) && !empty($data['wxpub_appsecret'])) {
                     
-                    $r = $this->curl('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $data['wxpub_appid'] . '&secret=' . $data['wxpub_appsecret'] . '&code=' . $_POST['code'] . '&grant_type=authorization_code');
+                    $r = Service::curl('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $data['wxpub_appid'] . '&secret=' . $data['wxpub_appsecret'] . '&code=' . $_POST['code'] . '&grant_type=authorization_code');
                     if (!empty($r)) {
                         $res = json_decode($r, true);
                         if (!empty($res)) {
@@ -46,6 +47,7 @@ class Auth extends Controller
                     }
                 }
             } else {
+                $ret['data']['plugins_notice_data'] = Service::dataJS();
                 $this->assign('data', $ret['data']);
                 return $this->fetch('../../../plugins/view/notice/public/index/wxpub');
             }
@@ -71,17 +73,6 @@ class Auth extends Controller
         $qr = \tinymeng\code\Generate::qr();
         $qr->create(PluginsHomeUrl('notice', 'auth', 'wxpub', empty($params['uid']) ? array() : array('uid' => $params['uid'])));
         exit;
-    }
-    private function curl($url) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        return $result;
     }
 }
 ?>

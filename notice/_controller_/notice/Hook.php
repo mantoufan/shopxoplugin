@@ -2,6 +2,7 @@
 namespace app\plugins\notice;
 use think\Db;
 use think\Controller;
+use app\plugins\notice\service\Service;
 use app\service\PluginsService;
 use app\plugins\notice\wga\WGA;
 /**
@@ -20,34 +21,37 @@ class Hook extends Controller
         // 是否控制器钩子
         // is_backend 当前为后端业务处理
         // hook_name 钩子名称
-        if(isset($params['is_backend']) && $params['is_backend'] === true && !empty($params['hook_name']))
+        if(!empty($params['hook_name']))
         {
+            $ret = '';
             switch($params['hook_name'])
             {
                 case 'plugins_service_buy_order_insert_success':// 新订单提醒
                     $wga = new WGA();
                     $res = $wga->hasAccess($params);
                     if ($res === true) {
-                        $ret = $this->notify_neworder($params);
+                        $this->notify_neworder($params);
                     } else if ($res !== false) {
                         die(json_encode($res));
                     }
                 break;
                 case 'plugins_service_order_status_change_history_success_handle':
                     if ($params['data']['new_status'] === 3){ // 发货通知
-                        $ret = $this->notify_asn($params);
-                    } else {
-                        $ret ='';
+                        $this->notify_asn($params);
                     }
                 break;
-                default :
-                    $ret = '';
+                case 'plugins_view_common_bottom':
+                    $ret = $this->dataJS($params);
+                break;
+                case 'plugins_js' :
+                    $ret = 'static/plugins/js/notice/index/style.js';
+                break; 
             }
-            // 参数一   描述
-            // 参数二   0 为处理成功, 负数为失败
-            // 参数三   返回数据
-            return DataReturn('操作成功', 0);
-        // 默认返回视图
+            if (!empty($params['is_backend'])) {
+                return DataReturn('操作成功', 0);
+            } else {
+                return $ret;
+            }
         }
     }
     public function get_codes($order_id) {
@@ -72,7 +76,8 @@ class Hook extends Controller
             'account' => $order_address && $order_address['name'] ? $order_address['name'] : ($user['nickname'] ? $user['nickname'] : $user['username']),
             'phone' => $order_address && $order_address['tel'] ? $order_address['tel'] : $user['mobile'],
             'mail' => $user['email'],
-            'ordernum' => $order['order_no']
+            'ordernum' => $order['order_no'],
+            'weixin_openid' => !empty($user['weixin_openid']) ? $user['weixin_openid'] : (!empty($user['weixin_web_openid']) ? $user['weixin_web_openid'] : '')
         );
     }
     public function notify_neworder($params) {
@@ -83,13 +88,15 @@ class Hook extends Controller
             }
             $neworder_by_sms = FALSE;
             $neworder_by_mail = FALSE;
+            $neworder_by_wxpub = FALSE;
+            $neworder_by_wxamp = FALSE;
             if (isset($ret['data']['neworder_by']) && !empty($ret['data']['neworder_by'])) {
                 $a = explode(',', $ret['data']['neworder_by']);
                 if (in_array('sms', $a )) {
                     $neworder_by_sms = TRUE;
                 }
-                if (in_array('mail', $a )) {
-                    $neworder_by_mail = TRUE;
+                if (in_array('wxpub', $a )) {
+                    $neworder_by_wxpub = TRUE;
                 }
             }
             $this->codes = $this->get_codes($params['order_id']);
@@ -113,6 +120,14 @@ class Hook extends Controller
                         'username' => 'Admin'
                     ));
                 } 
+            }
+            if ($neworder_by_wxpub && $ret['data']['neworder_wxpub_openid'] && $ret['data']['neworder_wxpub_openid']) {
+                Service::wxpubTplMsg($ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
+                    'touser' => $this->codes['weixin_openid'],
+                    'template_id' => 'WAtgmQpqRzo1DfcrdPwQJfq9DapsKYTXdMXBKCPlvaU',
+                    'url' => 'http://weixin.qq.com/download',
+                    
+                ));
             }
         }
         return '';
@@ -155,6 +170,9 @@ class Hook extends Controller
             $codes[$k] = mb_substr($v, 0, 20);
         }
         return $codes;
+    }
+    public function dataJS() {
+        return Service::dataJS();
     }
 }
 ?>

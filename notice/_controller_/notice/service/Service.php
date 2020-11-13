@@ -1,0 +1,64 @@
+<?php
+namespace app\plugins\notice\service;
+use app\service\UserService;
+use app\service\PluginsService;
+
+class Service
+{
+    public static function dataJS() {
+        $user = UserService::LoginUserInfo();
+        $ret = PluginsService::PluginsData('notice');
+        if($ret['code'] == 0) {
+            return '<script>var plugins_notice_data = ' . json_encode(array(
+                'is_weixin' => strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false,
+                'is_mobile' => isMobile(),
+                'weixin_openid' => !empty($user['weixin_openid']) ? $user['weixin_openid'] : (!empty($user['weixin_web_openid']) ? $user['weixin_web_openid'] : ''),
+                'wxpub_qrcode' => !empty($ret['data']['wxpub_qrcode']) ? $ret['data']['wxpub_qrcode'] : '',
+                'wxpub_qrcode_auth' => PluginsHomeUrl('notice', 'auth', 'qrcode', array('uid' => !empty($user['id']) ? $user['id'] : ''))
+            )) . ';</script>';
+        }
+        return '';
+    }
+
+    public static function curl($url, $post = '') {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        if($post){
+            $json = json_encode($post);
+			curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $json);  
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($json))
+            );
+		}
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+
+    public static function accessToken($appid, $appsecret) {
+        $ret = self::curl('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $appid . '&secret=' . $appsecret);
+        if ($ret) {
+            $res = json_encode($ret, true);
+            if (!empty($res)) {
+                if (!empty($res['ACCESS_TOKEN'])) {
+                    return $res['ACCESS_TOKEN'];
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function wxpubTplMsg($appid, $appsecret, $post) {
+        $access_token = self::accessToken($appid, $appsecret);
+        if ($access_token) {
+            self::curl('https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $access_token, $post);
+        }
+    }
+}
+?>

@@ -18,7 +18,7 @@
                         <label>微信公众平台AppID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填 <a href="https://mp.weixin.qq.com" target="_blank">点此申请</a> </span></label>
                         <input type="text" name="wxpub_appid" placeholder="微信公众平台，开发，基本配置，复制AppID，粘贴到此处" class="am-radius notice_phone" value="{{if !empty($data['wxpub_appid'])}}{{$data.wxpub_appid}}{{/if}}" />
                         <label>微信公众平台AppSecret<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
-                        <input type="text" name="wxpub_appsecret" placeholder="微信公众平台，开发，基本配置，复制AppSecret，粘贴到此处" class="am-radius" value="{{if !empty($data['wxpub_appid'])}}{{$data.wxpub_appid}}{{/if}}" />
+                        <input type="text" name="wxpub_appsecret" placeholder="微信公众平台，开发，基本配置，复制AppSecret，粘贴到此处" class="am-radius" value="{{if !empty($data['wxpub_appsecret'])}}{{$data.wxpub_appsecret}}{{/if}}" />
                         <label>微信公众号二维码</label><span class="am-form-group-label-tips">接收通知前，用户需关注公众号并授权。流程：下单后 → 已授权（未授权，扫码授权） → 提示关注公众号</span>
                         <ul class="plug-file-upload-view wxpub_qrcode" data-form-name="wxpub_qrcode[]" data-max-number="1" data-delete="1" data-dialog-type="images">
                             {{if !empty($data['wxpub_qrcode'])}}

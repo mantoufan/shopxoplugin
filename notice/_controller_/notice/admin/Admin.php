@@ -6,7 +6,7 @@ use app\service\PluginsService;
 use app\plugins\notice\wga\WGA;
 
 /**
- * 国际手机号 - 后台管理
+ * 通知 - 后台管理
  * @author   小宇
  * @blog     https://www.madfan.cn/
  * @version  1.0.0

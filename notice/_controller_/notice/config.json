@@ -35,6 +35,12 @@
         ],
         "plugins_service_order_status_change_history_success_handle":[
             "app\\plugins\\notice\\Hook"
+        ],
+        "plugins_view_common_bottom":[
+            "app\\plugins\\notice\\Hook"
+        ],
+        "plugins_js":[
+            "app\\plugins\\notice\\Hook"
         ]
     }
 }
