@@ -12,7 +12,7 @@ class Service
             return '<script>var plugins_notice_data = ' . json_encode(array(
                 'is_weixin' => strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false,
                 'is_mobile' => isMobile(),
-                'weixin_openid' => !empty($user['weixin_openid']) ? $user['weixin_openid'] : (!empty($user['weixin_web_openid']) ? $user['weixin_web_openid'] : ''),
+                'weixin_web_openid' => !empty($user['weixin_web_openid']) ? $user['weixin_web_openid'] : '',
                 'wxpub_qrcode' => !empty($ret['data']['wxpub_qrcode']) ? $ret['data']['wxpub_qrcode'] : '',
                 'wxpub_qrcode_auth' => PluginsHomeUrl('notice', 'auth', 'qrcode', array('uid' => !empty($user['id']) ? $user['id'] : ''))
             )) . ';</script>';

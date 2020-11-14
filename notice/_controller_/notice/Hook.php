@@ -70,7 +70,8 @@ class Hook extends Controller
             'ordernum' => $order['order_no'],
             'price' => $order['total_price'],
             'address' => $order_address['province_name'] . $order_address['city_name'] . $order_address['county_name'] . $order_address['address'],
-            'weixin_openid' => !empty($user['weixin_openid']) ? $user['weixin_openid'] : (!empty($user['weixin_web_openid']) ? $user['weixin_web_openid'] : '')
+            'weixin_openid' => !empty($user['weixin_openid']) ? $user['weixin_openid'] : '',
+            'weixin_web_openid' => !empty($user['weixin_web_openid']) ? $user['weixin_web_openid'] : ''
         );
     }
     public function notify_neworder($params) {
