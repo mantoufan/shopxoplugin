@@ -33,7 +33,7 @@
             getOpenId: function (code) {
                 let _this = this;
                 $.post(location.href, {code: code});
-                plugins_notice_data['weixin_openid'] = '1';
+                plugins_notice_data['weixin_web_openid'] = '1';
                 $.getScript('{{$public_host}}static/plugins/js/notice/index/style.js?v={{:MyC(\'home_static_cache_version\')}}');
             }
         }
