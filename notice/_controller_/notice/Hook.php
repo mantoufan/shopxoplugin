@@ -18,22 +18,13 @@ class Hook extends Controller
     // 应用响应入口
     public function run($params = [])
     {
-        // 是否控制器钩子
-        // is_backend 当前为后端业务处理
-        // hook_name 钩子名称
         if(!empty($params['hook_name']))
         {
             $ret = '';
             switch($params['hook_name'])
             {
                 case 'plugins_service_buy_order_insert_success':// 新订单提醒
-                    $wga = new WGA();
-                    $res = $wga->hasAccess($params);
-                    if ($res === true) {
-                        $this->notify_neworder($params);
-                    } else if ($res !== false) {
-                        die(json_encode($res));
-                    }
+                    $this->notify_neworder($params);
                 break;
                 case 'plugins_service_order_status_change_history_success_handle':
                     if ($params['data']['new_status'] === 3){ // 发货通知
@@ -77,6 +68,8 @@ class Hook extends Controller
             'phone' => $order_address && $order_address['tel'] ? $order_address['tel'] : $user['mobile'],
             'mail' => $user['email'],
             'ordernum' => $order['order_no'],
+            'price' => $order['total_price'],
+            'address' => $order_address['province_name'] . $order_address['city_name'] . $order_address['county_name'] . $order_address['address'],
             'weixin_openid' => !empty($user['weixin_openid']) ? $user['weixin_openid'] : (!empty($user['weixin_web_openid']) ? $user['weixin_web_openid'] : '')
         );
     }
@@ -90,24 +83,30 @@ class Hook extends Controller
             $neworder_by_mail = FALSE;
             $neworder_by_wxpub = FALSE;
             $neworder_by_wxamp = FALSE;
-            if (isset($ret['data']['neworder_by']) && !empty($ret['data']['neworder_by'])) {
+            if (!empty($ret['data']['neworder_by'])) {
                 $a = explode(',', $ret['data']['neworder_by']);
                 if (in_array('sms', $a )) {
                     $neworder_by_sms = TRUE;
                 }
+                if (in_array('mail', $a )) {
+                    $neworder_by_mail = TRUE;
+                }
                 if (in_array('wxpub', $a )) {
                     $neworder_by_wxpub = TRUE;
                 }
+                if (in_array('wxamp', $a )) {
+                    $neworder_by_wxamp = TRUE;
+                }
             }
             $this->codes = $this->get_codes($params['order_id']);
-            if ($neworder_by_sms && $ret['data']['neworder_sms_tpl'] && $ret['data']['neworder_sms_signname'] && $ret['data']['neworder_sms_phone']) {
+            if ($neworder_by_sms && !empty($ret['data']['neworder_sms_tpl']) && !empty($ret['data']['neworder_sms_signname']) && !empty($ret['data']['neworder_sms_phone'])) {
                 $obj = new \base\Sms();
                 $neworder_sms_phone_ar = explode(',', $ret['data']['neworder_sms_phone']);
                 foreach ($neworder_sms_phone_ar as $k => $neworder_sms_phone) {
                     $obj->SendCode($neworder_sms_phone, $this->limit_codes_length($this->codes), $ret['data']['neworder_sms_tpl'], $ret['data']['neworder_sms_signname']);
                 }
             }
-            if ($neworder_by_mail && $ret['data']['neworder_mail_tpl_title'] && $ret['data']['neworder_mail_tpl_content']  && $ret['data']['neworder_mail_address']) {
+            if ($neworder_by_mail && !empty($ret['data']['neworder_mail_tpl_title']) && !empty($ret['data']['neworder_mail_tpl_content']) && !empty($ret['data']['neworder_mail_address'])) {
                 $title = preg_replace_callback('/\$\{(.*?)\}/', function($m){return $this->codes[$m[1]];}, $ret['data']['neworder_mail_tpl_title']);
                 $content = preg_replace_callback('/\$\{(.*?)\}/', function($m){return $this->codes[$m[1]];}, $ret['data']['neworder_mail_tpl_content']);
                 $obj = new \base\Email();
@@ -121,13 +120,35 @@ class Hook extends Controller
                     ));
                 } 
             }
-            if ($neworder_by_wxpub && $ret['data']['neworder_wxpub_openid'] && $ret['data']['neworder_wxpub_openid']) {
-                Service::wxpubTplMsg($ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
-                    'touser' => $this->codes['weixin_openid'],
-                    'template_id' => 'WAtgmQpqRzo1DfcrdPwQJfq9DapsKYTXdMXBKCPlvaU',
-                    'url' => 'http://weixin.qq.com/download',
-                    
-                ));
+            if ($neworder_by_wxpub && !empty($ret['data']['wxpub_appid']) && !empty($ret['data']['wxpub_appsecret']) && !empty($ret['data']['neworder_wxpub_openid']) && !empty($ret['data']['neworder_wxpub_tpl'])) {
+                $neworder_wxpub_openid_ar = explode(',', $ret['data']['neworder_wxpub_openid']);
+                foreach ($neworder_wxpub_openid_ar as $k => $neworder_wxpub_openid) {
+                    Service::wxpubTplMsg($ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
+                        'touser' => $neworder_wxpub_openid,
+                        'template_id' => $ret['data']['neworder_wxpub_tpl'],
+                        'url' => MyUrl('index/order/index'),
+                        'data' => array(
+                            'first' => array(
+                                'value' => '您有新订单'
+                            ),
+                            'keyword1' => array(
+                                'value' => $this->codes['ordernum']
+                            ),
+                            'keyword2' => array(
+                                'value' => date('Y-m-d H：i', time())
+                            ),
+                            'keyword3' => array(
+                                'value' => mb_substr($this->codes['goodsname'], 0, 20)
+                            ),
+                            'keyword4' => array(
+                                'value' => mb_substr($this->codes['address'], 0, 20)
+                            ),
+                            'remark' => array(
+                                'value' => '订单金额：' . $this->codes['price']
+                            )
+                        )
+                    ));
+                }
             }
         }
         return '';
@@ -137,7 +158,9 @@ class Hook extends Controller
         if($ret['code'] == 0) {
             $asn_by_sms = FALSE;
             $asn_by_mail = FALSE;
-            if (isset($ret['data']['asn_by']) && !empty($ret['data']['asn_by'])) {
+            $asn_by_wxpub = FALSE;
+            $asn_by_wxamp = FALSE;
+            if (!empty($ret['data']['asn_by'])) {
                 $a = explode(',', $ret['data']['asn_by']);
                 if (in_array('sms', $a )) {
                     $asn_by_sms = TRUE;
@@ -145,13 +168,19 @@ class Hook extends Controller
                 if (in_array('mail', $a )) {
                     $asn_by_mail = TRUE;
                 }
+                if (in_array('wxpub', $a )) {
+                    $asn_by_wxpub = TRUE;
+                }
+                if (in_array('wxamp', $a )) {
+                    $asn_by_wxamp = TRUE;
+                }
             }
             $this->codes = $this->get_codes($params['order_id']);
-            if ($asn_by_sms && $ret['data']['asn_sms_tpl'] && $ret['data']['asn_sms_signname'] && $this->codes['phone']) {
+            if ($asn_by_sms && !empty($ret['data']['asn_sms_tpl']) && !empty($ret['data']['asn_sms_signname']) && $this->codes['phone']) {
                 $obj = new \base\Sms();
                 $obj->SendCode($this->codes['phone'], $this->limit_codes_length($this->codes), $ret['data']['asn_sms_tpl'], $ret['data']['asn_sms_signname']);
             }
-            if ($asn_by_mail && $ret['data']['asn_mail_tpl_title'] && $ret['data']['asn_mail_tpl_content']  && $this->codes['mail']) {
+            if ($asn_by_mail && !empty($ret['data']['asn_mail_tpl_title']) && !empty($ret['data']['asn_mail_tpl_content'])  && $this->codes['mail']) {
                 $title = preg_replace_callback('/\$\{(.*?)\}/', function($m){return $this->codes[$m[1]];}, $ret['data']['asn_mail_tpl_title']);
                 $content = preg_replace_callback('/\$\{(.*?)\}/', function($m){return $this->codes[$m[1]];}, $ret['data']['asn_mail_tpl_content']);
                 $obj = new \base\Email();
@@ -160,6 +189,33 @@ class Hook extends Controller
                     'title' => $title,
                     'content' => $content,
                     'username' => $this->codes['account']
+                ));
+            }
+            if ($asn_by_wxpub && !empty($ret['data']['wxpub_appid']) && !empty($ret['data']['wxpub_appsecret']) && !empty($ret['data']['asn_wxpub_tpl']) && !empty($this->codes['weixin_openid'])) {
+                Service::wxpubTplMsg($ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
+                    'touser' => $this->codes['weixin_openid'],
+                    'template_id' => $ret['data']['asn_wxpub_tpl'],
+                    'url' => MyUrl('index/order/index'),
+                    'data' => array(
+                        'first' => array(
+                            'value' => '您的订单已发货'
+                        ),
+                        'keyword1' => array(
+                            'value' => mb_substr($this->codes['goodsname'], 0, 20)
+                        ),
+                        'keyword2' => array(
+                            'value' => '已发货'
+                        ),
+                        'keyword3' => array(
+                            'value' => $this->codes['expname']
+                        ),
+                        'keyword4' => array(
+                            'value' => $this->codes['expnum']
+                        ),
+                        'remark' => array(
+                            'value' => date('Y年m月d日 H:i', time())
+                        )
+                    )
                 ));
             }
         }

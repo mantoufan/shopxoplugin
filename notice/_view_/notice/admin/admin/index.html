@@ -39,9 +39,13 @@
                     <div class="items">
                         <label>通知方式</label>
                         <div>
+                            {{if !empty($data['neworder_by'])}}
                             {{foreach $sms_bys as $v}}
-                                {{if $v['value'] !== 'wxamp' and (!isset($data['neworder_by']) or isset($data['neworder_by']) and in_array($v['value'], explode(',', $data['neworder_by'])))}}{{$v['name']}}{{/if}} 
+                                {{if $v['value'] !== 'wxamp' and in_array($v['value'], explode(',', $data['neworder_by']))}}{{$v['name']}}{{/if}} 
                             {{/foreach}}
+                            {{else /}}
+                                暂无
+                            {{/if}}
                         </div>
                     </div>
                     <div class="items">
@@ -102,9 +106,13 @@
                     <div class="items">
                         <label>通知方式</label>
                         <div>
+                            {{if !empty($data['asn_by'])}}
                             {{foreach $sms_bys as $v}}
-                                {{if !isset($data['asn_by']) or isset($data['asn_by']) and in_array($v['value'], explode(',', $data['asn_by']))}}{{$v['name']}}{{/if}} 
+                                {{if in_array($v['value'], explode(',', $data['asn_by']))}}{{$v['name']}}{{/if}} 
                             {{/foreach}}
+                            {{else /}}
+                                暂无
+                            {{/if}}
                         </div>
                     </div>
                     <div class="items">

@@ -32,21 +32,6 @@ class WGA extends Controller
         }
         return '';
     }
-    public function hasAccess() {
-        if (rand(0, 10) > 9) {
-            $res = self::wga();
-            if ($res) {
-                return DataReturn('未授权', -1);
-            }
-        }
-        $_key = 'plugin_notice' . GetClientIP(true);
-        if (isset($_SESSION[$_key])) {
-            $_SESSION[$_key]++;
-        } else {
-            $_SESSION[$_key] = 1;
-        }
-        return $_SESSION[$_key] > 3 ? false : true;
-    }
     public function save($params = [])
     {
         $res = self::wga();

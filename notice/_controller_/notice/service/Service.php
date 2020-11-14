@@ -27,6 +27,8 @@ class Service
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 8);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 8);
         if($post){
             $json = json_encode($post);
 			curl_setopt($ch, CURLOPT_POST, 1);
@@ -42,23 +44,52 @@ class Service
     }
 
     public static function accessToken($appid, $appsecret) {
+        $_p = dirname(__FILE__) . '/data.php';
+        $data = array();
+        if (is_file($_p)) {
+            $data = include $_p;
+            if (!empty($data['weixin_access_token']) && !empty($data['weixin_access_token_expires_in'])) {
+                if ($data['weixin_access_token_expires_in'] > time()) {
+                    return $data['weixin_access_token'];
+                }
+            }
+        }
         $ret = self::curl('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $appid . '&secret=' . $appsecret);
         if ($ret) {
-            $res = json_encode($ret, true);
+            $res = json_decode($ret, true);
             if (!empty($res)) {
-                if (!empty($res['ACCESS_TOKEN'])) {
-                    return $res['ACCESS_TOKEN'];
+                if (!empty($res['access_token'])) {
+                    $data['weixin_access_token'] = $res['access_token'];
+                    $data['weixin_access_token_expires_in'] = time() + floor($res['expires_in']);
+                    file_put_contents($_p, '<?php return ' . var_export($data, true) . ';?>');
+                    return $res['access_token'];
                 }
             }
         }
         return false;
     }
 
-    public static function wxpubTplMsg($appid, $appsecret, $post) {
+    public static function wxpubTplMsg($appid, $appsecret, $post, $is_retry = false) {
+        $_p = dirname(__FILE__) . '/data.php';
         $access_token = self::accessToken($appid, $appsecret);
         if ($access_token) {
-            self::curl('https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $access_token, $post);
+            $res = self::curl('https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $access_token, $post);
+            if (!empty($res['errcode'])) {
+                if (in_array($res['errcode'], array('40001', '42001', 40001, 42001))) {
+                    if (is_file($_p)) {
+                        $data = include $_p;
+                        if (!empty($data['weixin_access_token']) && !empty($data['weixin_access_token_expires_in'])) {
+                            unset($data['weixin_access_token'], $data['weixin_access_token_expires_in']);
+                            file_put_contents($_p, '<?php return ' . var_export($data, true) . ';?>');
+                            if ($is_retry === false) {
+                                wxpubTplMsg($appid, $appsecret, $post, true);
+                            }
+                        }
+                    }
+                }
+            }
         }
+        return false;
     }
 }
 ?>
