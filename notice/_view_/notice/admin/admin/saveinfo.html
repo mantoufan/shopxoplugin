@@ -5,7 +5,7 @@
         <!-- form start -->
         <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('notice', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('notice', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
-                <span class="fs-16">订单和发货通知<sup>M站 · Y站</sup></span>
+                <span class="fs-16">通知<sup>M站 · Y站</sup></span>
                 <a href="{{:PluginsAdminUrl('notice', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
             {{$wga_tip | RAW}}
@@ -39,7 +39,7 @@
                     </div>
                     <div class="am-alert-secondary">
                         <label>短信和邮箱模版支持的标签变量</label>
-                        <div>站点名称 ${sitename} 商品名称 ${goodsname} 快递公司名称 ${expname} 快递单号 ${expnum}<br>用户昵称/用户名 ${account} 收货人/用户手机号 ${phone} 用户邮箱 ${mail} 订单号  ${ordernum}</div>
+                        <div>站点名称 ${sitename} 商品名称 ${goodsname} 快递公司名称 ${expname} 快递单号 ${expnum} 用户邮箱 ${mail}<br>收货人姓名/用户名 ${account} 收货人/用户手机号 ${phone} 收货地址 ${address} 订单号  ${ordernum} 订单金额 ${price}</div>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                     <div class="am-form-group">
                         <label>接收提醒的微信的OpenID（非微信号）<span class="am-form-group-label-tips">通知方式为微信公众号时，必填，多个请用 半角逗号, 隔开</span></label>
                         <input type="text" name="neworder_wxpub_openid" placeholder="请输入您接收提醒的微信的OpenID" class="am-radius" value="{{if !empty($data['neworder_wxpub_openid'])}}{{$data.neworder_wxpub_openid}}{{/if}}" />
-                        <span class="am-form-group-label-tips">请您或运营者用微信扫描下方二维码，OpenID将自动填入</span>
+                        <span class="am-form-group-label-tips">请您或运营者用微信扫描下方二维码，<b>稍等30秒</b>，OpenID将自动填入</span>
                         <div>
                             <img src="{{:PluginsHomeUrl('notice', 'auth', 'qrcode')}}" width="120px" />
                         </div>
@@ -98,7 +98,7 @@
                     <div class="am-form-group">
                         <label>微信公众号模版消息的模版ID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
                         <input type="text" name="neworder_wxpub_tpl" placeholder="请输入您在微信公众平台模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['neworder_wxpub_tpl'])}}{{$data.neworder_wxpub_tpl}}{{/if}}" />
-                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在行业模版库搜 <b>新订单提醒</b> 模版，找编号为 <b>OPENTM416739152</b> 的模版。添加后，进入 我的模版，复制模版ID</span>
+                        <span class="am-form-group-label-tips">微信公众平台，登录公众号，功能，模版消息。在行业模版库搜 <b>新订单提醒</b> 模版，找编号为 <b>OPENTM416739152</b> 的模版。添加后，进入 我的模版，复制模版ID</span>
                     </div>
                 </div>
             </div>
@@ -139,12 +139,12 @@
                     <div class="am-form-group">
                         <label>微信公众号模版消息的模版ID<span class="am-form-group-label-tips">通知方式为微信公众号时，必填</span></label>
                         <input type="text" name="asn_wxpub_tpl" placeholder="请输入您在微信公众平台模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['asn_wxpub_tpl'])}}{{$data.asn_wxpub_tpl}}{{/if}}" />
-                        <span class="am-form-group-label-tips"><a href="https://mp.weixin.qq.com/advanced/tmplmsgapply?action=intro&t=tmplmsg/intro" target="_blank">点此申请</a> 在行业模版库搜 <b>发货提醒</b> 模版，找编号为 <b>OPENTM414274800</b> 的模版。添加后，进入 我的模版，复制模版ID</span>
+                        <span class="am-form-group-label-tips">微信公众平台，登录公众号，功能，模版消息。在行业模版库搜 <b>发货提醒</b> 模版，找编号为 <b>OPENTM414274800</b> 的模版。添加后，进入 我的模版，复制模版ID</span>
                     </div>
                     <div class="am-form-group">
-                        <label>微信小程序订阅消息的模版ID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填</span></label>
+                        <label>微信小程序订阅消息的模版ID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填。修改后，请重新生成 → 上传微信小程序</span></label>
                         <input type="text" name="asn_wxamp_tpl" placeholder="请输入您在微信小程序模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['asn_wxamp_tpl'])}}{{$data.asn_wxamp_tpl}}{{/if}}" />
-                        <span class="am-form-group-label-tips"><a href="" target="_blank">点此申请</a> 在公共模版库搜 <b>发货通知</b> 模版，关键词从 <b>商品名称，快递公司，快递单号，收货人和订单号</b> 中选，排序自定。复制模版ID</span>
+                        <span class="am-form-group-label-tips">微信公众平台，登录小程序，功能，订阅消息。在公共模版库搜 <b>发货通知</b> 模版，关键词选 <b>商品名称，快递公司，快递单号，收货人和订单号</b>，排序自定。复制模版ID</span>
                     </div>
                 </div>
             </div>

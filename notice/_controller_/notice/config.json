@@ -5,8 +5,8 @@
         "logo":"\/static\/upload\/images\/plugins_notice\/icon\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.4",
-        "desc":"通过手机、邮箱、微信公众号、微信服务消息，新订单提醒指定人，发货时通知收件人或下单用户。提供丰富标签，可自定义短信和邮件模板。",
+        "version":"1.0.5",
+        "desc":"通过手机、邮箱、微信公众号、微信服务通知，新订单提醒指定多人，发货时通知收件人或下单用户。提供丰富标签，可自定义短信和邮件模板。",
         "apply_terminal":[
             "pc",
             "h5",

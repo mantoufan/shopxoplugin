@@ -4,6 +4,7 @@ namespace app\plugins\notice\admin;
 use think\Controller;
 use app\service\PluginsService;
 use app\plugins\notice\wga\WGA;
+use app\plugins\notice\service\Service;
 
 /**
  * 通知 - 后台管理
@@ -50,6 +51,14 @@ class Admin extends Controller
     public function save($params = [])
     {
         $wga = new WGA();
+        $rules = array(
+            Service::root() . 'sourcecode/weixin/pages/buy/buy.js' => array(
+                'wx.showLoading({title: \'提交中...\'});' => !empty($params['asn_wxamp_tpl']) ? 'wx.requestSubscribeMessage({tmplIds: [\'' . $params['asn_wxamp_tpl'] . '\']})' : ''
+            )
+        );
+        include dirname(__FILE__) . '/mtfReplace.php';
+        $mtfReplace = new \mtfReplace();
+        $mtfReplace->append($rules);
         return $wga->save($params);
     }
 }

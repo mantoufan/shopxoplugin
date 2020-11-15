@@ -83,7 +83,6 @@ class Hook extends Controller
             $neworder_by_sms = FALSE;
             $neworder_by_mail = FALSE;
             $neworder_by_wxpub = FALSE;
-            $neworder_by_wxamp = FALSE;
             if (!empty($ret['data']['neworder_by'])) {
                 $a = explode(',', $ret['data']['neworder_by']);
                 if (in_array('sms', $a )) {
@@ -94,9 +93,6 @@ class Hook extends Controller
                 }
                 if (in_array('wxpub', $a )) {
                     $neworder_by_wxpub = TRUE;
-                }
-                if (in_array('wxamp', $a )) {
-                    $neworder_by_wxamp = TRUE;
                 }
             }
             $this->codes = $this->get_codes($params['order_id']);
@@ -124,7 +120,7 @@ class Hook extends Controller
             if ($neworder_by_wxpub && !empty($ret['data']['wxpub_appid']) && !empty($ret['data']['wxpub_appsecret']) && !empty($ret['data']['neworder_wxpub_openid']) && !empty($ret['data']['neworder_wxpub_tpl'])) {
                 $neworder_wxpub_openid_ar = explode(',', $ret['data']['neworder_wxpub_openid']);
                 foreach ($neworder_wxpub_openid_ar as $k => $neworder_wxpub_openid) {
-                    Service::wxpubTplMsg($ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
+                    Service::wxMsg('wxpub', $ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
                         'touser' => $neworder_wxpub_openid,
                         'template_id' => $ret['data']['neworder_wxpub_tpl'],
                         'url' => MyUrl('index/order/index'),
@@ -192,9 +188,9 @@ class Hook extends Controller
                     'username' => $this->codes['account']
                 ));
             }
-            if ($asn_by_wxpub && !empty($ret['data']['wxpub_appid']) && !empty($ret['data']['wxpub_appsecret']) && !empty($ret['data']['asn_wxpub_tpl']) && !empty($this->codes['weixin_openid'])) {
-                Service::wxpubTplMsg($ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
-                    'touser' => $this->codes['weixin_openid'],
+            if ($asn_by_wxpub && !empty($ret['data']['wxpub_appid']) && !empty($ret['data']['wxpub_appsecret']) && !empty($ret['data']['asn_wxpub_tpl']) && !empty($this->codes['weixin_web_openid'])) {
+                Service::wxMsg('wxpub', $ret['data']['wxpub_appid'], $ret['data']['wxpub_appsecret'], array(
+                    'touser' => $this->codes['weixin_web_openid'],
                     'template_id' => $ret['data']['asn_wxpub_tpl'],
                     'url' => MyUrl('index/order/index'),
                     'data' => array(
@@ -215,6 +211,30 @@ class Hook extends Controller
                         ),
                         'remark' => array(
                             'value' => date('Y年m月d日 H:i', time())
+                        )
+                    )
+                ));
+            }
+            if ($asn_by_wxamp && !empty($ret['data']['wxamp_appid']) && !empty($ret['data']['wxamp_appsecret']) && !empty($ret['data']['asn_wxamp_tpl']) && !empty($this->codes['weixin_openid'])) {
+                Service::wxMsg('wxamp', $ret['data']['wxamp_appid'], $ret['data']['wxamp_appsecret'], array(
+                    'touser' => $this->codes['weixin_openid'],
+                    'template_id' => $ret['data']['asn_wxamp_tpl'],
+                    'page' => 'pages/user-order/user-order',
+                    'data' => array(
+                        'thing1' => array(
+                            'value' => mb_substr($this->codes['goodsname'], 0, 20)
+                        ),
+                        'thing3' => array(
+                            'value' => $this->codes['expname']
+                        ),
+                        'character_string4' => array(
+                            'value' => $this->codes['expnum']
+                        ),
+                        'name7' => array(
+                            'value' => $this->codes['account']
+                        ),
+                        'character_string5' => array(
+                            'value' => $this->codes['ordernum']
                         )
                     )
                 ));

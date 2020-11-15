@@ -5,6 +5,10 @@ use app\service\PluginsService;
 
 class Service
 {
+    public static function root() {
+        return str_replace('\\', '/', dirname(__FILE__)) . '/../../../../';
+    }
+    
     public static function dataJS() {
         $user = UserService::LoginUserInfo();
         $ret = PluginsService::PluginsData('notice');
@@ -43,14 +47,14 @@ class Service
         return $result;
     }
 
-    public static function accessToken($appid, $appsecret) {
+    public static function accessToken($type = 'wxpub', $appid, $appsecret) {
         $_p = dirname(__FILE__) . '/data.php';
         $data = array();
         if (is_file($_p)) {
             $data = include $_p;
-            if (!empty($data['weixin_access_token']) && !empty($data['weixin_access_token_expires_in'])) {
-                if ($data['weixin_access_token_expires_in'] > time()) {
-                    return $data['weixin_access_token'];
+            if (!empty($data['weixin_access_token_'. $type]) && !empty($data['weixin_access_token_expires_in_'. $type])) {
+                if ($data['weixin_access_token_expires_in_'. $type] > time()) {
+                    return $data['weixin_access_token_'. $type];
                 }
             }
         }
@@ -59,8 +63,8 @@ class Service
             $res = json_decode($ret, true);
             if (!empty($res)) {
                 if (!empty($res['access_token'])) {
-                    $data['weixin_access_token'] = $res['access_token'];
-                    $data['weixin_access_token_expires_in'] = time() + floor($res['expires_in']);
+                    $data['weixin_access_token_'. $type] = $res['access_token'];
+                    $data['weixin_access_token_expires_in_'. $type] = time() + floor($res['expires_in']);
                     file_put_contents($_p, '<?php return ' . var_export($data, true) . ';?>');
                     return $res['access_token'];
                 }
@@ -69,11 +73,16 @@ class Service
         return false;
     }
 
-    public static function wxpubTplMsg($appid, $appsecret, $post, $is_retry = false) {
+    public static function wxMsg($type = 'wxpub', $appid, $appsecret, $post, $is_retry = false) {
         $_p = dirname(__FILE__) . '/data.php';
-        $access_token = self::accessToken($appid, $appsecret);
+        $access_token = self::accessToken($type, $appid, $appsecret);
+        if ($type === 'wxpub') {
+            $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send';
+        } elseif ($type === 'wxamp') {
+            $url = 'https://api.weixin.qq.com/cgi-bin/message/subscribe/send';
+        }
         if ($access_token) {
-            $res = self::curl('https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $access_token, $post);
+            $res = self::curl($url . '?access_token=' . $access_token, $post);
             if (!empty($res['errcode'])) {
                 if (in_array($res['errcode'], array('40001', '42001', 40001, 42001))) {
                     if (is_file($_p)) {
@@ -82,7 +91,7 @@ class Service
                             unset($data['weixin_access_token'], $data['weixin_access_token_expires_in']);
                             file_put_contents($_p, '<?php return ' . var_export($data, true) . ';?>');
                             if ($is_retry === false) {
-                                wxpubTplMsg($appid, $appsecret, $post, true);
+                                wxMsg($type, $appid, $appsecret, $post, true);
                             }
                         }
                     }
