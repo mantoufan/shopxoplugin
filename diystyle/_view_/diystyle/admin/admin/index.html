@@ -7,14 +7,14 @@
             <span class="fs-16">自定义风格<sup>M站 · Y站</sup></span>
             <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
         </legend>
-
+        {{$wga_tip | RAW}}
         <div class="diystyle-content">
          	<div class="am-form-group">
                 <label>调用代码</label>
-                {{if isset($data['code']) and !empty($data['code']) }} 
-                <pre class="am-pre-scrollable">{{$data['code']}}</pre>
+                {{if !empty($data['code']) }} 
+                    <pre class="am-pre-scrollable">{{$data['code']}}</pre>
                 {{else}}
-                未填写
+                    未填写
                 {{/if}}
             </div>
             <a href="{{:PluginsAdminUrl('diystyle', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>

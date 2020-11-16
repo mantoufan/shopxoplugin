@@ -9,6 +9,7 @@
                 <span class="fs-16">自定义风格<sup>M站 · Y站</sup></span>
                 <a href="{{:PluginsAdminUrl('diystyle', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
+            {{$wga_tip | RAW}}
             <div class="am-form-group diystyle-items">
                 <label class="block">调用代码 <a href="https://www.webfont.com/onlinefont/index" target="_blank">点此获取代码（挑选字体—立即使用）</a></label>
                 <textarea rows="5" name="code" class="am-radius am-field-valid" placeholder="请复制JS代码粘贴到这里，并将其中http://替换成https://" maxlength="1000">{{$data['code']}}</textarea>
