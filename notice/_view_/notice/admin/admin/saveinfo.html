@@ -5,7 +5,7 @@
         <!-- form start -->
         <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('notice', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('notice', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
-                <span class="fs-16">通知<sup>M站 · Y站</sup></span>
+                <span class="fs-16">通知<sup>M站 · Y站 · <a href="https://yu.mantoufan.com/202005270951201853" target="_blank">图文教程</a></sup></span>
                 <a href="{{:PluginsAdminUrl('notice', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
             {{$wga_tip | RAW}}
@@ -144,7 +144,7 @@
                     <div class="am-form-group">
                         <label>微信小程序订阅消息的模版ID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填。修改后，请重新生成微信小程序。导入微信开发者工具，真机调试，下单看授权提示能否弹出，发货看能否收到通知。没问题上传审核</span></label>
                         <input type="text" name="asn_wxamp_tpl" placeholder="请输入您在微信小程序模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['asn_wxamp_tpl'])}}{{$data.asn_wxamp_tpl}}{{/if}}" />
-                        <span class="am-form-group-label-tips">微信公众平台，登录小程序，功能，订阅消息。在公共模版库搜 <b>发货通知</b> 模版，关键词选 <b>商品名称，快递公司，快递单号，收货人和订单号</b>，排序自定。复制模版ID</span>
+                        <span class="am-form-group-label-tips">微信公众平台，登录小程序，功能，订阅消息。在公共模版库搜 <b>发货通知</b> 模版（名称需是<b>发货通知</b>4个字），关键词选 <b>商品名称，快递公司，快递单号，收货人和订单号</b>，排序自定。复制模版ID</span>
                     </div>
                 </div>
             </div>
