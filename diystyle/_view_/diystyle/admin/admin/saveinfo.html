@@ -10,10 +10,17 @@
                 <a href="{{:PluginsAdminUrl('diystyle', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
             {{$wga_tip | RAW}}
-            <div class="am-form-group diystyle-items">
-                <label class="block">调用代码 <a href="https://www.webfont.com/onlinefont/index" target="_blank">点此获取代码（挑选字体—立即使用）</a></label>
-                <textarea rows="5" name="code" class="am-radius am-field-valid" placeholder="请复制JS代码粘贴到这里，并将其中http://替换成https://" maxlength="1000">{{$data['code']}}</textarea>
-                <b>本插件不保证字体无侵权风险，请自行甄别并承担风险</b>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">字体</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group diystyle-items">
+                        <label>调用代码</label><span class="am-form-group-label-tips"><a href="https://www.webfont.com/onlinefont/index" target="_blank">点此获取代码</a> 挑选一款字体，点立即使用</span>
+                        <textarea rows="5" name="code" class="am-radius am-field-valid" placeholder="请复制JS代码粘贴到这里，并将其中http://替换成https://" maxlength="1000">{{if !empty($data['code'])}}{{$data['code']}}{{/if}}</textarea>
+                        <span class="am-form-group-label-tips">本功能由第三方提供，请仔细阅读相关条款，插件无法对其可用性和风险作任何保证。</span>
+                    </div>
+                </div>
             </div>
             <div class="am-form-group am-form-group-refreshing">
                 <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
