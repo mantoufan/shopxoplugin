@@ -142,7 +142,7 @@
                         <span class="am-form-group-label-tips">微信公众平台，登录公众号，功能，模版消息。在行业模版库搜 <b>发货提醒</b> 模版，找编号为 <b>OPENTM414274800</b> 的模版。添加后，进入 我的模版，复制模版ID</span>
                     </div>
                     <div class="am-form-group">
-                        <label>微信小程序订阅消息的模版ID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填。修改后，请重新生成 → 上传微信小程序</span></label>
+                        <label>微信小程序订阅消息的模版ID<span class="am-form-group-label-tips">通知方式为微信小程序时，必填。修改后，请重新生成微信小程序。导入微信开发者工具，真机调试，下单看授权提示能否弹出，发货看能否收到通知。没问题上传审核</span></label>
                         <input type="text" name="asn_wxamp_tpl" placeholder="请输入您在微信小程序模版消息获取的模版ID" class="am-radius" value="{{if !empty($data['asn_wxamp_tpl'])}}{{$data.asn_wxamp_tpl}}{{/if}}" />
                         <span class="am-form-group-label-tips">微信公众平台，登录小程序，功能，订阅消息。在公共模版库搜 <b>发货通知</b> 模版，关键词选 <b>商品名称，快递公司，快递单号，收货人和订单号</b>，排序自定。复制模版ID</span>
                     </div>
