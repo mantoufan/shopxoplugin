@@ -87,8 +87,8 @@ class Service
                 if (in_array($res['errcode'], array('40001', '42001', 40001, 42001))) {
                     if (is_file($_p)) {
                         $data = include $_p;
-                        if (!empty($data['weixin_access_token']) && !empty($data['weixin_access_token_expires_in'])) {
-                            unset($data['weixin_access_token'], $data['weixin_access_token_expires_in']);
+                        if (!empty($data['weixin_access_token_'. $type]) && !empty($data['weixin_access_token_expires_in_'. $type])) {
+                            unset($data['weixin_access_token_'. $type], $data['weixin_access_token_expires_in_'. $type]);
                             file_put_contents($_p, '<?php return ' . var_export($data, true) . ';?>');
                             if ($is_retry === false) {
                                 wxMsg($type, $appid, $appsecret, $post, true);
