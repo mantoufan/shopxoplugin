@@ -81,6 +81,7 @@ class Admin extends Controller
         if (!isset($params['available'])) {
             return DataReturn('至少选择一个渠道', -1);
         }
+        Service::append();
         $wga = new WGA();
         return $wga->save($params);
     }

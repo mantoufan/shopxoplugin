@@ -2,6 +2,9 @@
 namespace app\plugins\expressinwebfree\service;
 use app\service\PluginsService;
 class Service {
+    public static function root() {
+		return str_replace('\\', '/', dirname(__FILE__)) . '/../../../../';
+	}
     public static function config($params = array())
     {
         // 获取配置数据
@@ -57,6 +60,36 @@ class Service {
         } else {
             return $ret;
         }
+    }
+
+    public static function append() {
+        include_once dirname(__FILE__) . '/mtfReplace.php';
+        $root = self::root();
+        $mtfReplace = new \mtfReplace();
+        $mtfReplace->append(array(
+			$root . 'sourcecode/weixin/pages/user-order/user-order.wxml' => array(
+				'hover-class="none">催催</button>' => '<navigator wx:if="{{item.status == 3}}" target="miniProgram" path="pages/result/result?nu={{item.express_number}}&com={{item.express_id_expressinwebfree}}&querysource=third_xcx" app-id="wx6885acbedba59c14" style="display:inline-block"><button size="mini" class="br">物流</button></navigator>',
+            ),
+            $root . 'sourcecode/weixin/app.json' => array(
+                '/("debug": true,\n)  "navigateToMiniProgramAppIdList": \[".*?"\],\n/' => '$1',
+				'/("debug": true,\n)/' => '$1  "navigateToMiniProgramAppIdList": ["wx6885acbedba59c14"],' . "\n",
+            ),
+            $root . 'application/api/controller/Order.php' => array(
+                'PaymentService::BuyPaymentList([\'is_enable\'=>1, \'is_open_user\'=>1]);' => '// 快递查询多渠道版' . "\n" .
+                'if (!empty($data[\'data\'])) {' . "\n" .
+                '    $ret = \app\service\PluginsService::PluginsData(\'expressinwebfree\');' . "\n" .
+                '    if($ret[\'code\'] === 0)' . "\n" .
+                '    {' . "\n" .
+                '        $express_ids = $ret[\'data\'][\'express_ids\'];' . "\n" .
+                '    }' . "\n" .
+                '    foreach ($data[\'data\'] as $k => $v) {' . "\n" .
+                '        if (!empty($v[\'express_id\'])) {' . "\n" .
+                '            $data[\'data\'][$k][\'express_id_expressinwebfree\'] = !empty($express_ids[$v[\'express_id\']]) ? $express_ids[$v[\'express_id\']] : \'\';' . "\n" .
+                '        }' . "\n" .
+                '    }' . "\n" .
+                '}'
+            )
+        ));
     }
 }
 ?>
