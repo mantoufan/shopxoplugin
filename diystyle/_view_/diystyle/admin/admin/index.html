@@ -1,9 +1,5 @@
 {{include file="public/header" /}}
-<style>
-    .diystyle-content pre {
-        padding: 5px 10px;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="{{$attachment_host}}/static/plugins/css/diystyle/admin/css.css"/>
 <!-- right content start  -->
 <div class="content-right">
     <div class="content">
@@ -15,19 +11,47 @@
         <div class="diystyle-content">
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
+                    <span class="am-panel-title">配色</span>
+                </div>
+                <div class="am-panel-bd">
+                    <label class="block">主色调 · PC和H5移动版</label>
+                    <input type="number" disabled name="hue" value="{{if !empty($data['hue'])}}{{$data['hue']}}{{else/}}0{{/if}}">
+                    <select name="tpl_id" disabled>
+                        {{foreach $data['tpl'] as $v}}
+                            <option value="{{$v['id']}}"{{if !empty($data['tpl_id']) and $data['tpl_id'] === $v['id']}} selected="selected"{{/if}}>{{$v['name']}}</option>
+                        {{/foreach}}
+                    </select><div class="color" id="js_color"></div>
+                </div>
+                <div class="am-panel-bd">
+                    <label class="block">主题色 · 小程序</label>
+                    <div class="color" style="background-color:{{if !empty($data['color_amp'])}}{{$data['color_amp']}}{{else /}}{{$conf['color_amp']}}{{/if}}"></div>
+                </div>
+            </div>
+            <div class="am-panel am-panel-secondary">
+                <div class="am-panel-hd">
                     <span class="am-panel-title">字体</span>
                 </div>
                 <div class="am-panel-bd">
-                    <label>调用代码</label>
-                    <pre>{{if !empty($data['code']) }}{{$data['code']}}{{else}}未填写{{/if}}</pre>
+                    <div class="items">
+                        <label>开关</label>
+                        <div>
+                            {{if isset($data['available_code']) && !empty($data['available_code'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>调用代码</label>
+                        <pre>{{if !empty($data['code']) }}{{$data['code']}}{{else}}未填写{{/if}}</pre>
+                    </div>
                 </div>
             </div>
             <a href="{{:PluginsAdminUrl('diystyle', 'admin', 'saveinfo')}}" class="am-btn am-btn-secondary am-radius btn-loading-example am-btn-sm am-btn-block edit-submit">编辑</a>
         </div>
     </div>
 </div>
+<input type="hidden" name="hsl" value="{{if !empty($conf['hsl'])}}{{$conf['hsl']}}{{/if}}">
 <!-- right content end  -->
-        
+
 <!-- footer start -->
 {{include file="public/footer" /}}
 <!-- footer end -->
+<script src="{{$attachment_host}}/static/plugins/js/diystyle/admin/js.js"></script>

@@ -1,5 +1,5 @@
 {{include file="public/header" /}}
-
+<link rel="stylesheet" type="text/css" href="{{$attachment_host}}/static/plugins/css/diystyle/admin/css.css"/>
 <!-- right content start  -->
 <div class="content-right">
     <div class="content">
@@ -10,15 +10,42 @@
                 <a href="{{:PluginsAdminUrl('diystyle', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
             {{$wga_tip | RAW}}
+            <div class="am-panel am-panel-secondary diystyle-content">
+                <div class="am-panel-hd">
+                    <span class="am-panel-title">配色</span>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-form-group diystyle-items">
+                        <label class="block">主色调 · PC和H5移动版<span class="am-form-group-label-tips">保存后，更新缓存，即时生效，仅默认主题可预览</span></label>
+                        <input type="number" name="hue" min="0" max="360" value="{{if !empty($data['hue'])}}{{$data['hue']}}{{else/}}0{{/if}}">
+                        <select name="tpl_id">
+                            {{foreach $data['tpl'] as $v}}
+                                <option value="{{$v['id']}}"{{if !empty($data['tpl_id']) and $data['tpl_id'] === $v['id']}} selected="selected"{{/if}}>{{$v['name']}}</option>
+                            {{/foreach}}
+                        </select><div class="color" id="js_color"></div>
+                    </div>
+                    <div class="am-form-group diystyle-items">
+                        <label class="block">主题色 · 小程序<span class="am-form-group-label-tips">保存后，需重新生成小程序</span></label>
+                        <input type="hidden" name="color_amp" value="{{if !empty($data['color_amp'])}}{{$data.color_amp}}{{else /}}{{$conf['color_amp']}}{{/if}}" />
+                        <button class="am-btn am-btn-default am-btn-xs colorpicker-submit color_amp am-btn-block bk-cr-white t-r am-radius" type="button" data-input-tag="button.color_amp" data-color-tag="input[name='color_amp']" data-color-style="background-color" style="background-color:{{if !empty($data['color_amp'])}}{{$data['color_amp']}}{{else /}}hsl({{$conf['hsl']}}){{/if}}">
+                            <img src="{{$attachment_host}}/static/common/images/colorpicker.png" />
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div class="am-panel am-panel-secondary">
                 <div class="am-panel-hd">
                     <span class="am-panel-title">字体</span>
                 </div>
                 <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <label class="block">开关</label>
+                        <input name="available_code" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_code']) and $data['available_code'] eq 1}}checked="true"{{/if}} />
+                    </div>
                     <div class="am-form-group diystyle-items">
-                        <label>调用代码</label><span class="am-form-group-label-tips"><a href="https://www.webfont.com/onlinefont/index" target="_blank">点此获取代码</a> 挑选一款字体，点立即使用</span>
+                        <label>调用代码</label><span class="am-form-group-label-tips"><a href="https://www.webfont.com/onlinefont/index" target="_blank">点此获取代码</a> 选字体，点立即使用</span>
                         <textarea rows="5" name="code" class="am-radius am-field-valid" placeholder="请复制JS代码粘贴到这里，并将其中http://替换成https://" maxlength="1000">{{if !empty($data['code'])}}{{$data['code']}}{{/if}}</textarea>
-                        <span class="am-form-group-label-tips">本功能由第三方提供，请仔细阅读相关条款，插件无法对其可用性和风险作任何保证。</span>
+                        <span class="am-form-group-label-tips">本功能由第三方提供，请仔细阅读相关条款，插件无法对其可用性和风险作任何保证</span>
                     </div>
                 </div>
             </div>
@@ -26,11 +53,12 @@
                 <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
             </div>
         </form>
+        <input type="hidden" name="hsl" value="{{if !empty($conf['hsl'])}}{{$conf['hsl']}}{{/if}}">
         <!-- form end -->
     </div>
 </div>
 <!-- right content end  -->
-        
 <!-- footer start -->
 {{include file="public/footer" /}}
 <!-- footer end -->
+<script src="{{$attachment_host}}/static/plugins/js/diystyle/admin/js.js"></script>

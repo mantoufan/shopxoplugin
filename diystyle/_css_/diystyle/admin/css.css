@@ -1,0 +1,19 @@
+.diystyle-content .color {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+}
+.diystyle-content input[name=hue] {
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+    text-indent: 4px;
+}
+.diystyle-content select[name=tpl_id] {
+    width: 100px;
+    display: inline-block;
+}
+.diystyle-content pre {
+    padding: 5px 10px;
+}
