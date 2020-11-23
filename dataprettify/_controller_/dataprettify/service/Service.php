@@ -278,7 +278,6 @@ class Service
             }
         }
         if (count($a) > 0 && count($ids) > 0) {
-            echo 'UPDATE ' . self::getGoodsSpecDbname($prefix) . ' SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');';
             return Db::execute('UPDATE ' . self::getGoodsSpecDbname($prefix) . ' SET ' . implode(' END, ', $a) . ' END WHERE id IN(' . implode(',', $ids) . ');');
         }
     }
