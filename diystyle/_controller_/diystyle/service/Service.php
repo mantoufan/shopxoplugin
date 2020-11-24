@@ -46,7 +46,7 @@ class Service
 			$mtfReplace = new \mtfReplace();
 			$mtfReplace->append(array(
 				$tpl_path_css_common => array(
-					'.last{border-right:none !important;}' => $hue ? '.mobile-navigation, .search-bar, .am-topbar, .am-btn, .tb-detail-hd, .tm-ind-panel, .iteminfo_parameter, .am-sticky-placeholder, .buy-nav, .title, .am-pagination > .am-active > a, .am-pagination > .am-active > a:hover, .goods-category-s, .am-btn-primary, .banner-mixed, .plugins-footercustomerservice-customer-service, .am-footer-default, .various .am-panel-default > .am-panel-hd i, .user-sidebar, .user-base, .select, .search-list .items {filter:hue-rotate(' . $hue . 'deg);}.user-base img, .am-footer-default img, .goods-category-s img, .search-list .items img, .am-topbar img, .banner-mixed img {filter:hue-rotate(-' . $hue . 'deg);}.search-bar .am-btn, .am-topbar .am-btn {filter:hue-rotate(0deg);}' : '',
+					'.last{border-right:none !important;}' => $hue ? '.mobile-navigation, .search-bar, .am-topbar, .am-btn, .tb-detail-hd, .tm-ind-panel, .iteminfo_parameter, .am-sticky-placeholder, .buy-nav, .title, .am-pagination > .am-active > a, .am-pagination > .am-active > a:hover, .goods-category-s, .am-btn-primary, .banner-mixed, .plugins-footercustomerservice-customer-service, .am-footer-default, .various .am-panel-default > .am-panel-hd i, .user-sidebar, .user-base, .select, .search-list .items, .goods-items .goods-tags, .goods-items .add_cart, .item-inform .goods-tags {filter:hue-rotate(' . $hue . 'deg);}.user-base img, .am-footer-default img, .goods-category-s img, .search-list .items img, .am-topbar img, .banner-mixed img {filter:hue-rotate(-' . $hue . 'deg);}.search-bar .am-btn, .am-topbar .am-btn {filter:hue-rotate(0deg);}' : '',
 				),
 			));
 		}
