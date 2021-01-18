@@ -21,6 +21,7 @@ class Admin extends Controller
         $ret = PluginsService::PluginsData('diystyle');
         if($ret['code'] == 0)
         {
+            if (empty($ret['data'])) $ret['data'] = array();
             // 读取模版
             $ret['data']['tpl'] = Service::tpl();
 
@@ -49,6 +50,7 @@ class Admin extends Controller
         $ret = PluginsService::PluginsData('diystyle');
         if($ret['code'] == 0)
         {
+            if (empty($ret['data'])) $ret['data'] = array();
             // 读取模版
             $ret['data']['tpl'] = Service::tpl();
 

@@ -24,6 +24,14 @@ class Service {
                         'n' => '爱查快递',
                         'u' => 'https://m.ickd.cn/result.html#no=' . $express_number . '&com=' . ($com ? $com : 'auto')
                     ),
+                    'sogou' => array(
+                        'n' => '搜狗',
+                        'u' => 'https://m.sogou.com/web/searchList.jsp?keyword=%E5%BF%AB%E9%80%92%E6%9F%A5%E8%AF%A2%20' . $express_number
+                    ),
+                    'so' => array(
+                        'n' => '360',
+                        'u' => 'https://m.so.com/s?q=%E5%BF%AB%E9%80%92%E6%9F%A5%E8%AF%A2%20' . $express_number
+                    ),
                     'kuaidi100' => array(
                         'n' => '快递100',
                         'u' => 'https://m.kuaidi100.com/app/query/?coname=' . substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'),0,5) . '&com=' . $com . '&nu=' . $express_number . '&callbackurl=' . $_SERVER['HTTP_REFERER'],

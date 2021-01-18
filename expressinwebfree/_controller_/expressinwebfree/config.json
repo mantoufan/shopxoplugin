@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_expressinwebfree\/icon\/icon_pro.png",
         "author":"小宇",
         "author_url":"http:\/\/www.madfan.cn",
-        "version":"1.0.8",
+        "version":"1.0.9",
         "desc":"多渠道查询，快准稳，智能识别单号，免费使用。支持国内外绝大多数快递和物流，适配PC、H5移动版和微信小程序",
         "apply_terminal":[
             "pc",
@@ -20,7 +20,8 @@
             "1.8.1",
             "1.9.0",
             "1.9.1",
-            "1.9.2"
+            "1.9.2",
+            "1.9.3"
         ],
         "is_home":false
     },
