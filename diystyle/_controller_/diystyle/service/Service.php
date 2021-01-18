@@ -57,434 +57,434 @@ class Service
 		$root = self::root();
 		$mtfReplace = new \mtfReplace();
 		$mtfReplace->replace(array(
-			$root . 'sourcecode/weixin/app.wxss' => array(
+			$root . 'sourcecode/weixin/default/app.wxss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/weixin/pages/index/index.wxss' => array(
+			$root . 'sourcecode/weixin/default/pages/index/index.wxss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/weixin/components/quick-nav/quick-nav.wxss' => array(
+			$root . 'sourcecode/weixin/default/components/quick-nav/quick-nav.wxss' => array(
 				'rgb(210 54 76 / 80%)' => $color_amp ? $color_amp . ';opacity: .5' : '',
 			),
-			$root . 'sourcecode/weixin/app.json' => array(
+			$root . 'sourcecode/weixin/default/app.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("selectedColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/index/index.json' => array(
+			$root . 'sourcecode/weixin/default/pages/index/index.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/user/user.json' => array(
+			$root . 'sourcecode/weixin/default/pages/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/extraction/extraction.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/extraction/extraction.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/introduce/introduce.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/introduce/introduce.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/order/order.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/order/order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/poster/poster.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/poster/poster.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/profit/profit.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/profit/profit.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/statistics/statistics.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/statistics/statistics.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/team/team.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/team/team.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/user/user.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/weixin/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/weixin/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
 			
-			$root . 'sourcecode/toutiao/app.ttss' => array(
+			$root . 'sourcecode/toutiao/default/app.ttss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/toutiao/pages/index/index.ttss' => array(
+			$root . 'sourcecode/toutiao/default/pages/index/index.ttss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/toutiao/components/quick-nav/quick-nav.ttss' => array(
+			$root . 'sourcecode/toutiao/default/components/quick-nav/quick-nav.ttss' => array(
 				'rgb(210 54 76 / 80%)' => $color_amp ? $color_amp . ';opacity: .5' : '',
 			),
-			$root . 'sourcecode/toutiao/app.json' => array(
+			$root . 'sourcecode/toutiao/default/app.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("selectedColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/index/index.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/index/index.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/user/user.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/extraction/extraction.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/extraction/extraction.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/introduce/introduce.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/introduce/introduce.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/order/order.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/order/order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/poster/poster.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/poster/poster.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/profit/profit.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/profit/profit.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/statistics/statistics.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/statistics/statistics.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/team/team.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/team/team.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/user/user.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/toutiao/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/toutiao/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
 			
-			$root . 'sourcecode/qq/app.qss' => array(
+			$root . 'sourcecode/qq/default/app.qss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/qq/pages/index/index.qss' => array(
+			$root . 'sourcecode/qq/default/pages/index/index.qss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/qq/components/quick-nav/quick-nav.qss' => array(
+			$root . 'sourcecode/qq/default/components/quick-nav/quick-nav.qss' => array(
 				'rgb(210 54 76 / 80%)' => $color_amp ? $color_amp . ';opacity: .5' : '',
 			),
-			$root . 'sourcecode/qq/app.json' => array(
+			$root . 'sourcecode/qq/default/app.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("selectedColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/index/index.json' => array(
+			$root . 'sourcecode/qq/default/pages/index/index.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/user/user.json' => array(
+			$root . 'sourcecode/qq/default/pages/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/extraction/extraction.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/extraction/extraction.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/introduce/introduce.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/introduce/introduce.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/order/order.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/order/order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/poster/poster.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/poster/poster.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/profit/profit.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/profit/profit.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/statistics/statistics.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/statistics/statistics.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/team/team.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/team/team.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/user/user.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/qq/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/qq/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
 			
-			$root . 'sourcecode/baidu/app.css' => array(
+			$root . 'sourcecode/baidu/default/app.css' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/baidu/pages/index/index.css' => array(
+			$root . 'sourcecode/baidu/default/pages/index/index.css' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/baidu/components/quick-nav/quick-nav.css' => array(
+			$root . 'sourcecode/baidu/default/components/quick-nav/quick-nav.css' => array(
 				'rgb(210 54 76 / 80%)' => $color_amp ? $color_amp . ';opacity: .5' : '',
 			),
-			$root . 'sourcecode/baidu/app.json' => array(
+			$root . 'sourcecode/baidu/default/app.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("selectedColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/index/index.json' => array(
+			$root . 'sourcecode/baidu/default/pages/index/index.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/user/user.json' => array(
+			$root . 'sourcecode/baidu/default/pages/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/extraction/extraction.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/extraction/extraction.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/introduce/introduce.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/introduce/introduce.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/order/order.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/order/order.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/poster/poster.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/poster/poster.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/profit/profit.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/profit/profit.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/statistics/statistics.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/statistics/statistics.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/team/team.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/team/team.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/user/user.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/user/user.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/baidu/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/baidu/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("navigationBarBackgroundColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 				'/("backgroundColorTop":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
 			
-			$root . 'sourcecode/alipay/app.acss' => array(
+			$root . 'sourcecode/alipay/default/app.acss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/alipay/pages/index/index.acss' => array(
+			$root . 'sourcecode/alipay/default/pages/index/index.acss' => array(
 				$conf['color_amp'] => $color_amp ? $color_amp : '',
 			),
-			$root . 'sourcecode/alipay/components/quick-nav/quick-nav.acss' => array(
+			$root . 'sourcecode/alipay/default/components/quick-nav/quick-nav.acss' => array(
 				'rgb(210 54 76 / 80%)' => $color_amp ? $color_amp . ';opacity: .5' : '',
 			),
-			$root . 'sourcecode/alipay/app.json' => array(
+			$root . 'sourcecode/alipay/default/app.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 				'/("selectedColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/index/index.json' => array(
+			$root . 'sourcecode/alipay/default/pages/index/index.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/user/user.json' => array(
+			$root . 'sourcecode/alipay/default/pages/user/user.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/extraction/extraction.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/extraction/extraction.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/extraction-apply/extraction-apply.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/extraction-order/extraction-order.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/introduce/introduce.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/introduce/introduce.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/order/order.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/order/order.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/poster/poster.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/poster/poster.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/profit/profit.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/profit/profit.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/profit-detail/profit-detail.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/statistics/statistics.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/statistics/statistics.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/team/team.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/team/team.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/user/user.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/user/user.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
-			$root . 'sourcecode/alipay/pages/plugins/distribution/order-detail/order-detail.json' => array(
+			$root . 'sourcecode/alipay/default/pages/plugins/distribution/order-detail/order-detail.json' => array(
 				'/("titleBarColor":.*?")(.*?)(")/' => '$1' . ($color_amp ? $color_amp : $conf['color_amp_second']) . '$3',
 			),
 		));

@@ -52,7 +52,7 @@ class Admin extends Controller
     {
         $wga = new WGA();
         $rules = array(
-            Service::root() . 'sourcecode/weixin/pages/buy/buy.js' => array(
+            Service::root() . 'sourcecode/weixin/default/pages/buy/buy.js' => array(
                 'wx.showLoading({title: \'提交中...\'});' => !empty($params['asn_wxamp_tpl']) ? 'wx.requestSubscribeMessage({tmplIds: [\'' . $params['asn_wxamp_tpl'] . '\']})' : ''
             )
         );
