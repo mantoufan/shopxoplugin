@@ -124,6 +124,7 @@ class Hook extends Controller
             );
             // 用户信息
             if (in_array($conf['type'], array('common_bottom'))) {
+                if (empty($ret['data'])) $ret['data'] = array();
                 // 基本配置
                 $online_service = empty($ret['data']['online_service']) ? [] : explode("\n", $ret['data']['online_service']);
                 $online_service_data = [];
