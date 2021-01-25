@@ -41,7 +41,11 @@ class Service {
                         'n' => '百度',
                         'u' => 'https://m.baidu.com/from=1012852q/ssid=0/s?word=%E5%BF%AB%E9%80%92%E6%9F%A5%E8%AF%A2%20' .$express_number,
                         'href' => true
-                    )
+                    ),
+                    'kuaidi' => array(
+                        'n' => '快递网',
+                        'u' => 'https://m.kuaidi.com/queryresults.html?com=' . $com . '&nu=' . $express_number . '&callbackurl=' . $_SERVER['HTTP_REFERER']
+                    ),
             );
             $available = array();$apis_order = array();
             if (isset($params['check_available']) && isset($ret['data']['available'])) {

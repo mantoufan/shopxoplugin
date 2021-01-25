@@ -5,7 +5,7 @@
         <!-- form start -->
         <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('servicepro', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" enctype="multipart/form-data">
             <legend>
-                <span class="fs-16">客服专业版</span>
+                <span class="fs-16">客服专业增强版<sup>M站·Y站</sup></span>
                 <a href="{{:PluginsAdminUrl('servicepro', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
             </legend>
             {{$wga_tip | RAW}}
@@ -146,6 +146,10 @@
                             {{/foreach}}
                         </div>
                     </div>
+                    <div class="am-form-group">
+                        <label>电脑端首次进入自动打开对话框</label>
+                        <input name="autoopen_chat_daovoice" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['autoopen_chat_daovoice']) and $data['autoopen_chat_daovoice'] eq 1}}checked="true"{{/if}} />
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -196,6 +200,10 @@
                             </label>
                             {{/foreach}}
                         </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>电脑端首次进入自动打开对话框</label>
+                        <input name="autoopen_chat_crisp" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['autoopen_chat_crisp']) and $data['autoopen_chat_crisp'] eq 1}}checked="true"{{/if}} />
                     </div>
                 </div>
             </div>
@@ -248,6 +256,10 @@
                             </label>
                             {{/foreach}}
                         </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label>电脑端首次进入自动打开对话框</label>
+                        <input name="autoopen_chat_qqyzf" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['autoopen_chat_qqyzf']) and $data['autoopen_chat_qqyzf'] eq 1}}checked="true"{{/if}} />
                     </div>
                 </div>
             </div>

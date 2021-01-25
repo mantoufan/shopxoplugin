@@ -5,7 +5,7 @@
         "logo":"\/static\/plugins\/images\/servicepro\/icon.png",
         "author":"Devil 小宇",
         "author_url":"https:\/\/www.yzhan.co",
-        "version":"1.0.10",
+        "version":"1.1.0",
         "desc":"支持QQ、旺旺、微信号、二维码，悬浮、固定客服，网页聊天可设多工位，机器人，评分，排队，新消息微信、邮件提醒，PC手机回复，接管微信公众号、小程序。",
         "apply_terminal":[
             "pc",
@@ -19,7 +19,9 @@
             "1.8.0",
             "1.8.1",
             "1.9.0",
-            "1.9.1"
+            "1.9.1",
+            "1.9.2",
+            "1.9.3"
         ],
         "is_home":false
     },

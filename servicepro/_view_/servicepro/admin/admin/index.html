@@ -4,7 +4,7 @@
 <div class="content-right">
     <div class="content">
         <legend>
-            <span class="fs-16">客服专业版</span>
+            <span class="fs-16">客服专业增强版<sup>M站·Y站</sup></span>
             <a href="{{:MyUrl('admin/pluginsadmin/index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
         </legend>
         {{$wga_tip | RAW}}
@@ -122,6 +122,12 @@
                             {{/foreach}}
                         </div>
                     </div>
+                    <div class="items">
+                        <label>电脑端首次进入自动打开对话框</label>
+                        <div>
+                            {{if isset($data['autoopen_chat_daovoice']) && !empty($data['autoopen_chat_daovoice'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -161,6 +167,12 @@
                             {{/foreach}}
                         </div>
                     </div>
+                    <div class="items">
+                        <label>电脑端首次进入自动打开对话框</label>
+                        <div>
+                            {{if isset($data['autoopen_chat_crisp']) && !empty($data['autoopen_chat_crisp'])}}已开启{{else /}}已关闭{{/if}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="am-panel am-panel-secondary">
@@ -198,6 +210,12 @@
                             {{foreach $conf['display'] as $v}}
                                 {{if !isset($data['display_chat_qqyzf']) or isset($data['display_chat_qqyzf']) and in_array($v['value'], explode(',', $data['display_chat_qqyzf']))}}{{$v['name']}}{{/if}} 
                             {{/foreach}}
+                        </div>
+                    </div>
+                    <div class="items">
+                        <label>电脑端首次进入自动打开对话框</label>
+                        <div>
+                            {{if isset($data['autoopen_chat_qqyzf']) && !empty($data['autoopen_chat_qqyzf'])}}已开启{{else /}}已关闭{{/if}}
                         </div>
                     </div>
                 </div>
