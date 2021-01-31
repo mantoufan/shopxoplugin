@@ -23,7 +23,9 @@ class Mtf extends Controller
                                 'output' => $p
                             );
                         }
-                        $ret['data']['watermark_path'] = Service::root() . 'public/' . str_replace('/public/', '', preg_replace('/http[s]*:\/\/.*?\//', '', $ret['data']['watermark_path'][0]));
+                        if (!empty($ret['data']['watermark_path'])) {
+                            $ret['data']['watermark_path'] = Service::root() . 'public/' . str_replace('/public/', '', preg_replace('/http[s]*:\/\/.*?\//', '', $ret['data']['watermark_path'][0]));
+                        }
                         Service::mtfBetter($ret['data'])->handler($paths);
                     }
                 }

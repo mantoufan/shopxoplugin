@@ -64,7 +64,8 @@ class Hook extends Controller
             );
             $conf = array(
                 'cacheVersion' => MyC('home_static_cache_version'),
-                'availableSeoBaiduPush' => !empty($ret['data']['available_seo_baidu_push'])
+                'availableSeoBaiduPush' => !empty($ret['data']['available_seo_baidu_push']),
+                'pluginsHomeUrl' => PluginsHomeUrl('optimizer', 'mtf', 'better')
             );
             $html = '<script>var pluginOptimizerConf = ' . json_encode($conf) . '</script>';
             foreach($ar as $k => $v) {

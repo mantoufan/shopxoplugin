@@ -70,9 +70,6 @@ class Service
                         '    rewrite  ^(.*)$  /index.php?s=$1  last;   break; # ShopXO及ThinkPHP伪静态规则' . "\n" .
                         '}' . "\n" .
                         'if (-f $document_root/cache/optimizer/$uri){' . "\n" .
-                        '    set $rule_0 1$rule_0; # 加速优化插件伪静态规则' . "\n" .
-                        '}' . "\n" .
-                        'if (-f $document_root/cache/optimizer/$uri){' . "\n" .
                         '    rewrite ^/(.*.(jpg|jpeg|png))$ /cache/optimizer/$1 last; # 加速优化插件伪静态规则' . "\n" .
                         '}',
                 'IIS' =>   '<?xml version="1.0" ?>' . "\n" .

@@ -12,7 +12,7 @@ if (pluginOptimizerConf) {
         })
     })
     if (pluginOptimizerRes.length) {
-        $.post('?s=index/plugins/index/pluginsname/optimizer/pluginscontrol/mtf/pluginsaction/better', {
+        $.post(pluginOptimizerConf.pluginsHomeUrl, {
             paths: pluginOptimizerRes.join(',')
         })
     }
