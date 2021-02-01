@@ -32,6 +32,10 @@ class Hook extends Controller
                 case "plugins_view_goods_detail_title" :
                     $ret = $this->show($params);
                 break;
+                // 返回插件数据到商品数据
+                case "plugins_service_base_data_return_api_goods_detail" :
+                    $ret = $this->getDataReturn($params, 'api_goods_detail');
+                break;
                 default :
                     $ret = '';
             }
@@ -107,6 +111,16 @@ class Hook extends Controller
             $location = '<div id="js_plugins_goodslocation_bt" data-am-modal="{target: \'#js_plugins_goodslocation_popup\', dimmer: false}"><a href="javascript:"><small class="am-icon-location-arrow"> ' . $ret['location'] . '</small></a></div><div class="am-popup" id="js_plugins_goodslocation_popup"><div class="am-popup-inner"><div class="am-popup-hd"><h4 class="am-popup-title">' . $ret['location'] . '</h4><span data-am-modal-close class="am-close">&times;</span></div><div class="am-popup-bd"><div class="plugins_goodslocation_menu"><a class="am-btn" style="width:50%" href="https://api.map.baidu.com/marker?location='. $ret['lat'] .','. $ret['lon'] .'&title='. $ret['location'] .'&output=html" target="_blank"><img src="' .config('shopxo.attachment_host') . '/static/upload/images/plugins_goodslocation/icon/icon_baidumap.png" width="25px" height="25px" alt="百度地图图标" />百度导航</a><a class="am-btn" style="width:50%" href="https://uri.amap.com/marker?position='. $gg['lon'] .','. $gg['lat'] .'&name='. $ret['location'] .'" target="_blank"><img src="' .config('shopxo.attachment_host') . '/static/upload/images/plugins_goodslocation/icon/icon_gaodemap.png" width="25px" height="25px" alt="高德地图图标" />高德导航</a></div><div class="plugins_goodslocation_map" id="js_plugins_goodslocation_map"></div></div></div><input type="hidden" id="js_plugins_goodslocation_ak" value="' . $ak . '"><input type="hidden" name="plugins_goodslocation_location" value="' . $ret['location'] . '"><input type="hidden" name="plugins_goodslocation_lon" value="' . $ret['lon'] . '"><input type="hidden" name="plugins_goodslocation_lat" value="' . $ret['lat'] . '"></div>';
         }
         return $location;
+    }
+
+    private function getDataReturn($params, $path) {
+        if ($path === 'api_goods_detail') { // 商品详情接口
+            if (!isset($params['data']) || !isset($params['data']['goods']) || !isset($params['data']['goods']['id'])) return;
+            $ret = PluginsService::PluginsControlCall('goodslocation', 'index', 'goods', 'api', array('goods_id' => $params['data']['goods']['id']));
+            if ($ret['code'] == 0 && isset($ret['data']['code']) && $ret['data']['code'] == 0) {
+                $params['data']['goods']['plugins_goodslocation_data'] = $ret['data']['data'];
+            }
+        }
     }
 }
 ?>

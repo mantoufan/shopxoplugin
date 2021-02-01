@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_goodslocation\/icon\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.6",
+        "version":"1.0.7",
         "desc":"给商品加位置，点位置在地图显示坐标，用户可规划路线或用地图APP导航。适合景点、外卖、酒店、自提等O2O场景，适配小程序",
         "apply_terminal":[
             "pc",
@@ -22,7 +22,9 @@
             "1.8.0",
             "1.8.1",
             "1.9.0",
-            "1.9.1"
+            "1.9.1",
+            "1.9.2",
+            "1.9.3"
         ],
         "is_home":false
     },
@@ -37,6 +39,9 @@
             "app\\plugins\\goodslocation\\Hook"
         ],
         "plugins_view_goods_detail_title":[
+            "app\\plugins\\goodslocation\\Hook"
+        ],
+        "plugins_service_base_data_return_api_goods_detail":[
             "app\\plugins\\goodslocation\\Hook"
         ]
     }
