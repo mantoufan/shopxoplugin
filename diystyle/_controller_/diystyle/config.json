@@ -5,7 +5,7 @@
         "logo":"\/static\/upload\/images\/plugins_diystyle\/icon\/icon.png",
         "author":"小宇",
         "author_url":"http:\/\/www.madfan.cn",
-        "version":"1.0.3",
+        "version":"1.0.4",
         "desc":"一键自定义网站、小程序配色，定制你的专属主题。一键更换网站字体。",
         "apply_terminal":[
             "pc",
