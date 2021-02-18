@@ -40,7 +40,6 @@ class Service
                     '<script type=\'text/javascript\' src="{{$public_host}}static/common/lib/amazeui-tagsinput/amazeui.tagsinput.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>'=> '<!--yzhan:amazeui.tagsinput.min.js:yzhan-->',
                     '<script type=\'text/javascript\' src="{{$public_host}}static/common/lib/cropper/cropper.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>'=> '<!--yzhan:cropper.min.js:yzhan-->',
                     '<script type=\'text/javascript\' src="{{$public_host}}static/common/lib/clipboard/clipboard.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>'=> '<!--yzhan:clipboard.min.js:yzhan-->',
-                    '<script type=\'text/javascript\' src="{{$public_host}}static/common/lib/My97DatePicker/WdatePicker.js"></script>'=> '<script type=\'text/javascript\' src="https://cdn.jsdelivr.net/npm/my97datepicker@4.8.0/WdatePicker.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>',
                     '<script type=\'text/javascript\' src="{{$Think.__MY_ROOT_PUBLIC__}}static/common/lib/jquery/jquery-2.1.0.js?v={{:MyC(\'home_static_cache_version\')}}"></script>' => '<script type=\'text/javascript\' src="https://cdn.jsdelivr.net/combine/npm/jquery@2.1.0,npm/amazeui@2.7.2/dist/js/amazeui.min.js,npm/echarts@4.1.0/dist/echarts.min.js,npm/echarts@4.1.0/theme/macarons.min.js,npm/amazeui-switch@3.3.3,npm/amazeui-chosen@1.3.0,npm/amazeui-dialog@0.0.2/dist/amazeui.dialog.min.js,npm/amazeui-tagsinput@0.5.2,npm/cropper@0.9.2,npm/clipboard@2.0.4?v={{:MyC(\'home_static_cache_version\')}}"></script>',
                     '<script type=\'text/javascript\' src="{{$Think.__MY_ROOT_PUBLIC__}}static/common/lib/assets/js/amazeui.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>' => '<!--yzhan:amazeui.min.js:yzhan-->',
                     '<script type=\'text/javascript\' src="{{$Think.__MY_ROOT_PUBLIC__}}static/common/lib/echarts/echarts.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>' => '<!--yzhan:echarts.min.js:yzhan-->',
@@ -51,7 +50,6 @@ class Service
                     '<script type=\'text/javascript\' src="{{$Think.__MY_ROOT_PUBLIC__}}static/common/lib/amazeui-tagsinput/amazeui.tagsinput.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>'=> '<!--yzhan:amazeui.tagsinput.min.js:yzhan-->',
                     '<script type=\'text/javascript\' src="{{$Think.__MY_ROOT_PUBLIC__}}static/common/lib/cropper/cropper.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>'=> '<!--yzhan:cropper.min.js:yzhan-->',
                     '<script type=\'text/javascript\' src="{{$Think.__MY_ROOT_PUBLIC__}}static/common/lib/clipboard/clipboard.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>'=> '<!--yzhan:clipboard.min.js:yzhan-->',
-                    '<script type=\'text/javascript\' src="{{$Think.__MY_ROOT_PUBLIC__}}static/common/lib/My97DatePicker/WdatePicker.js"></script>'=> '<script type=\'text/javascript\' src="https://cdn.jsdelivr.net/npm/my97datepicker@4.8.0/WdatePicker.min.js?v={{:MyC(\'home_static_cache_version\')}}"></script>',
                 )
             ),
             'rewrite' => array(
