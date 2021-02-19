@@ -5,7 +5,7 @@
         "logo":"\/static\/plugins\/images\/optimizer\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.6",
+        "version":"1.0.7",
         "desc":"图片、DNS、静态资源等一键加速，减少页面打开时间。批量加水印。主动向搜索引擎推荐商品、文章，促进抓取。",
         "apply_terminal":[
             "pc",
