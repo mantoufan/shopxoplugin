@@ -1,4 +1,10 @@
-ALTER TABLE `{PREFIX}user`
- DROP `plugin_thirdpartylogin_weibo_openid`,
- DROP `plugin_thirdpartylogin_line_openid`,
- DROP `plugin_thirdpartylogin_google_openid`;
+ALTER TABLE `{PREFIX}user`
+DROP `plugin_thirdpartylogin_alipay_openid`,
+DROP `plugin_thirdpartylogin_weixin_openid`,
+DROP `plugin_thirdpartylogin_weixin_unionid`,
+DROP `plugin_thirdpartylogin_weixin_web_openid`,
+DROP `plugin_thirdpartylogin_qq_openid`,
+DROP `plugin_thirdpartylogin_qq_unionid`,
+DROP `plugin_thirdpartylogin_weibo_openid`,
+DROP `plugin_thirdpartylogin_line_openid`,
+DROP `plugin_thirdpartylogin_google_openid`;

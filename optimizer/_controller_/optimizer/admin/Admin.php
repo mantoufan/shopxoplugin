@@ -65,7 +65,7 @@ class Admin extends Controller
                 }
             }
             if (!empty($params['available_static'])) {
-                $metBetter->replace($rules);
+                $metBetter->restore($rules);
             } else {
                 $metBetter->restore($rules);
             }

@@ -1,0 +1,36 @@
+<div class="am-popup" id="plugins-orderremarks-order-popup">
+    <div class="am-popup-inner">
+        <div class="am-popup-hd">
+            <h4 class="am-popup-title">订单备注</h4>
+            <span data-am-modal-close class="am-close">&times;</span>
+        </div>
+        <div class="am-popup-bd">
+            <!-- 基础数据 -->
+            <ul class="am-list am-list-static base">
+                <li class="am-cf">
+                    <div class="title am-fl am-margin-rigin-lg">订单号</div>
+                    <div class="value am-fl am-margin-left-sm am-padding-left-sm">
+                        <span class="am-text-primary data-order-no">...</span>
+                    </div>
+                </li>
+                <li class="am-cf">
+                    <div class="title am-fl am-margin-rigin-lg">上次修改时间</div>
+                    <div class="value am-fl am-margin-left-sm am-padding-left-sm">
+                        <span class="am-text-primary data-order-admin-note-upd-time">...</span>
+                    </div>
+                </li>
+            </ul>
+            <!-- form -->
+            <form class="am-form am-form-horizontal form-validation-plugins-orderremarks-popup view-save" action="{{:PluginsAdminUrl('orderremarks', 'order', 'update')}}" method="POST" request-type="ajax-reload">
+                <div class="am-form-group">
+                    <textarea rows="5" name="admin_note" class="am-radius am-field-valid" placeholder="备注" maxlength="150">{{if !empty($data['online_service'])}}{{$data.online_service}}{{/if}}</textarea>
+                </div>
+
+                <div class="am-form-group am-form-group-refreshing am-margin-bottom-0">
+                    <input type="hidden" name="id" value="" />
+                    <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{{include file="public/header" /}}
+
+<!-- right content start  -->
+<div class="content-right">
+  <div class="content">
+    <!-- form start -->
+    <form class="am-form form-validation view-save" action="{{:PluginsAdminUrl('goodsremarks', 'admin', 'save')}}" method="POST" request-type="ajax-url" request-value="{{:PluginsAdminUrl('goodsremarks', 'admin', 'index')}}" enctype="multipart/form-data">
+      <legend>
+        <span class="fs-16">商品备注<sup>Y站 · M站</sup></span>
+        <a href="{{:PluginsAdminUrl('goodsremarks', 'admin', 'index')}}" class="fr fs-14 m-t-5 am-icon-mail-reply"> 返回</a>
+      </legend>
+      {{$wga_tip | RAW}}
+      <div class="am-form-group">
+        <label class="block">开启订单列表页显示备注<span class="am-form-group-label-tips">默认否，开启后，将增加性能消耗</span></label>
+        <input name="is_dispaly_on_list" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['is_dispaly_on_list']) and $data['is_dispaly_on_list'] eq 1}}checked="true"{{/if}} />
+      </div>
+
+      <div class="am-form-group am-form-group-refreshing">
+        <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm am-btn-block" data-am-loading="{loadingText:'处理中...'}">保存</button>
+      </div>
+    </form>
+    <!-- form end -->
+  </div>
+</div>
+<!-- right content end  -->
+    
+<!-- footer start -->
+{{include file="public/footer" /}}
+<!-- footer end -->

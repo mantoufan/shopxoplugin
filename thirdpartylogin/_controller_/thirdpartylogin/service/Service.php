@@ -10,7 +10,7 @@ class Service
     return array(
       'weixin' => array(
         'n' => '微信',
-        'db' => array('weixin_web_openid', 'weixin_unionid'),
+        'db' => array('plugin_thirdpartylogin_weixin_web_openid', 'plugin_thirdpartylogin_weixin_unionid'),
         'scope' => 'snsapi_userinfo',
         'mua' => array('MicroMessenger'),
         'form' => array(
@@ -30,7 +30,7 @@ class Service
       ),
       'qq' => array(
         'n' => 'QQ',
-        'db' => array('qq_openid', 'qq_unionid'),
+        'db' => array('plugin_thirdpartylogin_qq_openid', 'plugin_thirdpartylogin_qq_unionid'),
         'scope' => 'get_user_info',
         'form' => array(
           array('id' => 'enable_qq'),
@@ -53,7 +53,7 @@ class Service
       ),
       'alipay'=> array(
         'n' => '支付宝',
-        'db' => array('alipay_openid'),
+        'db' => array('plugin_thirdpartylogin_alipay_openid'),
         'scope' => 'auth_user',
         'mua' => array('AlipayClient'),
         'form' => array(
