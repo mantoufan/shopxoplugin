@@ -39,7 +39,7 @@
                     <span class="am-panel-title">加速</span>
                 </div>
                 <div class="am-panel-bd">
-                    <div class="am-form-group">
+                    <div class="am-form-group" style="display:none">
                         <label>静态资源加速</label>
                         <div>
                             <input name="available_static" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch {{if isset($data['available_static']) and $data['available_static'] eq 1}}checked="true"{{/if}} />
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="am-form-group am-form-file">
-                        <label>DNS加速</label><span class="am-form-group-label-tips">该功能默认开启，不可关闭</span>
+                        <label>DNS与静态加速</label><span class="am-form-group-label-tips">辅助节点加速解析，提交域名给客服开启，有效期5个月（价值99元/月，公益服务，不支持续费。<a href="https://www.dns.com/speed.html" target="_black">什么是DNS加速？</a>）</span>
                         <div>
                             <input name="available_dns" value="1" type="checkbox" data-off-text="否" data-on-text="是" data-size="xs" data-on-color="success" data-off-color="default" data-handle-width="50" data-am-switch readonly checked="true" />
                         </div>

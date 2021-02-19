@@ -33,7 +33,7 @@
                     <span class="am-panel-title">加速</span>
                 </div>
                 <div class="am-panel-bd">
-                    <div class="items">
+                    <div class="items" style="display:none">
                         <label>静态资源加速</label>
                         <div>
                             {{if !empty($data['available_static'])}}已开启{{else /}}已关闭{{/if}}
@@ -46,9 +46,9 @@
                         </div>
                     </div>
                     <div class="items">
-                        <label>DNS加速</label>
+                        <label>DNS与静态加速</label>
                         <div>
-                            {{if !empty($data['available_dns'])}}已开启{{else /}}准备中{{/if}}
+                            {{if !empty($data['available_dns'])}}提交域名给客服开启，已提交请忽略{{else /}}准备中{{/if}}
                         </div>
                     </div>
                 </div>
