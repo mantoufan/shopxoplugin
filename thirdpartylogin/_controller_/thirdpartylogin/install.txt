@@ -1,10 +1,5 @@
 ALTER TABLE `{PREFIX}user`
-ADD `plugin_thirdpartylogin_weibo_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-微博openid' AFTER `qq_unionid` ,
-ADD `plugin_thirdpartylogin_line_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-Line openid' AFTER `plugin_thirdpartylogin_weibo_openid` ,
-ADD `plugin_thirdpartylogin_google_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-Google openid' AFTER `plugin_thirdpartylogin_line_openid` ,
-ADD INDEX ( `plugin_thirdpartylogin_weibo_openid` , `plugin_thirdpartylogin_line_openid` , `plugin_thirdpartylogin_google_openid` ) ;
-ALTER TABLE `{PREFIX}user`
-ADD `plugin_thirdpartylogin_alipay_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-支付宝openid' AFTER `plugin_thirdpartylogin_google_openid` ,
+ADD `plugin_thirdpartylogin_alipay_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-支付宝openid' AFTER `qq_unionid` ,
 ADD `plugin_thirdpartylogin_weixin_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-微信openid' AFTER `plugin_thirdpartylogin_alipay_openid` ,
 ADD `plugin_thirdpartylogin_weixin_unionid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-微信unionid' AFTER `plugin_thirdpartylogin_weixin_openid` ,
 ADD `plugin_thirdpartylogin_weixin_web_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-微信web openid' AFTER `plugin_thirdpartylogin_weixin_unionid` ,
@@ -12,3 +7,8 @@ ADD `plugin_thirdpartylogin_qq_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE 
 ADD `plugin_thirdpartylogin_qq_unionid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-QQ unionid' AFTER `plugin_thirdpartylogin_qq_openid` ,
 ADD INDEX ( `plugin_thirdpartylogin_alipay_openid`, `plugin_thirdpartylogin_weixin_openid`, `plugin_thirdpartylogin_weixin_unionid`, `plugin_thirdpartylogin_weixin_web_openid`, `plugin_thirdpartylogin_qq_openid`, `plugin_thirdpartylogin_qq_unionid`) ;
 UPDATE `{PREFIX}user` SET `plugin_thirdpartylogin_alipay_openid` = `alipay_openid`, `plugin_thirdpartylogin_weixin_openid` = `weixin_openid`, `plugin_thirdpartylogin_weixin_unionid` = `weixin_unionid`, `plugin_thirdpartylogin_weixin_web_openid` = `weixin_web_openid`, `plugin_thirdpartylogin_qq_openid` = `qq_openid`, `plugin_thirdpartylogin_qq_unionid` = `qq_unionid`;
+ALTER TABLE `{PREFIX}user`
+ADD `plugin_thirdpartylogin_weibo_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-微博openid' AFTER `qq_unionid` ,
+ADD `plugin_thirdpartylogin_line_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-Line openid' AFTER `plugin_thirdpartylogin_weibo_openid` ,
+ADD `plugin_thirdpartylogin_google_openid` CHAR( 60 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录-Google openid' AFTER `plugin_thirdpartylogin_line_openid` ,
+ADD INDEX ( `plugin_thirdpartylogin_weibo_openid` , `plugin_thirdpartylogin_line_openid` , `plugin_thirdpartylogin_google_openid` ) ;
