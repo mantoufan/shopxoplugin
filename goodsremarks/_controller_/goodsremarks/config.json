@@ -2,10 +2,10 @@
     "base":{
         "plugins":"goodsremarks",
         "name":"商品备注",
-        "logo":"\/static\/upload\/images\/plugins_goodsremarks\/icon\/icon.png",
+        "logo":"\/static\/plugins\/images\/goodsremarks\/icon.png",
         "author":"小宇",
         "author_url":"https:\/\/www.madfan.cn",
-        "version":"1.0.4",
+        "version":"1.0.0",
         "desc":"在后台备注商品，可在商品管理列表显示备注",
         "apply_terminal":[
             "pc",
@@ -41,10 +41,10 @@
         "plugins_admin_view_common_bottom":[
             "app\\plugins\\goodsremarks\\Hook"
         ],
-        "plugins_view_admin_order_list_operation":[
+        "plugins_view_admin_goods_list_operation":[
             "app\\plugins\\goodsremarks\\Hook"
         ],
-        "plugins_view_admin_order_list_operate":[
+        "plugins_view_admin_goods_list_operate":[
             "app\\plugins\\goodsremarks\\Hook"
         ]
     }

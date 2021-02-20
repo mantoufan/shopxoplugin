@@ -1,121 +1,112 @@
 <?php
-namespace app\plugins\orderremarks\service;
+namespace app\plugins\goodsremarks\service;
 use think\Db;
 use app\service\PluginsService;
-use app\service\OrderService;
 use app\service\MessageService;
-use app\plugins\orderremarks\wga\WGA;
+use app\plugins\goodsremarks\wga\WGA;
 
 class BaseService
 {
-    public static function BaseConfigSave($params = array())
-    {
-        $wga= new WGA();
-        return $wga->save($params);
-    }
+  public static function BaseConfigSave($params = array())
+  {
+    $wga= new WGA();
+    return $wga->save($params);
+  }
 
-    public static function BaseConfig($is_cache = true)
+  public static function BaseConfig($is_cache = true)
+  {
+    return PluginsService::PluginsData('goodsremarks', null, $is_cache);
+  }
+  public static function GoodsDetail($params = [])
+  {
+    // 请求参数
+    $p = [
+      [
+        'checked_type'    => 'empty',
+        'key_name'      => 'id',
+        'error_msg'     => '商品id不能为空',
+      ]
+    ];
+    $ret = ParamsChecked($params, $p);
+    if($ret !== true)
     {
-        return PluginsService::PluginsData('orderremarks', null, $is_cache);
+      return DataReturn($ret, -1);
     }
-    public static function OrderDetail($params = [])
+    $res = Db::name('plugins_goodsremarks_notes')->where(['goods_id'=>$params['id']])->find();
+    $ret = array(
+			'goods_id' => $params['id'],
+      'admin_note' => '',
+      'admin_note_upd_time' => ''
+    );
+    if (!empty($res)) {
+      $ret['admin_note'] = $res['admin_note'];
+      $ret['admin_note_upd_time'] = $res['upd_time'];
+    } 
+		return DataReturn('查询成功', 0, $ret);
+  }
+  public static function GoodsUpdate($params = [])
+  {
+    $success = false;
+    // 请求参数
+    $p = [
+      [
+        'checked_type'    => 'empty',
+        'key_name'      => 'id',
+        'error_msg'     => '商品id不能为空',
+      ]
+    ];
+    $ret = ParamsChecked($params, $p);
+    if($ret !== true)
     {
-        // 请求参数
-        $p = [
-            [
-                'checked_type'      => 'empty',
-                'key_name'          => 'id',
-                'error_msg'         => '订单id不能为空',
-            ]
-        ];
-        $ret = ParamsChecked($params, $p);
-        if($ret !== true)
-        {
-            return DataReturn($ret, -1);
-        }
-        // 条件
-        $where = OrderService::OrderListWhere($params);
-        // 获取列表
-        $data_params = array(
-            'm'         => 0,
-            'n'         => 1,
-            'where'     => $where,
-            'is_items'  => 0,
-        );
-        $ret = OrderService::OrderList($data_params);
-        if($ret['code'] == 0 && !empty($ret['data'][0]))
-        {
-            $res = Db::name('plugins_orderremarks_notes')->where(['order_no'=>$ret['data'][0]['order_no']])->find();
-            if ($res) {
-                $ret['data'][0]['admin_note'] = $res['admin_note'];
-                $ret['data'][0]['admin_note_upd_time'] = $res['upd_time'];
-            }
-            return DataReturn('处理成功', 0, $ret['data'][0]);
-        }
-        return DataReturn('没相关订单数据', -1);
+      return DataReturn($ret, -1);
     }
-    public static function OrderUpdate($params = [])
+    // 获取商品信息
+    $ret = self::GoodsDetail($params);
+    if($ret['code'] !== 0)
     {
-        $success = false;
-        // 请求参数
-        $p = [
-            [
-                'checked_type'      => 'empty',
-                'key_name'          => 'id',
-                'error_msg'         => '订单id不能为空',
-            ]
-        ];
-        $ret = ParamsChecked($params, $p);
-        if($ret !== true)
-        {
-            return DataReturn($ret, -1);
-        }
-        // 获取订单信息
-        $ret = self::OrderDetail($params);
-        if($ret['code'] != 0)
-        {
-            return $ret;
-        }
-        // 更新数据
-        $wga= new WGA();
-        $data = $wga->getOrderUpdateData($ret, $params);
-        if (isset($data['msg'])) {
-            return $data;
-        }
-        if (isset($ret['data']['admin_note'])) {
-            if(Db::name('plugins_orderremarks_notes')->where(['order_no'=>$ret['data']['order_no']])->update($data))
-            {
-                $success = true;
-            }
-        } else {
-            if(Db::name('plugins_orderremarks_notes')->insert($data))
-            {
-                $success = true;
-            }
+      return $ret;
+    }
+    // 更新数据
+    $wga = new WGA();
+    $data = $wga->getGoodsUpdateData($params);
+    if (isset($data['msg'])) {
+      return $data;
+    }
+    if (!empty($ret['data']['admin_note_upd_time'])) {
+      if(Db::name('plugins_goodsremarks_notes')->where(['goods_id'=>$params['id']])->update($data))
+      {
+				return DataReturn('修改成功', 0);
+      }
+    } else {
+			$data['goods_id'] = $params['id'];
+      if(Db::name('plugins_goodsremarks_notes')->insert($data))
+      {
+        return DataReturn('修改成功', 0);
+      }
+    }
+    
+    return DataReturn('备注未修改或备注失败', -100);
+  }
+  
+  public static function GoodsAdminNote($goods_id)
+  {
+    // 基础配置
+    $base = self::BaseConfig();
+    if(!empty($base['data']))
+    {
+      // 列表页查看商品备注
+      if(isset($base['data']['is_dispaly_on_list']) && $base['data']['is_dispaly_on_list'] == 1)
+      {
+        if ($goods_id) {
+          $ret = Db::name('plugins_goodsremarks_notes')->where(['goods_id'=>$goods_id])->find();
+          if ($ret) {
+            return array('admin_note'=>$ret['admin_note'], 'upd_time'=>$ret['upd_time']);
+          }
         }
         
-        return DataReturn('备注未修改或备注失败', -100);
+      }
     }
-  
-    public static function OrderAdminNote($order_no)
-    {
-        // 基础配置
-        $base = self::BaseConfig();
-        if(!empty($base['data']))
-        {
-            // 列表页查看订单备注
-            if(isset($base['data']['is_dispaly_on_list']) && $base['data']['is_dispaly_on_list'] == 1)
-            {
-                if ($order_no) {
-                    $ret = Db::name('plugins_orderremarks_notes')->where(['order_no'=>$order_no])->find();
-                    if ($ret) {
-                        return array('admin_note'=>$ret['admin_note'], 'upd_time'=>$ret['upd_time']);
-                    }
-                }
-                
-            }
-        }
-        return FALSE;
-    }
+    return FALSE;
+  }
 }
 ?>

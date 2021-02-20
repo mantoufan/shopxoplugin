@@ -1,11 +1,11 @@
-/**
- * 首页
- */
-.orderremarks-content .items {
-    margin: 10px 0 20px 0;
-    border-bottom: 1px dashed #f1f1f1;
-    padding-bottom: 20px;
-}
-.orderremarks-content .edit-submit {
-    margin-bottom: 20px;
+/**
+ * 首页
+ */
+.goodsremarks-content .items {
+  margin: 10px 0 20px 0;
+  border-bottom: 1px dashed #f1f1f1;
+  padding-bottom: 20px;
+}
+.goodsremarks-content .edit-submit {
+  margin-bottom: 20px;
 }

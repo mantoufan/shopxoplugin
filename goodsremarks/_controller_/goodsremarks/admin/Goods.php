@@ -13,16 +13,16 @@ namespace app\plugins\goodsremarks\admin;
 use think\Controller;
 use app\plugins\goodsremarks\service\BaseService;
 
-class Order extends Controller
+class Goods extends Controller
 {
     public function Detail($params = [])
     {
-        return BaseService::OrderDetail($params);
+        return BaseService::GoodsDetail($params);
     }
 
     public function Update($params = [])
     {
-        return BaseService::OrderUpdate($params);
+        return BaseService::GoodsUpdate($params);
     }
 }
 ?>
