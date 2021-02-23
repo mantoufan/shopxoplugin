@@ -57,7 +57,11 @@ class Admin extends Controller
         {
             // 数据处理
             if ($ret['data']) {
-                $ret['data']['online_service'] = str_replace("\n", '<br />', $ret['data']['online_service']);
+                if (!empty($ret['data']['online_service'])) {
+                    $ret['data']['online_service'] = str_replace("\n", '<br />', $ret['data']['online_service']);
+                } else {
+                    $ret['data']['online_service'] = '';
+                }
             }
             $this->assign('wga_tip', WGA::tip());
             $this->assign('conf', self::$conf);
