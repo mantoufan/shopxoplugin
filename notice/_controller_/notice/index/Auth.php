@@ -47,6 +47,7 @@ class Auth extends Controller
                     }
                 }
             } else {
+                if (!isset($ret['data'])) $ret['data'] = array();
                 $ret['data']['plugins_notice_data'] = Service::dataJS();
                 $this->assign('data', $ret['data']);
                 return $this->fetch('../../../plugins/view/notice/public/index/wxpub');
