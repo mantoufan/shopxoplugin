@@ -230,6 +230,16 @@ class Service
         return Db::name('Goods')->where('id', $goods_id)->update($datas);
     }
 
+    // public static function updateSalesByUid($fromUid, $toUid, $sales) {
+    //     if (!empty($fromUid) && !empty($toUid) && !empty($sales)) {
+    //         return Db::name('Goods')->where('uid', $fromUid)->update(array(
+    //             'uid' => $toUid,
+    //             'sales' => $sales
+    //         ));
+    //     }
+    //     return FALSE;
+    // }
+
     public static function saveDataGoodsAll($datas) {
         $db_config = self::getDbConfig();
         if ($db_config) {
