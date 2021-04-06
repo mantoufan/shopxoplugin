@@ -70,10 +70,13 @@ class Hook extends Controller
         $ret = PluginsService::PluginsData('worldphonenumber');
         if($ret['code'] == 0)
         {  
+            $html = '';
             switch($params['hook_name'])
             {
                 case 'plugins_view_common_bottom':
-                    $html = '<script>worldphonenumber_preferredCountries = "'.$ret['data']['preferredCountries'].'";worldphonenumber_excludeCountries = "'.$ret['data']['excludeCountries'].'";worldphonenumber_onlyCountries = "'.$ret['data']['onlyCountries'].'";</script>';
+                    if (!empty($ret['data'])) {
+                        $html = '<script>worldphonenumber_preferredCountries = "'.$ret['data']['preferredCountries'].'";worldphonenumber_excludeCountries = "'.$ret['data']['excludeCountries'].'";worldphonenumber_onlyCountries = "'.$ret['data']['onlyCountries'].'";</script>';
+                    }
                 break;
                 default :
                     $html = '';
