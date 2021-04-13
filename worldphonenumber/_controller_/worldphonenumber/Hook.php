@@ -55,7 +55,7 @@ class Hook extends Controller
                     case 'plugins_js' :
                         $ret = 'static/plugins/js/worldphonenumber/index/style.js';
                         break;
-                    case 'plugins_view_common_bottom':
+                    case 'plugins_common_page_bottom':
                         $ret = $this->html($params);
                         break;
                     default :
@@ -73,7 +73,7 @@ class Hook extends Controller
             $html = '';
             switch($params['hook_name'])
             {
-                case 'plugins_view_common_bottom':
+                case 'plugins_common_page_bottom':
                     if (!empty($ret['data'])) {
                         $html = '<script>worldphonenumber_preferredCountries = "'.$ret['data']['preferredCountries'].'";worldphonenumber_excludeCountries = "'.$ret['data']['excludeCountries'].'";worldphonenumber_onlyCountries = "'.$ret['data']['onlyCountries'].'";</script>';
                     }
