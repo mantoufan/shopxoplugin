@@ -92,8 +92,8 @@ class Hook extends Controller
     private function save($params) {
         if (!empty($params['params']['id'])) {
             $goods_id = $params['params']['id'];
-            $sales_count = $params['params']['sales_count'];
-            $access_count = $params['params']['access_count'];
+            $sales_count = !empty($params['params']['sales_count']) ? $params['params']['sales_count'] : 0;
+            $access_count = !empty($params['params']['access_count']) ? $params['params']['access_count'] : 0;
         } else {
             return '';
         }
